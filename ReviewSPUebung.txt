@@ -1,0 +1,29 @@
+<<Interface>>  Teststand ist kein Interface!
+->Schnittstelle zwischen zwei Klassen
+->Polymorphy
+->enthält keine Implementierung und keine Methoden
+(Virtuel in C++)
+
+<<Vererbung>>
+->unsere Methoden sind nicht Polymorph bzw die Polymorphie ist falsch!
+
+Fahrzeug eigentliche Funktion fehlt
+-Teststand stellen
+-Drehzahl festlegen
+-Ausstoß abrufen
+
+
+Set-Funktionen falsch in unserem Fall sind es keine Set-Funktionen die wir Implementieren sollten sondern "Final"
+->Farbe, Hersteller, Modell ändert sich in der Laufzeit nicht, wird einmal init und dann nie mehr angerührt. 
+Set-Funktionen haben den zweck das sich bestimmte Datensätze in der Laufzeit ändern können. Sonst sind es keine set sondern Finals
+
+<<Wiederverwendung>>
+-> Javalib Color für die Farben verwenden
+-> gesunden Menschenverstand benutzen! Könnte es diese Funktionalität schon gegeben? Muss ich sie Implementieren oder nutz ich eine Libary. Google benutzen!
+
+-> Code wird in Englisch verfasst!! Kommentare in Englisch oder Deutsch.
+
+Reality Check, ergibt der Code überhaupt Sinn? In unserem Fall hat der Motor sich das Auto erzeugt.
+
+Überblick über :
+Objekt Orientierung Polymorphie Schnittstellen Java 

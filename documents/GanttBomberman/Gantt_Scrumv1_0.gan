@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Bomberman" company="Gruppe7" webLink="http://" view-date="2016-11-07" view-index="0" gantt-divider-location="440" resource-divider-location="300" version="2.8.1" locale="de">
+<?xml version="1.0" encoding="UTF-8"?><project name="Bomberman" company="Gruppe7" webLink="http://" view-date="2016-09-26" view-index="0" gantt-divider-location="440" resource-divider-location="300" version="2.8.1" locale="de">
     <description><![CDATA[Softwarepraktikum ]]></description>
-    <view zooming-state="default:7" id="gantt-chart">
+    <view zooming-state="default:0" id="gantt-chart">
         <field id="tpd3" name="Vorgang" width="228" order="0"/>
         <field id="tpd4" name="Anfang" width="104" order="1"/>
         <field id="tpd5" name="Ende" width="104" order="2"/>

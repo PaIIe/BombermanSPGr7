@@ -1,0 +1,13 @@
+Deckblatt: Ansprechpartner fehlt
+
+Inhaltsverzeichnis: Struktur fehlt, nochmal überarbeiten am Ende. Reihenfolge des Dokuments Glossar am Anfang
+
+Vision: Am Anfang des Dokuments -> zu lang ->kurze Stichpunkte Ziele, Motivation Kunde, Mehrwert. Keine Erklärung des Spiels. Kunde soll denken: "Genau das will ich"
+
+Anforderungen: Wording: nicht im Text ein muss verwenden und dann als kann raten. Struktur-> Tabelle. Komponenten abhrenzen (Gameengine) und Anforderungen zuschreiben. Detailierte Anforderungen Bewgung, Bomberman...). Jede Anforderung soll ein Test sein.
+
+Produkteinsatz: ->nichts sagende Beschreibung-> Erklärung wo und wie wird das Produkt eingesetzt. Erklärung was als nächstes kommt.
+
+Domainmodell: -> Technische Details weg(Server). -> Datentypen. -> Gameobjects wieder rein-> Spielfelder beeinhalten Gameobjects. Lastenheft nehmen Subjekte unterstreichen dann Verben rausscuhen und wie sie die Objekte beschreiben.
+
+Usecase: Spielspielen darstellen. Spielspielen-> Szenario genauer-> Sequenzdiagramm dazu-> Welche Komponenten und wie diese Interagieren.

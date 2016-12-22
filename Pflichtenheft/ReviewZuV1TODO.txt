@@ -8,6 +8,8 @@ Anforderungen: Wording: nicht im Text ein muss verwenden und dann als kann raten
 
 Produkteinsatz: ->nichts sagende Beschreibung-> Erklärung wo und wie wird das Produkt eingesetzt. Erklärung was als nächstes kommt.
 
+Mockups: Serverliste vor wählen des Spielernamens einordnen
+
 Domainmodell: -> Technische Details weg(Server). -> Datentypen. -> Gameobjects wieder rein-> Spielfelder beeinhalten Gameobjects. Lastenheft nehmen Subjekte unterstreichen dann Verben rausscuhen und wie sie die Objekte beschreiben.
 
 Usecase: Spielspielen darstellen. Spielspielen-> Szenario genauer-> Sequenzdiagramm dazu-> Welche Komponenten und wie diese Interagieren.

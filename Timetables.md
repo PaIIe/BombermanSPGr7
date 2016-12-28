@@ -7,7 +7,7 @@ Anton ODT
 [Danny](https://docs.google.com/spreadsheets/d/1GnsbkKn2MAQpZ1wve-kZdOme2WdDjWnnoG9nVKP1vLk/edit?usp=sharing)
 
 
-[Manu]()
+[Manu](https://docs.google.com/spreadsheets/d/1O0-hI-XBE1eddzRugs_PQWz1u2E-aZR5D6jUiv19DKU/edit?usp=sharing)
 
 
 [Sven](https://docs.google.com/spreadsheets/d/11mri5W_ku38aBcQbJDKycIqT4gZrZmTp6OrPfMZkPUc/edit?usp=sharing)

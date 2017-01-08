@@ -1,3 +1,4 @@
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -26,10 +27,10 @@ public class Map extends BasicGame
 	private Image bomb_phase1 = null;
 	
 	String GameMap[][] = {{"SW", "SW", "SW", "SW", "SW", "SW", "SW", "SW", "SW", "SW", "SW"},
-						{"SW", "EF", "EF", "DW", "DW", "DW", "DW", "DW", "EF", "RB", "SW"},
-						{"SW", "EF", "SW", "DW", "SW", "DW", "SW", "DW", "SW", "EF", "SW"},
-						{"SW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "SW"},
-						{"SW", "DW", "SW", "DW", "SW", "DW", "SW", "DW", "SW", "DW", "SW"},
+						{"SW", "EF", "EF", "EF", "EF", "DW", "DW", "DW", "EF", "RB", "SW"},
+						{"SW", "EF", "SW", "EF", "SW", "DW", "SW", "DW", "SW", "EF", "SW"},
+						{"SW", "EF", "EF", "EF", "DW", "DW", "DW", "DW", "DW", "DW", "SW"},
+						{"SW", "EF", "SW", "DW", "SW", "DW", "SW", "DW", "SW", "DW", "SW"},
 						{"SW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "SW"},
 						{"SW", "DW", "SW", "DW", "SW", "DW", "SW", "DW", "SW", "DW", "SW"},
 						{"SW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "DW", "SW"},
@@ -82,11 +83,11 @@ public class Map extends BasicGame
     {
     	//key events
     	//movement
-    	if(in.isKeyDown(in.KEY_W))	//possible also isKeyPressed
+    	if(in.isKeyDown(in.KEY_W))
     	{
     		if(x%32==0 && x%64!=0)
     		{
-    			if((GameMap[y/64-1][x/64]!="SW") && (GameMap[y/64-1][x/64]!="DW"))
+    			if((GameMap[y/64-1][x/64]!="SW") && (GameMap[y/64-1][x/64]!="DW") && (GameMap[y/64-1][x/64]!="BP1"))
     					y-=4;
     			else if(y%64!=32)
     				y-=4;
@@ -97,7 +98,7 @@ public class Map extends BasicGame
     	{
     		if(x%32==0 && x%64!=0)
     		{
-    			if((GameMap[y/64+1][x/64]!="SW") && (GameMap[y/64+1][x/64]!="DW"))
+    			if((GameMap[y/64+1][x/64]!="SW") && (GameMap[y/64+1][x/64]!="DW") && (GameMap[y/64+1][x/64]!="BP1"))
     					y+=4;
     			else if(y%64!=32)
     				y+=4;
@@ -107,7 +108,7 @@ public class Map extends BasicGame
     	{
     		if(y%32==0 && y%64!=0)
     		{
-    			if((GameMap[y/64][x/64-1]!="SW") && (GameMap[y/64][x/64-1]!="DW"))
+    			if((GameMap[y/64][x/64-1]!="SW") && (GameMap[y/64][x/64-1]!="DW") && (GameMap[y/64][x/64-1]!="BP1"))
     					x-=4;
     			else if(x%64!=32)
     				x-=4;
@@ -118,14 +119,14 @@ public class Map extends BasicGame
     	{
     		if(y%32==0 && y%64!=0)
     		{
-    			if((GameMap[y/64][x/64+1]!="SW") && (GameMap[y/64][x/64+1]!="DW"))
+    			if((GameMap[y/64][x/64+1]!="SW") && (GameMap[y/64][x/64+1]!="DW") && (GameMap[y/64][x/64+1]!="BP1"))
     					x+=4;
     			else if(x%64!=32)
     				x+=4;
     		}
     	}
     	
-    	if(in.isKeyPressed(in.KEY_B))	//place bomb
+    	if(in.isKeyPressed(in.KEY_B))
     		GameMap[y/64][x/64] = "BP1";
     	
     }

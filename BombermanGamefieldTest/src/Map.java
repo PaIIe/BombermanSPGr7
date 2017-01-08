@@ -1,4 +1,3 @@
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -126,7 +125,7 @@ public class Map extends BasicGame
     		}
     	}
     	
-    	if(in.isKeyPressed(in.KEY_B))
+    	if(in.isKeyPressed(in.KEY_B))	//place bomb
     		GameMap[y/64][x/64] = "BP1";
     	
     }
@@ -177,7 +176,5 @@ public class Map extends BasicGame
     		}
     	}
     	blueBomberman.drawCentered(x, y);
-    	//g.drawImage(blueBomberman, x, y);
-    	
     }
 }

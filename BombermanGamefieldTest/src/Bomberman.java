@@ -6,6 +6,7 @@ public class Bomberman extends GameObject{
 	boolean armor;
 	boolean alive;
 	
+	
 	public void setStartPos(int i, int j){};
 	public void walk(direction j){};
 	public void placeBomb(placedBombs(int k){};

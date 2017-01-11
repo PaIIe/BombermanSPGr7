@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class MovementTest {// es wird aktuell getestet ob der Bomberman wenn unter ihm ein freies Feld ist bei Eingabe "s" für nach unten nach unten läuft.
 
+	
 	@Test
 	public void test() {
 		generateMap(); //erstellt "Grundkarte"

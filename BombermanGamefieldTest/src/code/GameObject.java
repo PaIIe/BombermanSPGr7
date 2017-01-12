@@ -1,3 +1,4 @@
+package code;
 
 abstract class GameObject {
 	private int column;

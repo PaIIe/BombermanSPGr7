@@ -1,3 +1,4 @@
+package code;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;

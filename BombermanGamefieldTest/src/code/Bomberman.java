@@ -1,3 +1,4 @@
+package code;
 
 public class Bomberman extends GameObject{
 	color color;

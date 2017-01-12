@@ -1,3 +1,4 @@
+package code;
 
 public class GameField {
 	private int height;

@@ -14,7 +14,7 @@ import code.GameObject;
 
 ****************************************************/
 
-public class BoniSetMaxBombsTest 
+public class BoniTest
 {
 	private static Boni boni;
 	private static Bomberman bomberman;
@@ -23,7 +23,7 @@ public class BoniSetMaxBombsTest
 	
 	public static void bombermanHitBoni()
 	{
-		GameObject.Bomberman.column = GameObject.Boni.column;
+		Bomberman.column = Boni.column;
 		GameObject.Bomberman.row = GameObject.Boni.row;
 		
 		if(Boni.checkPickUp() == true)

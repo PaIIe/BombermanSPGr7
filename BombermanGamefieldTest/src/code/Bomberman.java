@@ -17,5 +17,7 @@ public class Bomberman extends GameObject{
 	public int getMaxBombs(){};
 	public boolean getArmor(){};
 	public int getExplosionSize(){};
+	public boolean getAliveStatus(){};
+	
 
 }

@@ -16,7 +16,7 @@ public class MovementTest {// es wird aktuell getestet ob der Bomberman wenn unt
 		map.generateMap(); //erstellt "Grundkarte"
 		Bomberman testman = new Bomberman();
 		testman.setStartPos(1, 1);
-		testman.Walk(s);
+		testman.Walk(s); // s from enum directios for south -- not implemented yet
 		assertEquals(testman.getRow(), 2);
 		assertEquals(testman.getColumn(), 1);
 	}

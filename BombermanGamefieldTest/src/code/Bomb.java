@@ -1,7 +1,7 @@
 package code;
 
 
-public class Bomb 
+public class Bomb extends GameObject
 {
 	private int explosionRadius;
 	private int explosionTime;

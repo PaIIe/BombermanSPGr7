@@ -24,5 +24,9 @@ public class Boni extends GameObject
 	{
 		
 	}
+
+	public boolean checkPickUp() {
+		return false;
+	}
 	
 }

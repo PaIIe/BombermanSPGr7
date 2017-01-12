@@ -1,6 +1,6 @@
 package code;
 
-abstract class GameObject {
+public abstract class GameObject {
 	private int column;
 	private int row;
 	

@@ -8,7 +8,11 @@ import Bomberman;
 import Boni;
 import GameObject;
 
-/*Boni ist noch nicht funktional implementiert und wird im näcshten Sprint erst implementiert*/
+/***************************************************
+*Boni ist noch nicht funktional implementiert und wird im nächsten Sprint erst implementiert
+*Wir testen hier ob die Klasse Boni, die richtigen Bonitypen in der Klasse Bomberman setzt wenn der Bomberman über einen Boni läuft.
+
+****************************************************/
 
 public class BoniSetMaxBombsTest 
 {

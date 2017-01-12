@@ -23,8 +23,8 @@ public class BoniTest
 	
 	public static void bombermanHitBoni()
 	{
-		Bomberman.column = Boni.column;
-		GameObject.Bomberman.row = GameObject.Boni.row;
+		bomberman.setColumn(boni.getColumn());
+		bomberman.setRow(boni.getRow());
 		
 		if(Boni.checkPickUp() == true)
 			System.out.println("Stepped on the Boni");
@@ -46,15 +46,15 @@ public class BoniTest
 	public void setArmor()
 	{
 		boni.setArmor();
-		assertEquals(bomberman.getArmor, true);
+		assertEquals(bomberman.getArmor(), true);
 	}
 	
 	@Test
-	public void setBombExplosionSize()
+	public void setBombExplosionRadius()
 	{
-		int temp = bomberman.getExplosionSize()
-		boni.setBombExplosionSize();
-		assertEquals(bomberman.setBombExplosionSize, temp + 1);
+		int temp = bomberman.getExplosionSize();
+		boni.setBombExplosionRadius();
+		assertEquals(bomberman.getExplosionSize(), temp + 1);
 	}
 	
 	

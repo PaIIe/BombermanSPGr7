@@ -3,30 +3,29 @@ package code;
 
 public class Boni extends GameObject 
 {
-	public enum BonusType{
+	private enum BonusType{
 		extraBomb,
 		armor,
 		bombExplosion
 	}
 	
-	public static boolean isSolid = false;
+	private static boolean isSolid = false;
 	
-	private void setMaxBombs(){
+	public void setMaxBombs(){
 		
 	}
 	
-	private void setArmor()
+	public void setArmor()
 	{
 		
 	}
 	
-	private void setBombeExplosion()
+	public void setBombExplosionRadius()
 	{
 		
 	}
 
-	public boolean checkPickUp() {
-		return false;
-	}
+	public static boolean checkPickUp() {
+		return false;}
 	
 }

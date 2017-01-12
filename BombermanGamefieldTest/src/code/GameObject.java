@@ -5,8 +5,14 @@ public abstract class GameObject {
 	private int row;
 	
 	public void generateObjects(){};
-	public void setColumn(){};
-	public void setRow(){};
+	public void setColumn(int column)
+	{
+		this.column = column;
+	};
+	public void setRow(int row)
+	{
+		this.row = row;
+	};
 	public int getColumn(){
 		int c=1;
 		return c;};

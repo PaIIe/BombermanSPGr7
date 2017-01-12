@@ -13,10 +13,11 @@ public class DestroyTest
 	@Test
 	public void BombDestroysWall(int row, int column, int time, int radius)
 	{
+		int x = 0;
+		int y = 0;
 		Bomb bomb = new Bomb(row, column, time, radius);
 		bomb.explode(); // explode function triggers destroyWall function if wall is in explosion radius with parameters(x, y) "destroyWall(x, y)" for location in matrix
 		assertEquals("EF", GameField.getMatrixElement(x, y));
-
 	}
 	
 }

@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 /*import resolve problem..TODO*/
-import Bomberman;
-import Boni;
-import GameObject;
+import code.Bomberman;
+import code.Boni;
+import code.GameObject;
 
 /***************************************************
 *Boni ist noch nicht funktional implementiert und wird im nächsten Sprint erst implementiert

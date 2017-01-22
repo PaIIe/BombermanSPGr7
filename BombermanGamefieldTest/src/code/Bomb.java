@@ -5,11 +5,13 @@ public class Bomb extends GameObject
 {
 	private int explosionRadius;
 	private int explosionTime;
+	private int maxExplosionTime;
 	
 	
 	public Bomb(int r, int c, int time, int radius)
 	{
 		this.explosionRadius=radius;
+		this.maxExplosionTime=time;		
 		this.explosionTime=time;
 		this.setRow(r);
 		this.setColumn(c);

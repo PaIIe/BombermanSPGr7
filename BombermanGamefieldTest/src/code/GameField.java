@@ -4,7 +4,7 @@ import code.GameObject;
 public class GameField 
 {
 	private int width;		// Spielfeld quadratisch
-	private GameObject[][] GameObejctsMatrix;
+	private static GameObject[][] GameObejctsMatrix;
 	private Bomberman[] PlayerMatrix;
 	
 	public GameField(int width)
@@ -134,25 +134,29 @@ public class GameField
     			}
    			}
 		}
-		this.GameObejctsMatrix = temp;
+		GameObejctsMatrix = temp;
 	}
     
     public void generatePlayerMatrix()
     {
     	int playerNumber = 4; // LÖSCHEN -- Server
     	Bomberman[] temp = new Bomberman[playerNumber]; // 2 <= playerNumber <= 4
-    	Bomberman player1 = new Bomberman(); // Konstruktor mit Position oben links
+    	Bomberman player1 = new Bomberman(1, 3, 51); // Konstruktor mit Position oben links, ÄNDERN 1 und 3 --> vom Server kommend
+    	player1.setStartPos(1, 1);
 		temp[0] = player1;
-		Bomberman player2 = new Bomberman(); // Konstruktor mit Position oben rechts
+		Bomberman player2 = new Bomberman(1, 3, 52); // Konstruktor mit Position oben rechts, ÄNDERN 1 und 3 --> vom Server kommend
+		player2.setStartPos(1, (this.getWidth() -2));
 		temp[1] = player2;
     	if (playerNumber == 3)
     	{
-    		Bomberman player3 = new Bomberman(); // Konstruktor mit Position unten links
+    		Bomberman player3 = new Bomberman(1, 3, 53); // Konstruktor mit Position unten links, ÄNDERN 1 und 3 --> vom Server kommend
+    		player3.setStartPos((this.getWidth() -2), 1);
     		temp[2] = player3;
     	}
     	if (playerNumber == 4)
     	{
-    		Bomberman player4 = new Bomberman(); // Konstruktor mit Position unten rechts
+    		Bomberman player4 = new Bomberman(1, 3, 54); // Konstruktor mit Position unten rechts, ÄNDERN 1 und 3 --> vom Server kommend
+    		player4.setStartPos((this.getWidth() -2), (this.getWidth() -2));
     		temp[3] = player4;
     	}
     	this.PlayerMatrix = temp;
@@ -160,9 +164,9 @@ public class GameField
     
     // Setter
     
-    public void setObject(GameObject object, int row, int column)
+    public static void setObject(GameObject object, int row, int column)
 	{
-		this.GameObejctsMatrix[row][column] = object;
+		GameObejctsMatrix[row][column] = object;
 	}
     
     // Getter
@@ -174,7 +178,7 @@ public class GameField
     
     public GameObject getObject(int row, int column)
 	{
-		return this.GameObejctsMatrix[row][column];
+		return GameObejctsMatrix[row][column];
 	}
     
     public Bomberman getPlayer(int playerNumber)

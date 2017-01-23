@@ -8,6 +8,7 @@ public class GameObject
 	private int ID;
 	private int row;
 	private int column;
+	private boolean isSolid;
 	
 	public GameObject()
 	{
@@ -29,6 +30,11 @@ public class GameObject
 		this.ID = id;
 	}
 	
+	public void setSolid(boolean solid)
+	{
+		this.isSolid = solid;
+	}
+	
 	
 	
 	// Getter
@@ -47,6 +53,10 @@ public class GameObject
 		return this.ID;
 	}
 	
+	public boolean getSolid()
+	{
+		return this.isSolid;
+	}
 	
 	
 

@@ -27,15 +27,44 @@ public class Bomberman extends GameObject{
 		this.setRow(row);
 		this.setColumn(column);
 	}
-	public void walk(direction j)
+	
+	public void walk(Direction direction)
 	{
-		
+		if (direction == Direction.NORTH)
+		{
+			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
+			{
+				this.setRow(this.getRow() - 1);
+			}
+		}
+		if (direction == Direction.EAST)
+		{
+			if (GameField.getObject(this.getRow(), (this.getColumn() + 1)).getSolid() == false)
+			{
+				this.setColumn(this.getColumn() + 1);
+			}
+		}
+		if (direction == Direction.SOUTH)
+		{
+			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
+			{
+				this.setRow(this.getRow() + 1);
+			}
+		}
+		if (direction == Direction.WEST)
+		{
+			if (GameField.getObject(this.getRow(), (this.getColumn() - 1)).getSolid() == false)
+			{
+				this.setColumn(this.getColumn() - 1);
+			}
+		}
 	}
+	
 	public void placeBomb()
 	{
 		if (this.getPlacedBombs() < this.getMaxBombs())
 		{
-			Bomb bomb = new Bomb(this.getRow(), this.getColumn(), time, this.radiusBomb);
+			Bomb bomb = new Bomb(this.getRow(), this.getColumn(), time, this.radiusBomb); // time Server???
 			this.bombs[this.getPlacedBombs()] = bomb;
 			GameField.setObject(bomb, this.getRow(), this.getColumn());
 		}	

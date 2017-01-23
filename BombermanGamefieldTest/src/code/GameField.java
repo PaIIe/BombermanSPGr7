@@ -5,7 +5,7 @@ public class GameField
 {
 	private int width;		// Spielfeld quadratisch
 	private static GameObject[][] GameObejctsMatrix;
-	private Bomberman[] PlayerMatrix;
+	private static Bomberman[] PlayerMatrix;
 	
 	public GameField(int width)
 	{
@@ -22,14 +22,14 @@ public class GameField
 		{
 			for (int j=0; j < getWidth(); j++)
 			{
-				System.out.print(this.getObject(j, i).getID());
+				System.out.print(getObject(j, i).getID());
 				System.out.print(" ");
 			}
 			System.out.print("\n");
 		}
-		this.PlayerMatrix[0].setColumn(4);
+		PlayerMatrix[0].setColumn(4);
 		System.out.print("\n");
-		System.out.print(this.PlayerMatrix[0].getColumn());
+		System.out.print(PlayerMatrix[0].getColumn());
 	}
 	
 	// ~ Tester
@@ -159,7 +159,7 @@ public class GameField
     		player4.setStartPos((this.getWidth() -2), (this.getWidth() -2));
     		temp[3] = player4;
     	}
-    	this.PlayerMatrix = temp;
+    	PlayerMatrix = temp;
     }
     
     // Setter
@@ -176,14 +176,14 @@ public class GameField
 		return this.width;
 	}
     
-    public GameObject getObject(int row, int column)
+    public static GameObject getObject(int row, int column)
 	{
 		return GameObejctsMatrix[row][column];
 	}
     
     public Bomberman getPlayer(int playerNumber)
     {
-    	return this.PlayerMatrix[playerNumber - 1];
+    	return PlayerMatrix[playerNumber - 1];
     }
 }
 

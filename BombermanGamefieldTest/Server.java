@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author asus
+ * @author feng
  */
 public class Server {
     private List <User> playingUsers;

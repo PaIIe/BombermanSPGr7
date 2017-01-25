@@ -3,7 +3,7 @@ import code.GameObject;
 
 public class GameField 
 {
-	private int width;		// Spielfeld quadratisch
+	private final int width;		// Spielfeld quadratisch
 	private static GameObject[][] GameObejctsMatrix;
 	private static Bomberman[] PlayerMatrix;
 	

@@ -8,7 +8,6 @@ public class Bomberman extends GameObject{
 	private int placedBombs;
 	private boolean armor;
 	private boolean alive;
-	private Bomb[] bombs; // nötig???
 	
 	public Bomberman(int maxBomb, int radiusBomb, int id)
 	{
@@ -19,7 +18,6 @@ public class Bomberman extends GameObject{
 		this.setSolid(false);
 		this.setID(id);
 		this.setPlacedBombs(0);
-		this.bombs = new Bomb[this.maxBomb];
 	}
 	
 	public void setStartPos(int row, int column)
@@ -34,28 +32,88 @@ public class Bomberman extends GameObject{
 		{
 			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
 			{
-				this.setRow(this.getRow() - 1);
+				if (this.getID() == 51)
+				{
+					GameField.getPlayer(1).setRow(getRow() - 1);
+				}
+				if (this.getID() == 52)
+				{
+					GameField.getPlayer(2).setRow(getRow() - 1);
+				}
+				if (this.getID() == 53)
+				{
+					GameField.getPlayer(3).setRow(getRow() - 1);
+				}
+				if (this.getID() == 54)
+				{
+					GameField.getPlayer(4).setRow(getRow() - 1);
+				}
 			}
 		}
 		if (direction == Direction.EAST)
 		{
 			if (GameField.getObject(this.getRow(), (this.getColumn() + 1)).getSolid() == false)
 			{
-				this.setColumn(this.getColumn() + 1);
+				if (this.getID() == 51)
+				{
+					GameField.getPlayer(1).setColumn(this.getColumn() + 1);
+				}
+				if (this.getID() == 52)
+				{
+					GameField.getPlayer(2).setColumn(this.getColumn() + 1);
+				}
+				if (this.getID() == 53)
+				{
+					GameField.getPlayer(3).setColumn(this.getColumn() + 1);
+				}
+				if (this.getID() == 54)
+				{
+					GameField.getPlayer(4).setColumn(this.getColumn() + 1);
+				}
 			}
 		}
 		if (direction == Direction.SOUTH)
 		{
 			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
 			{
-				this.setRow(this.getRow() + 1);
+				if (this.getID() == 51)
+				{
+					GameField.getPlayer(1).setRow(getRow() + 1);
+				}
+				if (this.getID() == 52)
+				{
+					GameField.getPlayer(2).setRow(getRow() + 1);
+				}
+				if (this.getID() == 53)
+				{
+					GameField.getPlayer(3).setRow(getRow() + 1);
+				}
+				if (this.getID() == 54)
+				{
+					GameField.getPlayer(4).setRow(getRow() + 1);
+				}
 			}
 		}
 		if (direction == Direction.WEST)
 		{
 			if (GameField.getObject(this.getRow(), (this.getColumn() - 1)).getSolid() == false)
 			{
-				this.setColumn(this.getColumn() - 1);
+				if (this.getID() == 51)
+				{
+					GameField.getPlayer(1).setColumn(this.getColumn() - 1);
+				}
+				if (this.getID() == 52)
+				{
+					GameField.getPlayer(2).setColumn(this.getColumn() - 1);
+				}
+				if (this.getID() == 53)
+				{
+					GameField.getPlayer(3).setColumn(this.getColumn() - 1);
+				}
+				if (this.getID() == 54)
+				{
+					GameField.getPlayer(4).setColumn(this.getColumn() - 1);
+				}
 			}
 		}
 	}
@@ -65,16 +123,47 @@ public class Bomberman extends GameObject{
 		if (this.getPlacedBombs() < this.getMaxBombs())
 		{
 			Bomb bomb = new Bomb(this.getRow(), this.getColumn(), time, this.radiusBomb); // time Server???
-			this.bombs[this.getPlacedBombs()] = bomb;
+			if (this.getID() == 51)
+			{
+				bomb.setID(61);
+			}
+			if (this.getID() == 52)
+			{
+				bomb.setID(71);
+			}
+			if (this.getID() == 53)
+			{
+				bomb.setID(81);
+			}
+			if (this.getID() == 54)
+			{
+				bomb.setID(91);
+			}
 			GameField.setObject(bomb, this.getRow(), this.getColumn());
 		}	
 	}
 	
-	public void gotHit(Bomberman player)
+	public void gotHit()
 	{
-		if (player.getArmor() == false)
+		if (this.getArmor() == false)
 		{
-			player = null; // Löschen des Objekts
+			if (this.getID() == 51) // Player 1
+			{
+				GameField.setPlayer(1, null);
+			}
+			if (this.getID() == 52) // Player 2
+			{
+				GameField.setPlayer(2, null);
+			}
+			if (this.getID() == 53) // Player 3
+			{
+				GameField.setPlayer(3, null);
+			}
+			if (this.getID() == 54) // Player 4
+			{
+				GameField.setPlayer(4, null);
+			}
+			// Löschen des Objekts
 			// Eingaben vom CLient --> was passiert?
 		}
 	}

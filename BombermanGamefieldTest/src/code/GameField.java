@@ -169,6 +169,11 @@ public class GameField
 		GameObejctsMatrix[row][column] = object;
 	}
     
+    public static void setPlayer(int playerNumber, Bomberman player)
+    {
+    	PlayerMatrix[playerNumber - 1] = player;
+    }
+    
     // Getter
  
     public int getWidth() 
@@ -181,7 +186,7 @@ public class GameField
 		return GameObejctsMatrix[row][column];
 	}
     
-    public Bomberman getPlayer(int playerNumber)
+    public static Bomberman getPlayer(int playerNumber)
     {
     	return PlayerMatrix[playerNumber - 1];
     }

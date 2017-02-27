@@ -1,6 +1,6 @@
 package code;
 
-public class Flame {
+public class Flame extends GameObject{
 	private int flameTimer;
 	
 	public Flame (int r, int c, int time)
@@ -8,6 +8,7 @@ public class Flame {
 		this.flameTimer=time;
 		this.setRow(r);
 		this.setColumn(c);
+		this.setID(3);
 	}
 	public void counter()
 	{
@@ -17,7 +18,7 @@ public class Flame {
 	}
 	public void delete()
 	{
-		this.generateEmptyField(this.getRow(), this.getColumn());//generate empty field erstmal nur platzhalter
-		//delete object
+		
+	}	
 }
 	

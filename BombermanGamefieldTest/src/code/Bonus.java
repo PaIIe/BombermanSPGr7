@@ -1,7 +1,7 @@
 package code;
 
 
-public class Boni extends GameObject 
+public class Bonus extends GameObject 
 {
 	private enum BonusType{
 		extraBomb,

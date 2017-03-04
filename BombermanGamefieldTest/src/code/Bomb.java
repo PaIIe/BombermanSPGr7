@@ -23,6 +23,8 @@ public class Bomb extends GameObject
 	{
 		long starttime = System.currentTimeMillis();
 		long wait=maxExplosionTime/3;
+		try
+		{
 		TimeUnit.MILLISECONDS.sleep(wait);
 		if(this.getID()==61)
 			this.setID(62);
@@ -51,6 +53,8 @@ public class Bomb extends GameObject
 		if(this.getID()==92)
 			this.setID(93);
 		TimeUnit.MILLISECONDS.sleep(wait);
+		}catch(InterruptedException ie)
+		{}
 		explode();
 	}
 	public void explode()

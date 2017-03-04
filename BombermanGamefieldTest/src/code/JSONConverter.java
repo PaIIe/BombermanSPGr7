@@ -1,9 +1,9 @@
-package code;
+package menu_test;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class JasonConverter {
+public class JSONConverter {
 
 	public void gameObjectsMatrixToJson() {
 		

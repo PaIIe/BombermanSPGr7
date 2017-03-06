@@ -10,7 +10,7 @@ public class Flame extends GameObject{
 		this.setRow(row);
 		this.setColumn(column);
 		this.setSolid(false);
-		this.time = 20; // 1 Sekunde
+		this.time = 20; // 1 Sekunde nach Explosion sichtbar
 	}
 	
 	public Flame() {
@@ -18,14 +18,11 @@ public class Flame extends GameObject{
 
 	public void counter()
 	{
-		
 		this.time--;
-		if(this.time==0)
+		if(this.time == 0)
 		{
-			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
-		}
-			
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn()); // Empty Field nach Explosion
+		}		
 	}
-	
 }
 	

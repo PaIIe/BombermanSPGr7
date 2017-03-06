@@ -13,28 +13,8 @@ public class GameField
 		this.generateObjectMatrix();
 		this.generatePlayerMatrix();
 	}
-	
-	// ~ Tester
-	
-	public void printObjectsID()
-	{
-		for (int i=0; i < getWidth(); i++)
-		{
-			for (int j=0; j < getWidth(); j++)
-			{
-				System.out.print(getObject(j, i).getID());
-				System.out.print(" ");
-			}
-			System.out.print("\n");
-		}
-		PlayerMatrix[0].setColumn(4);
-		System.out.print("\n");
-		System.out.print(PlayerMatrix[0].getColumn());
-	}
-	
-	// ~ Tester
 	   
-    public void generateObjectMatrix()
+    public void generateObjectMatrix() // Objekte erstellen und in Objektmatrix einfügen
 	{
 		GameObject[][] temp = new GameObject[getWidth()][getWidth()];
 		for (int i=0; i < getWidth(); i++)

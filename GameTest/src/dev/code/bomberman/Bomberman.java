@@ -32,6 +32,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() - 1);
+				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
@@ -49,6 +50,18 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				// Test auf Flamme
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
+				{
+					if (this.getID() == 51 || this.getID() == 55)
+						GameField.getPlayer(1).gotHit();
+					if (this.getID() == 52 || this.getID() == 56)
+						GameField.getPlayer(2).gotHit();
+					if (this.getID() == 53 || this.getID() == 57)
+						GameField.getPlayer(3).gotHit();
+					if (this.getID() == 54 || this.getID() == 58)
+						GameField.getPlayer(4).gotHit();
 				}
 			}
 		}
@@ -57,6 +70,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject(this.getRow(), (this.getColumn() + 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() + 1);
+				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
@@ -74,6 +88,18 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				// Test auf Flamme
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
+				{
+					if (this.getID() == 51 || this.getID() == 55)
+						GameField.getPlayer(1).gotHit();
+					if (this.getID() == 52 || this.getID() == 56)
+						GameField.getPlayer(2).gotHit();
+					if (this.getID() == 53 || this.getID() == 57)
+						GameField.getPlayer(3).gotHit();
+					if (this.getID() == 54 || this.getID() == 58)
+						GameField.getPlayer(4).gotHit();
 				}
 			}
 		}
@@ -82,6 +108,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() + 1);
+				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
@@ -99,6 +126,18 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				// Test auf Flamme
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
+				{
+					if (this.getID() == 51 || this.getID() == 55)
+						GameField.getPlayer(1).gotHit();
+					if (this.getID() == 52 || this.getID() == 56)
+						GameField.getPlayer(2).gotHit();
+					if (this.getID() == 53 || this.getID() == 57)
+						GameField.getPlayer(3).gotHit();
+					if (this.getID() == 54 || this.getID() == 58)
+						GameField.getPlayer(4).gotHit();
 				}
 			}
 		}
@@ -107,6 +146,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject(this.getRow(), (this.getColumn() - 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() - 1);
+				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
@@ -124,6 +164,18 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				// Test auf Flamme
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
+				{
+					if (this.getID() == 51 || this.getID() == 55)
+						GameField.getPlayer(1).gotHit();
+					if (this.getID() == 52 || this.getID() == 56)
+						GameField.getPlayer(2).gotHit();
+					if (this.getID() == 53 || this.getID() == 57)
+						GameField.getPlayer(3).gotHit();
+					if (this.getID() == 54 || this.getID() == 58)
+						GameField.getPlayer(4).gotHit();
 				}
 			}
 		}
@@ -161,23 +213,54 @@ public class Bomberman extends GameObject{
 	
 	public void gotHit()
 	{
-		System.out.println(GameField.getPlayer(1).getArmor());
-		System.out.println(this.getArmor());
-		if (!this.getArmor());
+		// Player 1
+		if (this.getArmor() == false && this.getID() == 51)
 		{
 			this.setAliveStatus(false);
-			System.out.println("1");
 		}
-		
-		System.out.println(GameField.getPlayer(1).getArmor());
-		System.out.println(this.getArmor());
-		
-		if (this.getArmor())
+		if (this.getArmor() == true && this.getID() == 55)
 		{
+			System.out.println("test");
 			this.setArmor(false);
-			System.out.println("2");
+			this.setID(51);
 		}
-			
+		
+		// Player 2
+		if (this.getArmor() == false && this.getID() == 52)
+		{
+			this.setAliveStatus(false);
+		}
+		if (this.getArmor() == true && this.getID() == 56)
+		{
+			System.out.println("test");
+			this.setArmor(false);
+			this.setID(51);
+		}
+		
+		// Player 3
+		if (this.getArmor() == false && this.getID() == 53)
+		{
+			this.setAliveStatus(false);
+		}
+		if (this.getArmor() == true && this.getID() == 57)
+		{
+			System.out.println("test");
+			this.setArmor(false);
+			this.setID(51);
+		}
+		
+		// Player 4
+		if (this.getArmor() == false && this.getID() == 54)
+		{
+			this.setAliveStatus(false);
+		}
+		if (this.getArmor() == true && this.getID() == 58)
+		{
+			System.out.println("test");
+			this.setArmor(false);
+			this.setID(51);
+		}
+		
 		// texture??
 	}
 	

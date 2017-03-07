@@ -65,7 +65,7 @@ public class Game implements Runnable {
 		
 		// Ranking
 		Ranking ranking = new Ranking();
-		this.ranking = ranking;
+		Game.ranking = ranking;
 		
 		// Images einbinden
 		solidWall = ImageLoader.loadImage("/textures/wall_solid.png");

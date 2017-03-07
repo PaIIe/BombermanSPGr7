@@ -21,6 +21,10 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	// Rankingobjekt
+	
+	static Ranking ranking;
+	
 	//Input
 	
 	private KeyManager keyManager;
@@ -55,9 +59,13 @@ public class Game implements Runnable {
 	}
 	
 	private void init(){
-		new GameField(15);
+		new GameField(9);
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
+		
+		// Ranking
+		Ranking ranking = new Ranking();
+		this.ranking = ranking;
 		
 		// Images einbinden
 		solidWall = ImageLoader.loadImage("/textures/wall_solid.png");
@@ -133,7 +141,7 @@ public class Game implements Runnable {
 		{
 			GameField.getPlayer(1).placeBomb();
 		}
-			
+		
 	}
 	
 	private void render(){	// Zeichnen

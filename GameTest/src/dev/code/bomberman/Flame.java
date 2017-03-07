@@ -10,7 +10,7 @@ public class Flame extends GameObject{
 		this.setRow(row);
 		this.setColumn(column);
 		this.setSolid(false);
-		this.time = 20; // 1 Sekunde nach Explosion sichtbar
+		this.time = 20; // 1 Sekunde nach Explosion sichtbar -- 1 Sekunde entspricht 20 Ticks
 	}
 	
 	public Flame() {

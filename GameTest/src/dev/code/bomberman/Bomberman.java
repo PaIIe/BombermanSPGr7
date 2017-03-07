@@ -32,6 +32,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() - 1);
+				Game.ranking.updateSteps(this.getID());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -70,6 +71,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject(this.getRow(), (this.getColumn() + 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() + 1);
+				Game.ranking.updateSteps(this.getID());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -108,6 +110,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() + 1);
+				Game.ranking.updateSteps(this.getID());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -146,6 +149,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject(this.getRow(), (this.getColumn() - 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() - 1);
+				Game.ranking.updateSteps(this.getID());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -186,6 +190,7 @@ public class Bomberman extends GameObject{
 		if (this.getPlacedBombs() < this.getMaxBombs() && GameField.getObject(this.getRow(), this.getColumn()).getID() == 0)
 		{
 			Bomb bomb = new Bomb(this.getRow(), this.getColumn(), 3, this.radiusBomb); // time Server???
+			Game.ranking.updateBombs(this.getID());
 			this.increasePlacedBombs();
 			if (this.getID() == 51 || this.getID() == 55)
 			{
@@ -217,10 +222,11 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 51)
 		{
 			this.setAliveStatus(false);
+			this.setRow(-1); // außerhalb der Matrix
+			this.setColumn(-1);
 		}
 		if (this.getArmor() == true && this.getID() == 55)
 		{
-			System.out.println("test");
 			this.setArmor(false);
 			this.setID(51);
 		}
@@ -229,10 +235,11 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 52)
 		{
 			this.setAliveStatus(false);
+			this.setRow(-1); // außerhalb der Matrix
+			this.setColumn(-1);
 		}
 		if (this.getArmor() == true && this.getID() == 56)
 		{
-			System.out.println("test");
 			this.setArmor(false);
 			this.setID(51);
 		}
@@ -241,10 +248,11 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 53)
 		{
 			this.setAliveStatus(false);
+			this.setRow(-1); // außerhalb der Matrix
+			this.setColumn(-1);
 		}
 		if (this.getArmor() == true && this.getID() == 57)
 		{
-			System.out.println("test");
 			this.setArmor(false);
 			this.setID(51);
 		}
@@ -253,15 +261,14 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 54)
 		{
 			this.setAliveStatus(false);
+			this.setRow(-1); // außerhalb der Matrix
+			this.setColumn(-1);
 		}
 		if (this.getArmor() == true && this.getID() == 58)
 		{
-			System.out.println("test");
 			this.setArmor(false);
 			this.setID(51);
 		}
-		
-		// texture??
 	}
 	
 	public void increaseMaxBombs()

@@ -77,6 +77,28 @@ public class Bomb extends GameObject
 	{
 		Flame flames = new Flame(this.getRow(), this.getColumn());
 		GameField.setObject(flames, this.getRow(), this.getColumn());
+		
+		// Player auf der Bombe
+		 if (GameField.getPlayer(1).getRow() == this.getRow() && GameField.getPlayer(1).getColumn() == this.getColumn())
+		 {
+			 GameField.getPlayer(1).gotHit();
+			 Game.ranking.updateKill(this.getID(), 1);
+		 }	 
+		 if (GameField.getPlayer(2).getRow() == this.getRow() && GameField.getPlayer(2).getColumn() == this.getColumn())
+		 {
+			 GameField.getPlayer(2).gotHit();
+			 Game.ranking.updateKill(this.getID(), 2);
+		 } 
+		 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn())
+		 {
+			 GameField.getPlayer(3).gotHit();
+			 Game.ranking.updateKill(this.getID(), 3);
+		 }	 
+		 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn())
+		 {
+			 GameField.getPlayer(4).gotHit();
+			 Game.ranking.updateKill(this.getID(), 4);
+		 }
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach oben
 		{
 			 if (this.getRow() - i >= 0) // Spielfeldgrenze beachten
@@ -117,13 +139,25 @@ public class Bomb extends GameObject
 				 }
 				 // Player
 				 if (GameField.getPlayer(1).getRow() == this.getRow() - i && GameField.getPlayer(1).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 1);
+				 }
 				 if (GameField.getPlayer(2).getRow() == this.getRow() - i && GameField.getPlayer(2).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(2).gotHit();
+					 Game.ranking.updateKill(this.getID(), 2);
+				 }
 				 if (GameField.getPlayer(3).getRow() == this.getRow() - i && GameField.getPlayer(3).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(3).gotHit();
+					 Game.ranking.updateKill(this.getID(), 3);
+				 }
 				 if (GameField.getPlayer(4).getRow() == this.getRow() - i && GameField.getPlayer(4).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(4).gotHit();
+					 Game.ranking.updateKill(this.getID(), 4);
+				 }
 				 // Flammen erzeugen
 				 Flame flame = new Flame(this.getRow() - i, this.getColumn());
 				 GameField.setObject(flame, this.getRow() - i, this.getColumn());
@@ -169,13 +203,25 @@ public class Bomb extends GameObject
 				 }
 				 // Player
 				 if (GameField.getPlayer(1).getRow() == this.getRow() && GameField.getPlayer(1).getColumn() == this.getColumn() - i)
+				 {
 					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 1);
+				 }
 				 if (GameField.getPlayer(2).getRow() == this.getRow() && GameField.getPlayer(2).getColumn() == this.getColumn() - i)
+				 {
 					 GameField.getPlayer(2).gotHit();
+					 Game.ranking.updateKill(this.getID(), 2);
+				 }
 				 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() - i)
+				 {
 					 GameField.getPlayer(3).gotHit();
+					 Game.ranking.updateKill(this.getID(), 3);
+				 }
 				 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() - i)
+				 {
 					 GameField.getPlayer(4).gotHit();
+					 Game.ranking.updateKill(this.getID(), 4);
+				 }
 				 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
 				 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
 			 }
@@ -220,14 +266,26 @@ public class Bomb extends GameObject
 				 }
 				 // Player
 				 if (GameField.getPlayer(1).getRow() == this.getRow() + i && GameField.getPlayer(1).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 1);
+				 }
 				 if (GameField.getPlayer(2).getRow() == this.getRow() + i && GameField.getPlayer(2).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(2).gotHit();
+					 Game.ranking.updateKill(this.getID(), 2);
+				 }
 				 if (GameField.getPlayer(3).getRow() == this.getRow() + i && GameField.getPlayer(3).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(3).gotHit();
+					 Game.ranking.updateKill(this.getID(), 3);
+				 }
 				 if (GameField.getPlayer(4).getRow() == this.getRow() + i && GameField.getPlayer(4).getColumn() == this.getColumn())
+				 {
 					 GameField.getPlayer(4).gotHit();
-				 // Flammen eruzeugen
+					 Game.ranking.updateKill(this.getID(), 4);
+				 }
+				 // Flammen erzeugen
 				 Flame flame = new Flame(this.getRow() + i, this.getColumn());
 				 GameField.setObject(flame, this.getRow() + i, this.getColumn());
 			 }
@@ -272,13 +330,25 @@ public class Bomb extends GameObject
 				 }
 				 // Player
 				 if (GameField.getPlayer(1).getRow() == this.getRow() && GameField.getPlayer(1).getColumn() == this.getColumn() + i)
+				 {
 					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 1);
+				 }
 				 if (GameField.getPlayer(2).getRow() == this.getRow() && GameField.getPlayer(2).getColumn() == this.getColumn() + i)
-					 GameField.getPlayer(2).gotHit();
+				 {
+					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 2);
+				 }
 				 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() + i)
-					 GameField.getPlayer(3).gotHit();
+				 {
+					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 3);
+				 }
 				 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() + i)
-					 GameField.getPlayer(4).gotHit();
+				 {
+					 GameField.getPlayer(1).gotHit();
+					 Game.ranking.updateKill(this.getID(), 4);
+				 }
 				 // Flamme
 				 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
 				 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
@@ -290,6 +360,8 @@ public class Bomb extends GameObject
 		Wall wall = new Wall();
 		wall = (Wall) GameField.getObject(row, column);
 		wall.dropBoni(row, column);
+		// Ranking zerstörte Mauern
+		Game.ranking.updateWalls(this.getID());	
 	}
 	public void setexplosionTime(int time)
 	{

@@ -287,9 +287,9 @@ public class Ranking {
 		return this.pointsPlayer4;
 	}
 	
-	public int getDestroyedWallsPlayer1()
+	public String getDestroyedWallsPlayer1()
 	{
-		return this.destroyedWallsPlayer1;
+		return String.valueOf(this.destroyedWallsPlayer1);
 	}
 	
 	public int getDestroyedWallsPlayer2()

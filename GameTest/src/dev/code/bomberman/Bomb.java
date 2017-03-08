@@ -336,17 +336,17 @@ public class Bomb extends GameObject
 				 }
 				 if (GameField.getPlayer(2).getRow() == this.getRow() && GameField.getPlayer(2).getColumn() == this.getColumn() + i)
 				 {
-					 GameField.getPlayer(1).gotHit();
+					 GameField.getPlayer(2).gotHit();
 					 Game.ranking.updateKill(this.getID(), 2);
 				 }
 				 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() + i)
 				 {
-					 GameField.getPlayer(1).gotHit();
+					 GameField.getPlayer(3).gotHit();
 					 Game.ranking.updateKill(this.getID(), 3);
 				 }
 				 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() + i)
 				 {
-					 GameField.getPlayer(1).gotHit();
+					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
 				 // Flamme

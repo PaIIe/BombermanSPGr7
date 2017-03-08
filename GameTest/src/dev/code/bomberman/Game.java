@@ -27,6 +27,10 @@ public class Game implements Runnable {
 	
 	static Ranking ranking;
 	
+	// Logs
+	
+	static Logs logs;
+
 	//Input
 	
 	private KeyManager keyManager;
@@ -61,7 +65,7 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		keyManager = new KeyManager();		
+		keyManager = new KeyManager();	
 	}
 	
 	private void init(){
@@ -74,6 +78,10 @@ public class Game implements Runnable {
 		// Ranking
 		Ranking ranking = new Ranking();
 		Game.ranking = ranking;
+		
+		// Logs
+		Logs logs = new Logs();
+		Game.logs = logs;
 		
 		// Images einbinden
 		solidWall = ImageLoader.loadImage("/textures/wall_solid.png");

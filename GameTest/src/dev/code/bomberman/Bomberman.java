@@ -196,21 +196,25 @@ public class Bomberman extends GameObject{
 			{
 				bomb.setID(61);
 				bomb.counter();
+				Game.logs.BombLog(1 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 52 || this.getID() == 56)
 			{
 				bomb.setID(71);
 				bomb.counter();
+				Game.logs.BombLog(2 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 53 || this.getID() == 57)
 			{
 				bomb.setID(81);
 				bomb.counter();
+				Game.logs.BombLog(3 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 54 || this.getID() == 58)
 			{
 				bomb.setID(91);
 				bomb.counter();
+				Game.logs.BombLog(4 , this.getRow(), this.getColumn());
 			}
 			GameField.setObject(bomb, this.getRow(), this.getColumn());
 		}	

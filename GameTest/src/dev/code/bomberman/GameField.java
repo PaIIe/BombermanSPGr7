@@ -121,15 +121,15 @@ public class GameField
     {
     	int playerNumber = 4; // LÖSCHEN -- Server
     	Bomberman[] temp = new Bomberman[playerNumber]; // 2 <= playerNumber <= 4
-    	Bomberman player1 = new Bomberman(1, 3, 51); // Konstruktor mit Position oben links, ÄNDERN 1 und 3 --> vom Server kommend
+    	Bomberman player1 = new Bomberman(1, 1, 51); // Konstruktor mit Position oben links, ÄNDERN 1 und 3 --> vom Server kommend
     	player1.setStartPos(1, 1);
 		temp[0] = player1;
-		Bomberman player2 = new Bomberman(1, 3, 52); // Konstruktor mit Position unten links, ÄNDERN 1 und 3 --> vom Server kommend
+		Bomberman player2 = new Bomberman(1, 1, 52); // Konstruktor mit Position oben rechts, ÄNDERN 1 und 3 --> vom Server kommend
 		player2.setStartPos(1, (GameField.getWidth() - 2));
 		temp[1] = player2;
     	if (playerNumber >= 3)
     	{
-    		Bomberman player3 = new Bomberman(1, 3, 53); // Konstruktor mit Position oben rechts, ÄNDERN 1 und 3 --> vom Server kommend
+    		Bomberman player3 = new Bomberman(1, 3, 53); // Konstruktor mit Position unten links, ÄNDERN 1 und 3 --> vom Server kommend
     		player3.setStartPos((GameField.getWidth() -2), 1);
     		temp[2] = player3;
     	}

@@ -55,13 +55,20 @@ public class Game implements Runnable {
 	private BufferedImage redBombermanArmor;
 	private BufferedImage yellowBombermanArmor;
 	private BufferedImage greenBombermanArmor;
+	
+	// Timer
+	
+	private int minutes;
+	private int seconds;
 		
 	public Game(String title, int width, int height){
 		
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		keyManager = new KeyManager();		
+		keyManager = new KeyManager();	
+		this.minutes = 5; // Server!!!
+		this.seconds = 0;
 	}
 	
 	private void init(){
@@ -97,7 +104,7 @@ public class Game implements Runnable {
 	}
 	
 	int counterTicks = 0; // Tickzähler
-	int inputTicks = -40;	// Tickzahl bei Eingabebefehl
+	int inputTicks = -40;	// Tickzahl bei Eingabebefehl (damit erste Eingabe klappt -40)
 	
 	private void tick(){ // Update
 		int playerAlive = 0;
@@ -106,7 +113,7 @@ public class Game implements Runnable {
 			if (GameField.getPlayer(i).getAliveStatus() == true)
 				playerAlive++;
 		}
-		if (playerAlive <= 1) // oder Timer auf 0
+		if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
 			this.gameState = GameState.STATISTIC;
 		if (this.gameState == GameState.RUNNING)
 		{
@@ -252,20 +259,59 @@ public class Game implements Runnable {
 					g.drawImage(yellowBombermanArmor, GameField.getPlayer(4).getColumn() * 64, GameField.getPlayer(4).getRow() * 64, null);
 			}
 			
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect( GameField.getWidth() * 64 / 2 - 35, GameField.getWidth() * 64 + 10, 70, 40);
+			g.setColor(Color.white);
+			Font f = new Font("Dialog", Font.BOLD + Font.ROMAN_BASELINE, 25);
+			g.setFont(f);
+			g.drawString(String.valueOf(this.minutes), GameField.getWidth() * 64 / 2 - 25, GameField.getWidth() * 64 + 40);
+			g.drawString(String.valueOf(":"), GameField.getWidth() * 64 / 2 - 8, GameField.getWidth() * 64 + 40);
+			switch (this.seconds)
+			{
+				case 9: g.drawString(String.valueOf("09"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 8: g.drawString(String.valueOf("08"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 7: g.drawString(String.valueOf("07"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 6: g.drawString(String.valueOf("06"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 5: g.drawString(String.valueOf("05"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 4: g.drawString(String.valueOf("04"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 3: g.drawString(String.valueOf("03"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 2: g.drawString(String.valueOf("02"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 1: g.drawString(String.valueOf("01"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				case 0: g.drawString(String.valueOf("00"), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+				default: g.drawString(String.valueOf(this.seconds), GameField.getWidth() * 64 / 2, GameField.getWidth() * 64 + 40); break;
+			}
+				
 			// End draw
 		}
 		if (this.gameState == GameState.STATISTIC)
 		{
+			// Test
+			/*JFrame frame = new JFrame();
+		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		    Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
+		    Object columnNames[] = { "Column One", "Column Two", "Column Three" };
+		    JTable table = new JTable(rowData, columnNames);
+
+		    JScrollPane scrollPane = new JScrollPane(table);
+		    frame.add(scrollPane, BorderLayout.CENTER);
+		    frame.setSize(300, 150);
+		    frame.setVisible(true);/*
+
+			
+			
+			
 			// statistik
 			// Draw here
-			g.setColor(Color.white);
+			/*g.setColor(Color.white);
 			g.fillRect(0, 0, this.width, this.height);
 			g.setColor(Color.black);
 			Font f = new Font("Dialog", Font.ROMAN_BASELINE, 20);
 			g.setFont(f);
 			g.drawString("Statistik", 0, 50);
 			g.drawRect(0, 50, 60, 40);
-			g.drawString("Player", 10, 80);
+			g.drawString("Player", 10, 80);*/
 		}
 		bs.show();
 		g.dispose();
@@ -295,11 +341,29 @@ public class Game implements Runnable {
 			{
 				tick(); // update
 				render(); // zeichnen
+				
+				
+				
 				ticks++;
 				delta--;
 			}
+			
 			if (timer >= 1000000000){
 				//System.out.println("Ticks and Frames: " + ticks);
+				if (ticks == 20)
+				{
+					if (this.seconds == 0)
+					{
+						if (this.minutes > 0)
+						{
+							this.minutes--;
+							this.seconds = 59;
+						}	
+					}		
+					else
+						this.seconds--;
+				}
+				
 				ticks = 0;
 				timer = 0;
 			}

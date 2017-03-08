@@ -1,0 +1,5 @@
+INFO08 Mär 2017 14:35Bomb placed at X, Y by Player Z
+INFO08 Mär 2017 14:35Bomb placed at X, Y by Player Z
+INFO08 Mär 2017 14:35Bomb placed at X, Y by Player Z
+INFO08 Mär 2017 14:35Bomb placed at X, Y by Player Z
+INFO08 Mär 2017 14:35WALKING: Player Z moved From X, Y to Xnew, Ynew

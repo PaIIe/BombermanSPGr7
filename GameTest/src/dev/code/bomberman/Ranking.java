@@ -2,61 +2,73 @@ package dev.code.bomberman;
 
 public class Ranking {
 	
-	private int pointsPlayer1, destroyedWallsPlayer1, killedPlayersPlayer1, selfKillPlayer1, stepsPlayer1, placedBombsPlayer1;
-	private int pointsPlayer2, destroyedWallsPlayer2, killedPlayersPlayer2, selfKillPlayer2, stepsPlayer2, placedBombsPlayer2;
-	private int pointsPlayer3, destroyedWallsPlayer3, killedPlayersPlayer3, selfKillPlayer3, stepsPlayer3, placedBombsPlayer3;
-	private int pointsPlayer4, destroyedWallsPlayer4, killedPlayersPlayer4, selfKillPlayer4, stepsPlayer4, placedBombsPlayer4;
-
+	// (platz), (string name), Schritte, gelegte Bomben, Kills, zerstörte Mauern, Selbstkill, Last Man, ges, gesammelte Boni
+	/* 
+	 0: schritte
+	 1: gelegte Bombern
+	 2: kills
+	 3: mauern
+	 4: selbstkill
+	 5: last man
+	 6: boni
+	 7: ges
+	 */
+	
+	private int[] statsPlayer1;
+	private int[] statsPlayer2;
+	private int[] statsPlayer3;
+	private int[] statsPlayer4;
 	
 	public Ranking()
 	{
-		this.pointsPlayer1 = 0;
-		this.pointsPlayer2 = 0;
-		this.pointsPlayer3 = 0;
-		this.pointsPlayer4 = 0;
-		this.destroyedWallsPlayer1 = 0;
-		this.destroyedWallsPlayer2 = 0;
-		this.destroyedWallsPlayer3 = 0;
-		this.destroyedWallsPlayer4 = 0;
-		this.killedPlayersPlayer1 = 0;
-		this.killedPlayersPlayer2 = 0;
-		this.killedPlayersPlayer3 = 0;
-		this.killedPlayersPlayer4 = 0;
-		this.selfKillPlayer1 = 0;
-		this.selfKillPlayer2 = 0;
-		this.selfKillPlayer3 = 0;
-		this.selfKillPlayer4 = 0;
-		this.stepsPlayer1 = 0;
-		this.stepsPlayer2 = 0;
-		this.stepsPlayer3 = 0;
-		this.stepsPlayer4 = 0;
-		this.placedBombsPlayer1 = 0;
-		this.placedBombsPlayer2 = 0;
-		this.placedBombsPlayer3 = 0;
-		this.placedBombsPlayer4 = 0;
+		int temp[] = new int[8];
+		for (int i = 0; i < 8; i++)
+		{
+			temp[i] = 0;
+		}
+		this.statsPlayer1 = temp;
+		this.statsPlayer2 = temp;
+		this.statsPlayer3 = temp;
+		this.statsPlayer4 = temp;
 	}
 	
+	public void calculateRanking()
+	{
+		// Spieleranzahl
+		
+	}
+	public void updateBoni(int id)
+	{
+		if (id == 51 || id == 55) // Spieler 1
+			this.statsPlayer1[6]++; // aufgesammelte Boni + 1
+		if (id == 52 || id == 56) // Spieler 2
+			this.statsPlayer2[6]++;
+		if (id == 53 || id == 57) // Spieler 3
+			this.statsPlayer3[6]++;
+		if (id == 54 || id == 58) // Spieler 4
+			this.statsPlayer4[6]++;
+	}
 	public void updateWalls(int id)
 	{
 		if (id == 61 || id == 62 || id == 63)
 		{
-			this.increasePointsPlayer1(1);
-			this.destroyedWallsPlayer1();
+			this.statsPlayer1[7]++; // Gesamtpunkte + 1
+			this.statsPlayer1[3]++; // Mauern + 1
 		}		
 		if (id == 71 || id == 72 || id == 73)
 		{
-			this.increasePointsPlayer2(1);
-			this.destroyedWallsPlayer2();
+			this.statsPlayer2[7]++;
+			this.statsPlayer2[3]++;
 		}	
 		if (id == 81 || id == 82 || id == 83)
 		{
-			this.increasePointsPlayer3(1);
-			this.destroyedWallsPlayer3();
+			this.statsPlayer3[7]++;
+			this.statsPlayer3[3]++;
 		}	
 		if (id == 91 || id == 92 || id == 93)
 		{
-			this.increasePointsPlayer4(1);
-			this.destroyedWallsPlayer4();
+			this.statsPlayer4[7]++;
+			this.statsPlayer4[3]++;
 		}
 	}
 	
@@ -64,326 +76,186 @@ public class Ranking {
 	{
 		if (id == 61 || id == 62 || id == 63) // Bomben von Spieler1
 		{
-			if (playerNumber == 1)
+			if (playerNumber == 1) // Selbstkill
 			{
-				this.increasePointsPlayer1(-20);
-				this.selfKillPlayer1();
+				this.statsPlayer1[7] -= 20; // Gesamtpunkte - 20
+				this.statsPlayer1[4]++; // Selbstkill + 1
 			}
-			else
+			else // anderen Spieler getötet
 			{
-				this.increasePointsPlayer1(20);
-				this.killedPlayersPlayer1();
+				this.statsPlayer1[7] += 20; // Gesamtpunkte + 20
+				this.statsPlayer1[2]++; // Kills + 1
 			}
 		}		
 		if (id == 71 || id == 72 || id == 73) // Bomben von Spieler2
 		{
 			if (playerNumber == 2)
 			{
-				this.increasePointsPlayer2(-20);
-				this.selfKillPlayer2();
+				this.statsPlayer2[7] -= 20;
+				this.statsPlayer2[4]++;
 			}
 			else
 			{
-				this.increasePointsPlayer2(20);
-				this.killedPlayersPlayer2();
+				this.statsPlayer2[7] += 20;
+				this.statsPlayer2[2]++;
 			}
 		}	
 		if (id == 81 || id == 82 || id == 83) // Bomben Spieler3
 		{
 			if (playerNumber == 3)
 			{
-				this.increasePointsPlayer3(-20);
-				this.selfKillPlayer3();
+				this.statsPlayer3[7] -= 20;
+				this.statsPlayer3[4]++;
 			}
 			else
 			{
-				this.increasePointsPlayer3(20);
-				this.killedPlayersPlayer3();
+				this.statsPlayer3[7] += 20;
+				this.statsPlayer3[2]++;
 			}
 		}	
 		if (id == 91 || id == 92 || id == 93) // Bomben Spieler4
 		{
 			if (playerNumber == 4)
 			{
-				this.increasePointsPlayer4(-20);
-				this.selfKillPlayer4();
+				this.statsPlayer4[7] -= 20;
+				this.statsPlayer4[4]++;
 			}
 			else
 			{
-				this.increasePointsPlayer4(20);
-				this.killedPlayersPlayer4();
+				this.statsPlayer4[7] += 20;
+				this.statsPlayer4[2]++;
 			}
 		}
 	}
 	
 	void updateSteps(int id)
 	{
-		if (id == 51 || id == 55)
-			this.increaseStepsPlayer1();
-		if (id == 52 || id == 56)
-			this.increaseStepsPlayer2();
-		if (id == 53 || id == 57)
-			this.increaseStepsPlayer3();
-		if (id == 54 || id == 58)
-			this.increaseStepsPlayer4();
+		if (id == 51 || id == 55) // Spieler 1
+			this.statsPlayer1[0]++; // Schritte + 1
+		if (id == 52 || id == 56) // Spieler 2
+			this.statsPlayer2[0]++;
+		if (id == 53 || id == 57) // Spieler 3
+			this.statsPlayer3[0]++;
+		if (id == 54 || id == 58) // Spieler 4
+			this.statsPlayer4[0]++;
 	}
 	
 	void updateBombs(int id)
 	{
-		if (id == 51 || id == 55)
-			this.increaseBombsPlayer1();
-		if (id == 52 || id == 56)
-			this.increaseBombsPlayer2();
-		if (id == 53 || id == 57)
-			this.increaseBombsPlayer3();
-		if (id == 54 || id == 58)
-			this.increaseBombsPlayer4();
-	}
-	
-	// Bombe plaziert
-	public void increaseBombsPlayer1()
-	{
-		this.placedBombsPlayer1++;
-	}
-	
-	public void increaseBombsPlayer2()
-	{
-		this.placedBombsPlayer2++;
-	}
-	
-	public void increaseBombsPlayer3()
-	{
-		this.placedBombsPlayer3++;
-	}
-	
-	public void increaseBombsPlayer4()
-	{
-		this.placedBombsPlayer4++;
-	}
-	
-	// Punkte erhöhen
-	public void increasePointsPlayer1(int points)
-	{
-		this.pointsPlayer1 += points;
-	}
-	
-	public void increasePointsPlayer2(int points)
-	{
-		this.pointsPlayer2 += points;
-	}
-	
-	public void increasePointsPlayer3(int points)
-	{
-		this.pointsPlayer3 += points;
-	}
-	
-	public void increasePointsPlayer4(int points)
-	{
-		this.pointsPlayer4 += points;
-	}
-	
-	// zerstörte Mauern
-	public void destroyedWallsPlayer1()
-	{
-		this.destroyedWallsPlayer1++;
-	}
-	
-	public void destroyedWallsPlayer2()
-	{
-		this.destroyedWallsPlayer2++;
-	}
-	
-	public void destroyedWallsPlayer3()
-	{
-		this.destroyedWallsPlayer3++;
-	}
-	
-	public void destroyedWallsPlayer4()
-	{
-		this.destroyedWallsPlayer4++;
-	}
-	
-	// killed Players
-	public void killedPlayersPlayer1()
-	{
-		this.killedPlayersPlayer1++;
-	}
-	
-	public void killedPlayersPlayer2()
-	{
-		this.killedPlayersPlayer2++;
-	}
-	
-	public void killedPlayersPlayer3()
-	{
-		this.killedPlayersPlayer3++;
-	}
-	
-	public void killedPlayersPlayer4()
-	{
-		this.killedPlayersPlayer4++;
-	}
-	
-	// Selbstkill
-	public void selfKillPlayer1()
-	{
-		this.selfKillPlayer1++;
-	}
-	
-	public void selfKillPlayer2()
-	{
-		this.selfKillPlayer2++;
-	}
-	
-	public void selfKillPlayer3()
-	{
-		this.selfKillPlayer3++;
-	}
-	
-	public void selfKillPlayer4()
-	{
-		this.selfKillPlayer4++;
-	}
-	
-	// Schritte
-	public void increaseStepsPlayer1()
-	{
-		this.stepsPlayer1++;
-	}
-	
-	public void increaseStepsPlayer2()
-	{
-		this.stepsPlayer2++;
-	}
-	
-	public void increaseStepsPlayer3()
-	{
-		this.stepsPlayer3++;
-	}
-	
-	public void increaseStepsPlayer4()
-	{
-		this.stepsPlayer4++;
+		if (id == 51 || id == 55) // Spieler 1
+			this.statsPlayer1[1]++; // gelegte Bomber + 1
+		if (id == 52 || id == 56) // Spieler 2
+			this.statsPlayer2[1]++;
+		if (id == 53 || id == 57) // Spieler 3
+			this.statsPlayer3[1]++;
+		if (id == 54 || id == 58) // Spieler 4
+			this.statsPlayer4[1]++;
 	}
 	
 	// Getter
-	public int getPointsPlayer1()
+	public int getSteps(int player)
 	{
-		return this.pointsPlayer1;
+		if (player == 1)
+			return this.statsPlayer1[0];
+		if (player == 2)
+			return this.statsPlayer2[0];
+		if (player == 3)
+			return this.statsPlayer3[0];
+		if (player == 4)
+			return this.statsPlayer4[0];
+		return -1; // Fehler
 	}
 	
-	public int getPointsPlayer2()
+	public int getPlacedBombs(int player)
 	{
-		return this.pointsPlayer2;
+		if (player == 1)
+			return this.statsPlayer1[1];
+		if (player == 2)
+			return this.statsPlayer2[1];
+		if (player == 3)
+			return this.statsPlayer3[1];
+		if (player == 4)
+			return this.statsPlayer4[1];
+		return -1; // Fehler
 	}
 	
-	public int getPointsPlayer3()
+	public int getKills(int player)
 	{
-		return this.pointsPlayer3;
+		if (player == 1)
+			return this.statsPlayer1[2];
+		if (player == 2)
+			return this.statsPlayer2[2];
+		if (player == 3)
+			return this.statsPlayer3[2];
+		if (player == 4)
+			return this.statsPlayer4[2];
+		return -1; // Fehler
 	}
 	
-	public int getPointsPlayer4()
+	public int getDestroyedWalls(int player)
 	{
-		return this.pointsPlayer4;
+		if (player == 1)
+			return this.statsPlayer1[3];
+		if (player == 2)
+			return this.statsPlayer2[3];
+		if (player == 3)
+			return this.statsPlayer3[3];
+		if (player == 4)
+			return this.statsPlayer4[3];
+		return -1; // Fehler
 	}
 	
-	public String getDestroyedWallsPlayer1()
+	public int getSelfkill(int player)
 	{
-		return String.valueOf(this.destroyedWallsPlayer1);
+		if (player == 1)
+			return this.statsPlayer1[4];
+		if (player == 2)
+			return this.statsPlayer2[4];
+		if (player == 3)
+			return this.statsPlayer3[4];
+		if (player == 4)
+			return this.statsPlayer4[4];
+		return -1; // Fehler
 	}
 	
-	public int getDestroyedWallsPlayer2()
+	public int getLastMan(int player)
 	{
-		return this.destroyedWallsPlayer2;
+		if (player == 1)
+			return this.statsPlayer1[5];
+		if (player == 2)
+			return this.statsPlayer2[5];
+		if (player == 3)
+			return this.statsPlayer3[5];
+		if (player == 4)
+			return this.statsPlayer4[5];
+		return -1; // Fehler
 	}
 	
-	public int getDestroyedWallsPlayer3()
+	public int getCollectedBoni(int player)
 	{
-		return this.destroyedWallsPlayer3;
+		if (player == 1)
+			return this.statsPlayer1[6];
+		if (player == 2)
+			return this.statsPlayer2[6];
+		if (player == 3)
+			return this.statsPlayer3[6];
+		if (player == 4)
+			return this.statsPlayer4[6];
+		return -1; // Fehler
 	}
 	
-	public int getDestroyedWallsPlayer4()
+	public int getPoints(int player)
 	{
-		return this.destroyedWallsPlayer4;
-	}
-	
-	public int getKilledPlayersPlayer1()
-	{
-		return this.killedPlayersPlayer1;
-	}
-	
-	public int getKilledPlayersPlayer2()
-	{
-		return this.killedPlayersPlayer2;
-	}
-	
-	public int getKilledPlayersPlayer3()
-	{
-		return this.killedPlayersPlayer3;
-	}
-	
-	public int getKilledPlayersPlayer4()
-	{
-		return this.killedPlayersPlayer4;
-	}
-	
-	public int getSelfKillPlayer1()
-	{
-		return this.selfKillPlayer1;
-	}
-	
-	public int getSelfKillPlayer2()
-	{
-		return this.selfKillPlayer2;
-	}
-	
-	public int getSelfKillPlayer3()
-	{
-		return this.selfKillPlayer3;
-	}
-	
-	public int getSelfKillPlayer4()
-	{
-		return this.selfKillPlayer4;
-	}
-	
-	public int getStepsPlayer1()
-	{
-		return this.stepsPlayer1;
-	}
-	
-	public int getStepsPlayer2()
-	{
-		return this.stepsPlayer2;
-	}
-	
-	public int getStepsPlayer3()
-	{
-		return this.stepsPlayer3;
-	}
-	
-	public int getStepsPlayer4()
-	{
-		return this.stepsPlayer4;
-	}
-	
-	public int getPlacedBombsPlayer1()
-	{
-		return this.placedBombsPlayer1;
-	}
-	
-	public int getPlacedBombsPlayer2()
-	{
-		return this.placedBombsPlayer2;
-	}
-	
-	public int getPlacedBombsPlayer3()
-	{
-		return this.placedBombsPlayer3;
-	}
-	
-	public int getPlacedBombsPlayer4()
-	{
-		return this.placedBombsPlayer4;
+		if (player == 1)
+			return this.statsPlayer1[7];
+		if (player == 2)
+			return this.statsPlayer2[7];
+		if (player == 3)
+			return this.statsPlayer3[7];
+		if (player == 4)
+			return this.statsPlayer4[7];
+		return -1; // Fehler -- schlecht...
 	}
 }
+	
+	

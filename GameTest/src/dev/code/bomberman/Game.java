@@ -115,9 +115,20 @@ public class Game implements Runnable {
 		}
 		if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
 			this.gameState = GameState.STATISTIC;
+		
+		if (GameField.getPlayer(1).getID() == 55)
+			GameField.getPlayer(1).counterArmor();
+		if (GameField.getPlayer(2).getID() == 56)
+			GameField.getPlayer(3).counterArmor();
+		if (GameField.getPlayer(3).getID() == 57)
+			GameField.getPlayer(3).counterArmor();
+		if (GameField.getPlayer(4).getID() == 58)
+			GameField.getPlayer(4).counterArmor();
+		
 		if (this.gameState == GameState.RUNNING)
 		{
 			// PERFORMANZ???????????????????????????
+			
 			for (int i = 0; i < GameField.getWidth(); i++)	// iterieren über GameField Matrix 
 			{
 				for (int j = 0; j < GameField.getWidth(); j++)

@@ -33,6 +33,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setRow(this.getRow() - 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -72,6 +73,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setColumn(this.getColumn() + 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -111,6 +113,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setRow(this.getRow() + 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -150,6 +153,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setColumn(this.getColumn() - 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -228,11 +232,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // auﬂerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(1);
 		}
 		if (this.getArmor() == true && this.getID() == 55)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(1);
 		}
 		
 		// Player 2
@@ -241,11 +247,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // auﬂerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(2);
 		}
 		if (this.getArmor() == true && this.getID() == 56)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(2);
 		}
 		
 		// Player 3
@@ -254,11 +262,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // auﬂerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(3);
 		}
 		if (this.getArmor() == true && this.getID() == 57)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(3);
 		}
 		
 		// Player 4
@@ -267,11 +277,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // auﬂerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(4);
 		}
 		if (this.getArmor() == true && this.getID() == 58)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(4);
 		}
 	}
 	

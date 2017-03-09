@@ -64,6 +64,7 @@ public class Bomb extends GameObject
 	public void explode()
 	{
 		this.generateFlames();
+		Game.logs.ExplodeLog(this.getRow(), this.getColumn());
 		/*playerCheck(this.getRow(), this.getColumn());
 		this.generateFlames(this.getRow(), this.getColumn());
 		
@@ -362,6 +363,7 @@ public class Bomb extends GameObject
 		wall.dropBoni(row, column);
 		// Ranking zerstörte Mauern
 		Game.ranking.updateWalls(this.getID());	
+		Game.logs.DestroyedWallLog(row, column);
 	}
 	public void setexplosionTime(int time)
 	{

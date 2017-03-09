@@ -44,13 +44,44 @@ public class Logs {
 		});
 		root.addHandler(txt);
 	}
-	public void BombLog(int player, int xpos, int ypos)
+	public void BombLog(int player, int xpos, int ypos)//included
 	{
 		log.info("	Player "+ player +" placed a bomb at pos " + xpos + ", " + ypos);
 	}
+	
 	public void MoveLog(int player, int xpos, int ypos)
 	{
+		player=player-50;
+		if(player>4)
+			player=player-4;
 		log.info("	Player "+ player +" moved to " + xpos + ", " + ypos);
 	}
+	
+	public void DiedLog(int player)//included
+	{
+		log.info("	Player " + player + " died");
+	}
+	
+	public void LostArmorLog(int player)//included
+	{
+		log.info("	Player " + player + " lost his Armor");
+	}
+
+	public void ExplodeLog(int xpos, int ypos)//included
+	{
+		log.info("	Bomb exploded at pos " + xpos + ", " + ypos);
+	}
+	
+	public void DestroyedWallLog(int xpos, int ypos)//included
+	{
+		log.info("	Wall destroyed at " + xpos + ", " + ypos);
+	}
+	
+	public void PowerUpLog(int player, String bonus)//included
+	{
+		log.info("	Player " + player + " got " + bonus + " PowerUp" );
+	}
+
+
 
 }

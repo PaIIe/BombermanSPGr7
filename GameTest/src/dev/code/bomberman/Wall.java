@@ -26,6 +26,7 @@ public class Wall extends GameObject
 
 	public void dropBoni(int row, int column)
 	{
+		
 		Random rand = new Random();
 		int randomNumber = rand.nextInt(40);
 		if (randomNumber >= 0 && randomNumber <= 9)			// kein Bonus

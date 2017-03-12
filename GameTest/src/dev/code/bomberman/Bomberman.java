@@ -6,10 +6,17 @@ public class Bomberman extends GameObject{
 	private int armorTimer;
 	private int maxBomb;
 	private int radiusBomb;
-	private int placedBombs = 0;
+	private int placedBombs;
 	private boolean armor;
 	private boolean alive;
 	
+	/**
+	 * Der Konstruktor für die Spieler.
+	 * 
+	 * @param maxBomb maximale Bomben, die der Spieler legen kann
+	 * @param radiusBomb Radius der Bombenexplosion
+	 * @param id ID des Spielers
+	 */
 	public Bomberman(int maxBomb, int radiusBomb, int id)
 	{
 		this.setMaxBomb(maxBomb);
@@ -18,14 +25,27 @@ public class Bomberman extends GameObject{
 		this.setAliveStatus(true);
 		this.setSolid(false);
 		this.setID(id);
+		this.placedBombs = 0;
 	}
 	
+	/**
+	 * Startposition der Spieler festlegen
+	 * 
+	 * @param row Zeile der Spielerposition
+	 * @param column Spalte der Spielerposition
+	 */
 	public void setStartPos(int row, int column)
 	{
 		this.setRow(row);
 		this.setColumn(column);
 	}
 	
+	/**
+	 * In dieser Funktion wird die Bewegung der Spieler nach einer bestimmten Einhabe bearbeitet. Dabei wird für alle Richtungen getestet, ob das Spielfeld begehbar ist (keine Mauer),
+	 * ob Boni zu finden sind oder ob eine Flamme einer Bombenexplosion dort ist.
+	 * 
+	 * @param direction Enumeration, die die 4 Himmelsrichtungen (NORTH, SOUTH, EAST, WEST) enthält, für die entsprechedne Bewegung des Spielers
+	 */
 	public void walk(Direction direction)
 	{
 		if (direction == Direction.NORTH)
@@ -34,6 +54,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setRow(this.getRow() - 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -76,6 +97,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setColumn(this.getColumn() + 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -118,6 +140,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setRow(this.getRow() + 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -160,6 +183,7 @@ public class Bomberman extends GameObject{
 			{
 				this.setColumn(this.getColumn() - 1);
 				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 21)
 				{
@@ -198,6 +222,10 @@ public class Bomberman extends GameObject{
 		}
 	}
 	
+	/**
+	 * Diese Funktion dient dem Platzieren der Bomben für die Spieler, dabei wird geschaut, ob der Spieler eine Bombe legen kann (platzierte Bomben < maximale Bomben).
+	 * Danach wird die Bombe mit den entsprechenden Attributen erstellt und der Counter initialisiert.
+	 */
 	public void placeBomb()
 	{
 		if (this.getPlacedBombs() < this.getMaxBombs() && GameField.getObject(this.getRow(), this.getColumn()).getID() == 0)
@@ -209,26 +237,34 @@ public class Bomberman extends GameObject{
 			{
 				bomb.setID(61);
 				bomb.counter();
+				Game.logs.BombLog(1 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 52 || this.getID() == 56)
 			{
 				bomb.setID(71);
 				bomb.counter();
+				Game.logs.BombLog(2 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 53 || this.getID() == 57)
 			{
 				bomb.setID(81);
 				bomb.counter();
+				Game.logs.BombLog(3 , this.getRow(), this.getColumn());
 			}
 			if (this.getID() == 54 || this.getID() == 58)
 			{
 				bomb.setID(91);
 				bomb.counter();
+				Game.logs.BombLog(4 , this.getRow(), this.getColumn());
 			}
 			GameField.setObject(bomb, this.getRow(), this.getColumn());
 		}	
 	}
 	
+	/**
+	 * Diese Funktion wird aufgerufen, wenn ein Spieler von einer Explosion getroffen wurde.
+	 * Dabei wird auf eine mögliche Rüstung getestet, wenn diese nicht vorhanden ist, stribt der Spieler.
+	 */
 	public void gotHit()
 	{
 		// Player 1
@@ -237,11 +273,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // außerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(1);
 		}
 		if (this.getArmor() == true && this.getID() == 55)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(1);
 		}
 		
 		// Player 2
@@ -250,11 +288,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // außerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(2);
 		}
 		if (this.getArmor() == true && this.getID() == 56)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(2);
 		}
 		
 		// Player 3
@@ -263,11 +303,13 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // außerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(3);
 		}
 		if (this.getArmor() == true && this.getID() == 57)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(3);
 		}
 		
 		// Player 4
@@ -276,14 +318,19 @@ public class Bomberman extends GameObject{
 			this.setAliveStatus(false);
 			this.setRow(-1); // außerhalb der Matrix
 			this.setColumn(-1);
+			Game.logs.DiedLog(4);
 		}
 		if (this.getArmor() == true && this.getID() == 58)
 		{
 			this.setArmor(false);
 			this.setID(51);
+			Game.logs.LostArmorLog(4);
 		}
 	}
 	
+	/**
+	 * Rüstung laufen nach einer gewissen Zeit ab. Dafür ist diese Funktion zuständig.
+	 */
 	public void counterArmor() 
 	{
 		this.armorTimer--;
@@ -372,7 +419,6 @@ public class Bomberman extends GameObject{
 	{
 		this.alive = value;
 	}
-	
 	
 	public void increasePlacedBombs()
 	{

@@ -24,8 +24,15 @@ public class Wall extends GameObject
 		this.isDestroyable = destroyable;
 	}
 
+	/**
+	 * dropt Boni entsprechend eines Zufallsautomaten
+	 * 
+	 * @param row Zeile, wo Boni gelegt werden soll
+	 * @param column Splate, wo Boni gelegt werden soll
+	 */
 	public void dropBoni(int row, int column)
 	{
+		
 		Random rand = new Random();
 		int randomNumber = rand.nextInt(40);
 		if (randomNumber >= 0 && randomNumber <= 9)			// kein Bonus
@@ -49,9 +56,14 @@ public class Wall extends GameObject
 			GameField.setObject(boni, row, column);
 		}
 	}
+	
 	public void setDestroyable(boolean x)
 	{
 		this.isDestroyable = x;
 	}
-
+	
+	public boolean getDestryoable()
+	{
+		return this.isDestroyable;
+	}
 }

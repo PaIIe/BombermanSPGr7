@@ -19,6 +19,9 @@ public class Ranking {
 	private int[] statsPlayer3;
 	private int[] statsPlayer4;
 	
+	/**
+	 * Konstruktor: alles Werte mit 0 initialisiert
+	 */
 	public Ranking()
 	{
 		int temp[] = new int[8];
@@ -37,6 +40,12 @@ public class Ranking {
 		// Spieleranzahl
 		
 	}
+	
+	/**
+	 * Erhöht gesammelte Bonianzahl
+	 * 
+	 * @param id ID des Spielers, der Bonus aufgesammelt hab
+	 */
 	public void updateBoni(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
@@ -48,6 +57,12 @@ public class Ranking {
 		if (id == 54 || id == 58) // Spieler 4
 			this.statsPlayer4[6]++;
 	}
+	
+	/**
+	 * Erhöht Anzahl der zerstörten Mauern und erhöht Gesamtpunktanzahl
+	 * 
+	 * @param id ID der Bombe
+	 */
 	public void updateWalls(int id)
 	{
 		if (id == 61 || id == 62 || id == 63)
@@ -72,6 +87,12 @@ public class Ranking {
 		}
 	}
 	
+	/**
+	 * Erhöht Killanzahl bzw. Selbstkillanzahl und Gesamtpunkte
+	 * 
+	 * @param id ID er Bombe
+	 * @param playerNumber Spielernummer, der von Bombe getroffen wurde
+	 */
 	public void updateKill(int id, int playerNumber)
 	{
 		if (id == 61 || id == 62 || id == 63) // Bomben von Spieler1
@@ -128,6 +149,11 @@ public class Ranking {
 		}
 	}
 	
+	/**
+	 * Erhöht gelaufene Schritte
+	 * 
+	 * @param id Spieler ID
+	 */
 	void updateSteps(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
@@ -140,6 +166,11 @@ public class Ranking {
 			this.statsPlayer4[0]++;
 	}
 	
+	/**
+	 * Erhöhr gelegte Bomben
+	 * 
+	 * @param id Spieler ID
+	 */
 	void updateBombs(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
@@ -153,6 +184,12 @@ public class Ranking {
 	}
 	
 	// Getter
+	/**
+	 * gibt gelaufene Schritte zurück 
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer gelaufene Schritte
+	 */
 	public int getSteps(int player)
 	{
 		if (player == 1)
@@ -166,6 +203,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt gelegte Bomben zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer gelegte Bomben
+	 */
 	public int getPlacedBombs(int player)
 	{
 		if (player == 1)
@@ -179,6 +222,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt Anzahl Kills zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer Anzahl Kills
+	 */
 	public int getKills(int player)
 	{
 		if (player == 1)
@@ -192,6 +241,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt Anzahl zerstörter Mauern zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer Anzahl zerstörter Mauern
+	 */
 	public int getDestroyedWalls(int player)
 	{
 		if (player == 1)
@@ -205,6 +260,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt Anzahl Selbstkills zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer Anzahl Selbstkills
+	 */
 	public int getSelfkill(int player)
 	{
 		if (player == 1)
@@ -218,6 +279,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt zurück wer Last Man Standing war
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer 1 == Last Man, 0 == nicht Last Man
+	 */
 	public int getLastMan(int player)
 	{
 		if (player == 1)
@@ -231,6 +298,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt Anzahl gesammelter Boni zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer Anzahl aufgesammelter Boni
+	 */
 	public int getCollectedBoni(int player)
 	{
 		if (player == 1)
@@ -244,6 +317,12 @@ public class Ranking {
 		return -1; // Fehler
 	}
 	
+	/**
+	 * gibt Gesamtpunkte des Spielers zurück
+	 * 
+	 * @param player Spielernummer (1 == Spieler 1, usw.)
+	 * @return Integer Gesamtpunkte
+	 */
 	public int getPoints(int player)
 	{
 		if (player == 1)

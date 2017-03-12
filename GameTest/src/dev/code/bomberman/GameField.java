@@ -3,17 +3,26 @@ import dev.code.bomberman.GameObject;
 
 public class GameField 
 {
-	private static int width;		// Spielfeld quadratisch
-	private static GameObject[][] GameObejctsMatrix;
-	private static Bomberman[] PlayerMatrix;
+	private static int width; // Spielfeld quadratisch
+	private static GameObject[][] GameObejctsMatrix; // Objektmatrix
+	private static Bomberman[] PlayerMatrix; // Spielermatrix
 	
+	/**
+	 * Konstruktor für das Spielfeld. Ruft dann gleich zwei Methoden auf, die die beiden Spielmatrizen initialisieren.
+	 * 
+	 * @param width Breite des Spielfelds (Spielfeld is quadratisch)
+	 */
 	public GameField(int width)
 	{
 		GameField.width = width;
 		this.generateObjectMatrix();
 		this.generatePlayerMatrix();
 	}
-	   
+	
+	/**
+	 * Diese Funktion generiert die Matrix mit den Objekten (ohne Spieler). Um das Spielfeld kommt ein "Ring" mit unzerstörbaren Mauern, in den Ecken, wo die Spieler starten, drei freie Felder
+	 *(EmptyField) und schließlich ein Schachbrettmuster aus abwechselnd zerstörbaren und unzerstörbaren Mauern.
+	 */
     public void generateObjectMatrix() // Objekte erstellen und in Objektmatrix einfügen
 	{
 		GameObject[][] temp = new GameObject[getWidth()][getWidth()];
@@ -117,6 +126,9 @@ public class GameField
 		GameObejctsMatrix = temp;
 	}
     
+    /**
+     * Hier wird die Spielermatrix erstellt: ein Array enstprechend der verbundenen Spieler (zwischen 2 und 4) und Spielerobjekte mit Attributen initialisiert.
+     */
     public void generatePlayerMatrix()
     {
     	int playerNumber = 4; // LÖSCHEN -- Server
@@ -143,29 +155,57 @@ public class GameField
     }
     
     // Setter
-    
+    /**
+     * Ein Objekt in die Objektmatrix einsetzen.
+     * 
+     * @param object Das Objekt, dass in die Matrix soll.
+     * @param row Zeile des gewünschten Platzes
+     * @param column Spalte des gewünschten Platzes
+     */
     public static void setObject(GameObject object, int row, int column)
 	{
 		GameObejctsMatrix[row][column] = object;
 	}
     
+    /**
+     * 
+     * @param playerNumber
+     * @param player
+     */
     public static void setPlayer(int playerNumber, Bomberman player)
     {
     	PlayerMatrix[playerNumber - 1] = player;
     }
     
     // Getter
- 
+    /**
+     * Gibt die Breite des Spielfeldes zurück.
+     * 
+     * @return Integer Breite des Spielfeldes
+     */
     public static int getWidth() 
     {
 		return width;
 	}
     
+    /**
+     * Gibt ein Objekt (vom Typ GameObjekt) der Objektmatrix an der übergebenen Position zurück.
+     * 
+     * @param row Zeile des gewünschten Objekts
+     * @param column Spalte des gewüschnten Onjekts
+     * @return Objekt der Matrix vom Typ GameObjekt
+     */
     public static GameObject getObject(int row, int column)
 	{
 		return GameObejctsMatrix[row][column];
 	}
     
+    /**
+     * Gibt ein Spielerobejkt aus der Playermatrix zurück.
+     * 
+     * @param playerNumber Spielernummer des Spielers ACHTUNG: Spieler 1 == 1, Spieler 2 == 2, usw.!!!!!!!
+     * @return Spielerobjekt vom Typ Bomberman
+     */
     public static Bomberman getPlayer(int playerNumber)
     {
     	return PlayerMatrix[playerNumber - 1];

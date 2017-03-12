@@ -15,7 +15,10 @@ public class Flame extends GameObject{
 	
 	public Flame() {
 	}
-
+	
+	/**
+	 * Auch hier wieder die Counter-Funktion, damit die Flammen nach der Explosion eine bestimmte Zeit bleiben.
+	 */
 	public void counter()
 	{
 		this.time--;

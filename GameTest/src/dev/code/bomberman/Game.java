@@ -27,6 +27,10 @@ public class Game implements Runnable {
 	
 	static Ranking ranking;
 	
+	// Logs
+	
+	static Logs logs;
+
 	//Input
 	
 	private KeyManager keyManager;
@@ -60,17 +64,31 @@ public class Game implements Runnable {
 	
 	private int minutes;
 	private int seconds;
-		
+	
+	/**
+	 * Konstruktor für unser Spiel
+	 * 
+	 * @param title Title des Spiels, der oben links angezeigt wird
+	 * @param width Breite des Spielfensters
+	 * @param height Höhe des Spielfensters
+	 */
 	public Game(String title, int width, int height){
 		
 		this.width = width;
 		this.height = height;
 		this.title = title;
 		keyManager = new KeyManager();	
+
 		this.minutes = 5; // Server!!!
 		this.seconds = 0;
+
 	}
 	
+	/**
+	 * Die Init-Funkion des Spiels wird einmal vor dem Start des Games asugeführt
+	 * und initialisiert das Spielfeld, den Display, den KeyListener, das Ranking, den Log und schließlich die Images
+	 * für die grafische Darstellung. 
+	 */
 	private void init(){
 		new GameField(11);
 		display = new Display(title, width, height);
@@ -81,6 +99,10 @@ public class Game implements Runnable {
 		// Ranking
 		Ranking ranking = new Ranking();
 		Game.ranking = ranking;
+		
+		// Logs
+		Logs logs = new Logs();
+		Game.logs = logs;
 		
 		// Images einbinden
 		solidWall = ImageLoader.loadImage("/textures/wall_solid.png");
@@ -106,6 +128,12 @@ public class Game implements Runnable {
 	int counterTicks = 0; // Tickzähler
 	int inputTicks = -40;	// Tickzahl bei Eingabebefehl (damit erste Eingabe klappt -40)
 	
+	/**
+	 * Die tick-Funktion wird jeden GameLoop ausgeführt (bei uns also 20 mal pro Sekunde).
+	 * Hier werden alle Objekte im Spiel, die mit Zeit in Verbindung stehen (also z.B. einen Counter haben) aktualisiert.
+	 * Dazu zählen Rüstungen, Bomben und Flammen. Außerdem werden hier noch die Eingaben der Spieler bearbeitet und 
+	 * entsprechend der Einschränkungen (1 Befehl aller 5 Ticks) betrachtet.
+	 */
 	private void tick(){ // Update
 		int playerAlive = 0;
 		for (int i = 1; i <= 4; i++)
@@ -184,6 +212,10 @@ public class Game implements Runnable {
 		}
 	}
 	
+	/**
+	 * Die render-Funktion ist für das Zeichnen des Spielfeldes verantwortlich. Hier werden die Images auf Grundlage der IDs in der Objekt- bzw. Spielermatrix 
+	 * entsprechend ihrer Position gezeichnet.
+	 */
 	private void render(){	// Zeichnen
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null){
@@ -329,6 +361,10 @@ public class Game implements Runnable {
 		
 	}
 	
+	/**
+	 * Der Kern des Spiels. Hier werden die init-, tick- und render-Funktionen aufgerufen.
+	 * Ebenfalls ist der globale GameTimer hier enthalten.
+	 */
 	public void run(){
 		
 		init();
@@ -361,7 +397,7 @@ public class Game implements Runnable {
 			
 			if (timer >= 1000000000){
 				//System.out.println("Ticks and Frames: " + ticks);
-				if (ticks == 20)
+				if (ticks == 20) // volle Sekunde, GameTimer wird aktualisiert
 				{
 					if (this.seconds == 0)
 					{

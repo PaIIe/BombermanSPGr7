@@ -7,14 +7,21 @@ public class Bomb extends GameObject
 	private int explosionTime;
 	private int countdownTime;
 	
-	
-	public Bomb(int r, int c, int time, int radius)
+	/**
+	 * Konstruktor f¸r die Bomben der Spieler.
+	 * 
+	 * @param row Reihe in der Matrix
+	 * @param column Spalte in der Matrix
+	 * @param time Zeit, wie lange die Bombe bis zur Explosion tickt
+	 * @param radius Radius der Bombenexplosion
+	 */
+	public Bomb(int row, int column, int time, int radius)
 	{
 		this.explosionRadius=radius;	
 		this.explosionTime=time * 20; // 20 Ticks pro Sekunde
 		this.countdownTime = this.explosionTime;
-		this.setRow(r);
-		this.setColumn(c);
+		this.setRow(row);
+		this.setColumn(column);
 		this.setSolid(true);
 	}
 	public Bomb() 
@@ -22,10 +29,14 @@ public class Bomb extends GameObject
 
 	}
 	
+	/**
+	 * Diese Funktion z‰hlt den Bombentimer runter und ‰ndert entsprechend der vergangenen Zeit (nach 2/3 und 1/3 der Zeit)
+	 * das Bild der Bombe, so dass eine Art kleine Animation entsteht. Ist der Timer auf 0, so wird die Bombe zum explodieren gebracht.
+	 */
 	public void counter()
 	{
 		this.countdownTime--;
-		if (this.countdownTime == (this.explosionTime * 2 / 3))
+		if (this.countdownTime == (this.explosionTime * 2 / 3)) // nach 2/3 der Zeit ID ‰ndern --> neues Bild
 		{
 			if (this.getID() == 61)
 				this.setID(62);
@@ -36,7 +47,7 @@ public class Bomb extends GameObject
 			if (this.getID() == 91)
 				this.setID(92);
 		}
-		if (this.countdownTime == (this.explosionTime * 1 / 3))
+		if (this.countdownTime == (this.explosionTime * 1 / 3)) // nach 1/3 der Zeit ID ‰ndern --> neues Bild
 		{
 			if (this.getID() == 62)
 				this.setID(63);
@@ -49,21 +60,23 @@ public class Bomb extends GameObject
 		}
 		if(this.countdownTime == 0)
 		{
-			if (this.getID() == 61 || this.getID() == 62 || this.getID() == 63)
-				GameField.getPlayer(1).decreasePlacedBombs();
-			if (this.getID() == 71 || this.getID() == 72 || this.getID() == 73)
+			if (this.getID() == 61 || this.getID() == 62 || this.getID() == 63) // Spieler 1
+				GameField.getPlayer(1).decreasePlacedBombs(); // wenn Bombe explodiert, kann der entsprechende Spieler wiede eine weitere Bombe legen
+			if (this.getID() == 71 || this.getID() == 72 || this.getID() == 73) // Spieler 2
 				GameField.getPlayer(2).decreasePlacedBombs();
-			if (this.getID() == 81 || this.getID() == 82 || this.getID() == 83)
+			if (this.getID() == 81 || this.getID() == 82 || this.getID() == 83) // Spieler 3
 				GameField.getPlayer(3).decreasePlacedBombs();
-			if (this.getID() == 91 || this.getID() == 92 || this.getID() == 93)
+			if (this.getID() == 91 || this.getID() == 92 || this.getID() == 93) // Spieler 4
 				GameField.getPlayer(4).decreasePlacedBombs();
 			explode();
 		}
 			
 	}
+	
 	public void explode()
 	{
 		this.generateFlames();
+		Game.logs.ExplodeLog(this.getRow(), this.getColumn());
 		/*playerCheck(this.getRow(), this.getColumn());
 		this.generateFlames(this.getRow(), this.getColumn());
 		
@@ -73,6 +86,11 @@ public class Bomb extends GameObject
 				this.destroyWall(this.row, this.column);
 		}*/
 	}
+	
+	/**
+	 * Diese Funktion erzeugt den Explosionsradius der Bombe und die FLammen entpsrechend.
+	 * Auﬂerdem wird hier getestet, welche Objekte sich im Explosionsradius der Bombe befinden (z.B. Spieler, Mauern, Bomben, etc..)
+	 */
 	public void generateFlames()
 	{
 		Flame flames = new Flame(this.getRow(), this.getColumn());
@@ -99,7 +117,7 @@ public class Bomb extends GameObject
 			 GameField.getPlayer(4).gotHit();
 			 Game.ranking.updateKill(this.getID(), 4);
 		 }
-		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach oben
+		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach NORDEN
 		{
 			 if (this.getRow() - i >= 0) // Spielfeldgrenze beachten
 			 {
@@ -163,7 +181,7 @@ public class Bomb extends GameObject
 				 GameField.setObject(flame, this.getRow() - i, this.getColumn());
 			 }
 		}
-		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach links
+		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach WESTEN
 		{
 			 if (this.getColumn() - i >= 0) // Spielfeldgrenze beachten
 			 {
@@ -226,7 +244,7 @@ public class Bomb extends GameObject
 				 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
 			 }
 		}
-		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach unten
+		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach S‹DEN
 		{
 			 if (this.getRow() + i < GameField.getWidth()) // Grenzen
 			 {
@@ -290,7 +308,7 @@ public class Bomb extends GameObject
 				 GameField.setObject(flame, this.getRow() + i, this.getColumn());
 			 }
 		}
-		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach rechts
+		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach OSTEN
 		{
 			 if (this.getColumn() + i < GameField.getWidth()) // Grenzen
 			 {
@@ -355,6 +373,12 @@ public class Bomb extends GameObject
 			 }
 		}
 	}
+	
+	/**
+	 * Diese Funktion k¸mmert sich um das Zerstˆren der Mauern, sobald eine im Explosionsradius gefunden wurde und ruft eine Funktion auf, die sich um den Bonus k¸mmert.
+	 * @param row Zeile der Mauer, die zerstˆrt werden soll
+	 * @param column Spalte der Mauer, die zerstˆrt werden soll
+	 */
 	public void destroyWall(int row, int column)
 	{
 		Wall wall = new Wall();
@@ -362,19 +386,24 @@ public class Bomb extends GameObject
 		wall.dropBoni(row, column);
 		// Ranking zerstˆrte Mauern
 		Game.ranking.updateWalls(this.getID());	
+		Game.logs.DestroyedWallLog(row, column);
 	}
+	
 	public void setexplosionTime(int time)
 	{
 		this.explosionTime=time * 20; // 20 Ticks pro Sekunde
 	}
+	
 	public void setexplosionRadius(int radius)
 	{
 		 // wahrscheinlich unnˆtig weil radius wird nie ge‰ndert
 	}
+	
 	public int getexplosionTime()
 	{
 		return this.explosionTime;
 	}
+	
 	public int getexplosionRadius()
 	{
 		return this.explosionRadius;

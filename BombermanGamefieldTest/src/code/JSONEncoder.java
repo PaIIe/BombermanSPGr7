@@ -1,9 +1,9 @@
-package menu_test;
+package code;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class JSONConverter {
+public class JSONEncoder {
 
 	public void gameObjectsMatrixToJson() {
 		
@@ -20,7 +20,6 @@ public class JSONConverter {
 				
 				array.put(tempObj);
 			}
-
 		}
 	}
 }

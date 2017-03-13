@@ -93,16 +93,16 @@ public class JsonEncoderDecoder {
 	}
 	
 	public static String decodeJsonToString(JSONObject encodedMsg){
-		String msg = null;
-		try {
-			msg = encodedMsg.getString("Message");
-			msg = msg + " " + encodedMsg.getInt("Size");
-			//encodedMsg.remove("Message");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return msg;
-	}
-	
+      String msg = null;
+      try {
+          msg = encodedMsg.getString("command");
+          msg = msg + " " + encodedMsg.getString("content");
+          //encodedMsg.remove("Message");
+      } catch (JSONException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+      }
+      return msg;
+    }
+  	
 }

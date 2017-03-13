@@ -7,11 +7,22 @@ import org.json.*;
 
 public class JsonEncoderDecoder {
 	
-	//neu um Liste von Aenderungen in JSONObject umzuwandeln
-	static JSONObject encodeFromStringToJson(String msg){	//msg z.B. Richtung in die sich BM bewegen soll
+	/**
+	 * Nimmt einen command und die enthaltene Nachricht und wandelt diese in ein JSONObject um der Struktur {"command":"","content":""}
+	 * @param command
+	 * @param msg
+	 * @return JsonObject {"command":"","content":""}
+	 */
+	public static JSONObject clientToServerJson(String command, String msg){	//msg z.B. Richtung in die sich BM bewegen soll
 		JSONObject encodedMsg = new JSONObject();
+		
 		try {
-			encodedMsg.put("command", msg);	//Laenge beim senden ueber "msg.toStrin().length()" + und "\n" ist schon drin
+			encodedMsg.put("command", command);	//Laenge beim senden ueber "msg.toStrin().length()" + und "\n" ist schon drin
+			encodedMsg.put("content", msg);
+			System.out.println(encodedMsg.toString());
+		
+		
+		
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,18 +96,22 @@ public class JsonEncoderDecoder {
 		}
 		return encodedMsg;
 	}
-	
+	/**
+	 * Nimmt ein JSONObject und Wandelt dessen Struktur command: und content: zu Strings um
+	 * @param encodedMsg
+	 * @return Gesamtes JSONObject als String
+	 */
 	public static String decodeJsonToString(JSONObject encodedMsg){
-		String msg = null;
-		try {
-			msg = encodedMsg.getString("Message");
-			msg = msg + " " + encodedMsg.getInt("Size");
-			//encodedMsg.remove("Message");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return msg;
-	}
-	
+      String msg = null;
+      try {
+          msg = encodedMsg.getString("command");
+          msg = msg + " " + encodedMsg.getString("content");
+          //encodedMsg.remove("Message");
+      } catch (JSONException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+      }
+      return msg;
+    }
+  	
 }

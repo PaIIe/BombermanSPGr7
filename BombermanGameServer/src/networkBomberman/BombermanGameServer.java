@@ -25,6 +25,7 @@ public class BombermanGameServer extends Thread {
 	static int clientID = 1;
 	
 	static boolean gameOver = false;
+	static boolean gameStart = true;
 	
 	static LinkedList<String> msgQueue = null;
 	static ArrayList<OutputStreamWriter> writer_list = null;
@@ -39,7 +40,7 @@ public class BombermanGameServer extends Thread {
 		listenForClients();
 		startTickTimer();
 		while(gameOver == false){
-			sendToAllClients();
+			recieveClientMessage();
 		}
 		closeBombermanGameServer();
 	}
@@ -49,25 +50,38 @@ public class BombermanGameServer extends Thread {
 		TickTimer tickTimer = new TickTimer();
 		timer.scheduleAtFixedRate(tickTimer, delay, period);
 	}
-
-	private static void sendToAllClients() {
-		if(!msgQueue.isEmpty()){
-			String output = msgQueue.getFirst();
-			output = output + " " + tick;
-			Iterator<OutputStreamWriter> it = writer_list.iterator();
-			while(it.hasNext()){
-				OutputStreamWriter writer = it.next();
-				JSONObject msg = JsonEncoderDecoder.encodeStringToJson(0, output);
-				try {
-					writer.write(msg.toString() + "\n");
-					writer.flush();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			msgQueue.removeFirst();
-		}
+	/**
+	 * Thread liest die Beschriebene msgQueue aus und fügt seine ID hinzu, die der ID des Clients entspricht.
+	 * @param msgQueue
+	 * @return Oberster Eintrag der MsgQueue
+	 */
+	public static String readMsgQueue(final LinkedList<String> msgQueue)
+	{
+	   String output;
+	 
+	   output = msgQueue.getFirst();
+	   output = output + " " + tick;
+	   msgQueue.removeFirst();
+		  
+	   return output;
+	}
+	
+	
+	
+	/**
+	 * Prüft ob der Client etwas an den Server geschickt hat, und verarbeitet dies,
+	 * Gibt zuerst die Nachrichten die Empfangen wurden aus ins msgQueue
+	 * 
+	 *
+	 * */
+	//TODO
+	private static void recieveClientMessage() {
+	      if(!(msgQueue.isEmpty()))
+	      {
+	        String output = readMsgQueue(msgQueue);
+	      	System.out.println(output);
+	      }
+	   
 		try {
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
@@ -75,7 +89,15 @@ public class BombermanGameServer extends Thread {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der Veränderungen im Spiel verwendet
+	 * @param Message
+	 */
+	private static void sentMessageToAllClient(JSONObject Message)
+	
 
+	
+	
 	private static void closeBombermanGameServer() {
 		try {
 			socketBombermanGameServer.close();
@@ -87,8 +109,8 @@ public class BombermanGameServer extends Thread {
 
 	private static void listenForClients() {
 		clientHandlerPool = Executors.newFixedThreadPool(player);
-		while(clientID <= 4){
-			try {
+		while(clientID <= 4 ){
+			try {			    
 				Socket toClientSocket = socketBombermanGameServer.accept();
 				DataOutputStream output = new DataOutputStream(toClientSocket.getOutputStream());
 				OutputStreamWriter serverWriter = new OutputStreamWriter(output, "UTF-8");
@@ -101,6 +123,7 @@ public class BombermanGameServer extends Thread {
 				e.printStackTrace();
 			}
 		}
+		gameStart =  true;
 	}
 
 	private static void startBombermanGameServer() {

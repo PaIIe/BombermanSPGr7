@@ -31,6 +31,7 @@ public class BombermanGameClientHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
 
 	@Override
 	public void run() {
@@ -39,7 +40,7 @@ public class BombermanGameClientHandler implements Runnable {
 		//outputFromClient = receiveFromClient();
 		//setPlayerName(outputFromClient);
 		//sendToClient("Hello: " + playerName + " your ID is " + clientID);
-		while(BombermanGameServer.gameOver == false){
+		while(BombermanGameServer.gameOver == false && BombermanGameServer.gameStart == true){
 			try {
 				if(((BombermanGameServer.tick % 4) == 0) && fromClient.ready()){
 					String outputFromClient = receiveFromClient();
@@ -47,17 +48,15 @@ public class BombermanGameClientHandler implements Runnable {
 						JSONObject jsonObject = new JSONObject(outputFromClient);
 						outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
 					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-					   System.err.println("JSONException: " + e1.getMessage());
+						System.err.println("JSONException in Run: " + e1.getMessage());
 						e1.printStackTrace();
 					}
 					outputFromClient = outputFromClient + " " + clientID;
-					BombermanGameServer.msgQueue.add(outputFromClient);
+					BombermanGameServer.msgQueue.add(outputFromClient); //Füllt msgQueue mit dem command und dem content des clients
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-					  System.err.println("InterruptException: " + e.getMessage());
+						System.err.println("InterruptException: " + e.getMessage());
 						e.printStackTrace();
 					}
 					//sendToClient("Echo from Server " + outputFromClient);
@@ -65,7 +64,7 @@ public class BombermanGameClientHandler implements Runnable {
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+					    System.err.println("InterruptException: " + e.getMessage());
 						e.printStackTrace();
 					}
 			} catch (IOException e) {
@@ -84,6 +83,7 @@ public class BombermanGameClientHandler implements Runnable {
 		try {
 			while(fromClient.ready()){
 				inputFromClient = fromClient.readLine();
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

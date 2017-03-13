@@ -106,7 +106,7 @@ public class BombermanGameClient {
 	private static void receiveFromServer() {
 		String input = null;
 		JSONObject jsonObject = null;
-			try {
+			//try {
 				try {
 					input = fromServer.readLine();
 				} catch (IOException e) {
@@ -114,10 +114,10 @@ public class BombermanGameClient {
 					e.printStackTrace();
 				}
 				jsonObject = new JSONObject(input);
-			} catch (JSONException e) {
+			//} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				//e.printStackTrace();
+		//	}
 			input = JsonEncoderDecoder.decodeJsonToString(jsonObject);
 		System.out.println(input);
 	}

@@ -287,7 +287,8 @@ public class Game implements Runnable {
 				if (GameField.getPlayer(2).getArmor() == true) // Spieler2 mit Armor
 					g.drawImage(greenBombermanArmor, GameField.getPlayer(2).getColumn() * 64, GameField.getPlayer(2).getRow() * 64, null);
 			}	
-			if (GameField.getPlayer(3).getAliveStatus() == true)
+			// DEMO
+			/*if (GameField.getPlayer(3).getAliveStatus() == true)
 			{
 				if (GameField.getPlayer(3).getArmor() == false)	// Spieler3 ohne Armor
 					g.drawImage(redBomberman, GameField.getPlayer(3).getColumn() * 64, GameField.getPlayer(3).getRow() * 64, null);
@@ -300,7 +301,7 @@ public class Game implements Runnable {
 					g.drawImage(yellowBomberman, GameField.getPlayer(4).getColumn() * 64, GameField.getPlayer(4).getRow() * 64, null);
 				if (GameField.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
 					g.drawImage(yellowBombermanArmor, GameField.getPlayer(4).getColumn() * 64, GameField.getPlayer(4).getRow() * 64, null);
-			}
+			}*/
 			
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect( GameField.getWidth() * 64 / 2 - 35, GameField.getWidth() * 64 + 10, 70, 40);

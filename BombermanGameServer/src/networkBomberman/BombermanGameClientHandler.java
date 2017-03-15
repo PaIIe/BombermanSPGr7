@@ -40,8 +40,11 @@ public class BombermanGameClientHandler implements Runnable {
 		//outputFromClient = receiveFromClient();
 		//setPlayerName(outputFromClient);
 		//sendToClient("Hello: " + playerName + " your ID is " + clientID);
-		while(BombermanGameServer.gameOver == false && BombermanGameServer.gameStart == true){
-			try {
+		while(BombermanGameServer.gameOver == false)// && BombermanGameServer.gameStart == true){	
+		{
+		  if(BombermanGameServer.gameStart == true)
+		  {
+		    try {
 				if(((BombermanGameServer.tick % 4) == 0) && fromClient.ready()){
 					String outputFromClient = receiveFromClient();
 					try {
@@ -80,7 +83,9 @@ public class BombermanGameClientHandler implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		  }
+			
+	    }
 	}
 
 	/*private void setPlayerName(String outputFromClient2) {

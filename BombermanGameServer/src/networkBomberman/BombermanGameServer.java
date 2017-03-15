@@ -130,7 +130,7 @@ public class BombermanGameServer extends Thread {
 	 */
 	private static void listenForClients() {
 		clientHandlerPool = Executors.newFixedThreadPool(player);
-		while(clientID <= 4 ){
+		while(clientID <= 2 ){
 			try {			    
 				Socket toClientSocket = socketBombermanGameServer.accept();
 				DataOutputStream output = new DataOutputStream(toClientSocket.getOutputStream());
@@ -139,15 +139,13 @@ public class BombermanGameServer extends Thread {
 				clientHandlerPool.execute(new BombermanGameClientHandler(toClientSocket, clientID));
 				//clientHandlerPool.execute(new BombermanGameClientHandler(socketBombermanGameServer.accept(), clientID));
 				clientID++;
-				System.out.println(clientHandlerPool.toString() + clientID);
+				//System.out.println(clientHandlerPool.toString() + clientID);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		gameStart =  true;
+		 gameStart = true;
 	}
 
 	private static void startBombermanGameServer() {

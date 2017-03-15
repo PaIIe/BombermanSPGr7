@@ -12,8 +12,10 @@ import java.util.Scanner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import dev.code.bomberman.gamefield.Client;
 //import jsonBomberman.JsonEncoderDecoder;
-import gameRender.render;
+
 
 import jsonBomberman.JsonEncoderDecoder;
 
@@ -60,7 +62,7 @@ public class BombermanGameClient {
           
           }
 		}
-		render game = new render("Title!", 1000, 1000);
+		Client game = new Client("Title!", 1000, 1000);
 	    game.start();
 		/*
 		while(true){

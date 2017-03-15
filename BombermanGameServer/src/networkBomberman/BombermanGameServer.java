@@ -25,7 +25,7 @@ public class BombermanGameServer extends Thread {
 	static int clientID = 1;
 	
 	static boolean gameOver = false;
-	static boolean gameStart = true;
+	static boolean gameStart = false;
 	
 	static LinkedList<String> msgQueue = null;
 	static ArrayList<OutputStreamWriter> writer_list = null;
@@ -40,8 +40,13 @@ public class BombermanGameServer extends Thread {
 		listenForClients();
 		startTickTimer();
 		while(gameOver == false){
-			recieveClientMessage();
+		  if(!msgQueue.isEmpty()){
+		    recieveClientMessage();
+		    //System.out.println("MsgQ not empty");
+		  }
+		  
 		}
+		
 		closeBombermanGameServer();
 	}
 
@@ -62,6 +67,8 @@ public class BombermanGameServer extends Thread {
 	   output = msgQueue.getFirst();
 	   output = output + " " + tick;
 	   msgQueue.removeFirst();
+	   
+	   System.out.println("readMsgQ " + output);
 		  
 	   return output;
 	}
@@ -72,28 +79,38 @@ public class BombermanGameServer extends Thread {
 	 * Prüft ob der Client etwas an den Server geschickt hat, und verarbeitet dies,
 	 * Gibt zuerst die Nachrichten die Empfangen wurden aus ins msgQueue
 	 * 
-	 *
+	 *@return Die letzte Eingabe des Clients wird zurückgegeben
 	 * */
-	//TODO
-	private static void recieveClientMessage() {
-	      if(!(msgQueue.isEmpty()))
-	      {
-	        String output = readMsgQueue(msgQueue);
-	      	System.out.println(output);
-	      }
-	   
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	//TODO Schauen ob der Stack falsch für die Eingabe ist, das steuerung nicht funktioniert weil neuste eingaben vor alten zuerst verarbeitet werden
+	//Refactor
+	private static String recieveClientMessage() {
+	    
+	  String output = readMsgQueue(msgQueue);
+	  
+	 
+	  try{
+	    Thread.sleep(50);
+	  } 
+	  catch (InterruptedException e) {
+	    System.err.println("InterruptException: " + e.getMessage());
+		e.printStackTrace();
+	  }
+		
+	  System.out.println(output);
+	  return output;
 	}
+	
+	
+	
+	
 	/**
 	 * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der Veränderungen im Spiel verwendet
 	 * @param Message
 	 */
-	private static void sentMessageToAllClient(JSONObject Message)
+	private static void broadcastToClient(JSONObject Message)
+	{
+	  
+	}
 	
 
 	
@@ -106,7 +123,11 @@ public class BombermanGameServer extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Verbindet die anfragenden Clients mti dem Server
+	 * 
+	 * Server verbindet sich über Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe für den Spielstart
+	 */
 	private static void listenForClients() {
 		clientHandlerPool = Executors.newFixedThreadPool(player);
 		while(clientID <= 4 ){
@@ -118,11 +139,14 @@ public class BombermanGameServer extends Thread {
 				clientHandlerPool.execute(new BombermanGameClientHandler(toClientSocket, clientID));
 				//clientHandlerPool.execute(new BombermanGameClientHandler(socketBombermanGameServer.accept(), clientID));
 				clientID++;
+				System.out.println(clientHandlerPool.toString() + clientID);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		
 		gameStart =  true;
 	}
 

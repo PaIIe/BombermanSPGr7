@@ -52,16 +52,25 @@ public class BombermanGameClientHandler implements Runnable {
 						e1.printStackTrace();
 					}
 					outputFromClient = outputFromClient + " " + clientID;
+					
 					BombermanGameServer.msgQueue.add(outputFromClient); //Füllt msgQueue mit dem command und dem content des clients
+					
+					System.out.println(outputFromClient);
+					
 					try {
 						Thread.sleep(50);
-					} catch (InterruptedException e) {
+						
+					} 
+					catch (InterruptedException e) 
+					{
 						System.err.println("InterruptException: " + e.getMessage());
 						e.printStackTrace();
 					}
 					//sendToClient("Echo from Server " + outputFromClient);
+					 
 				} else
 					try {
+					  
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
 					    System.err.println("InterruptException: " + e.getMessage());

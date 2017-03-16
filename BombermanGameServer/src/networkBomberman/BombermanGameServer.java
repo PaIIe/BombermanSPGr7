@@ -14,6 +14,8 @@ import java.util.concurrent.Executors;
 import jsonBomberman.JsonEncoderDecoder;
  
 import org.json.JSONObject;
+
+import dev.code.bomberman.Game;
  
 public class BombermanGameServer extends Thread {
    
@@ -43,6 +45,7 @@ public class BombermanGameServer extends Thread {
           if(!msgQueue.isEmpty()){
             recieveClientMessage();
             //System.out.println("MsgQ not empty");
+            
           }
          
         }
@@ -172,6 +175,8 @@ public class BombermanGameServer extends Thread {
         msgQueue = new LinkedList<String>();
         writer_list = new ArrayList<OutputStreamWriter>();
         System.out.println("Server has started");
+        Game game = new Game("Title!", 1000, 1000);
+		game.start();
     }
  
 }

@@ -12,11 +12,11 @@ public class GameField
 	 * 
 	 * @param width Breite des Spielfelds (Spielfeld is quadratisch)
 	 */
-	public GameField(int width)
+	public GameField(int width, int playerNumber)
 	{
 		GameField.width = width;
 		this.generateObjectMatrix();
-		this.generatePlayerMatrix();
+		this.generatePlayerMatrix(playerNumber);
 	}
 	
 	/**
@@ -129,9 +129,8 @@ public class GameField
     /**
      * Hier wird die Spielermatrix erstellt: ein Array enstprechend der verbundenen Spieler (zwischen 2 und 4) und Spielerobjekte mit Attributen initialisiert.
      */
-    public void generatePlayerMatrix()
+    public void generatePlayerMatrix(int playerNumber)
     {
-    	int playerNumber = 4; // LÖSCHEN -- Server
     	Bomberman[] temp = new Bomberman[playerNumber]; // 2 <= playerNumber <= 4
     	Bomberman player1 = new Bomberman(1, 1, 51); // Konstruktor mit Position oben links, ÄNDERN 1 und 3 --> vom Server kommend
     	player1.setStartPos(1, 1);

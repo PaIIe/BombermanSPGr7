@@ -127,7 +127,8 @@ public class GameField
    			}
 		}
 		GameObejctsMatrix = temp;
-		JsonEncoderDecoder.SendInitialGameObjectMatrixToClient(getObject(4,4));
+		JsonEncoderDecoder.EncodeMatrix(GameObejctsMatrix, getWidth());
+		//JsonEncoderDecoder.EncodeGameObjectToJSON(getObject(4,4));
 		
 	}
     

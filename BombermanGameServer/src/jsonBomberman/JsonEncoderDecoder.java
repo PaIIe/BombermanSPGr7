@@ -34,7 +34,7 @@ public class JsonEncoderDecoder {
 	}
 	
 	
-	public static JSONObject CodeGameObjectToJSON(GameObject msg)
+	public static JSONObject EncodeGameObjectToJSON(GameObject msg)
 	{
 	  
 	  JSONObject encodedMsg = new JSONObject();
@@ -64,7 +64,22 @@ public class JsonEncoderDecoder {
 	  
 	}
 	
-	
+	public static JSONObject EncodeMatrix(GameObject[][] msg, int width)
+	{
+	  JSONObject encodedMsg = new JSONObject();
+	  JSONArray temp = new JSONArray();
+	  for(int i = width; i >= 0; i--)
+	  {
+	    for(int j = width; j >= 0; j--)
+	    {
+	      temp.put(EncodeGameObjectToJSON(msg[i][j]));
+	    }
+	  }
+	  encodedMsg.put("command: ", "gsInitialGameMatrix");
+	  encodedMsg.put("content: ", temp);
+	  System.out.println(encodedMsg);
+	  return encodedMsg;
+	}
 	
 	static String decodeFromJsonToString(JSONObject msg){
 		String decodedMsg = null;

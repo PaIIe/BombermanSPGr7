@@ -34,25 +34,25 @@ public class JsonEncoderDecoder {
 	}
 	
 	
-	public static JSONObject SendInitialGameObjectMatrixToClient(GameObject msg)
+	public static JSONObject CodeGameObjectToJSON(GameObject msg)
 	{
 	  
 	  JSONObject encodedMsg = new JSONObject();
 	  
-	  JSONArray jsonArray = new JSONArray();
 	  int ID = msg.getID();
 	  int row = msg.getRow();
 	  int column = msg.getColumn();
 	  boolean isSolid = msg.getSolid();
-	
+	 
 	  
-	  jsonArray.put(ID);
-	  
-	
 	  try{
-	   // GameObject temp = GameField.getObject(1, 1);
-	    encodedMsg.put("msg",jsonArray);
-	    System.out.println(encodedMsg.toString());
+	  
+	  encodedMsg.put("ID",ID);
+	  encodedMsg.put("row",row);
+	  encodedMsg.put("column",column);
+	  encodedMsg.put("isSolid",isSolid);
+	  
+	  System.out.println(encodedMsg.toString());
 	    
 	  }
 	  catch(JSONException e)

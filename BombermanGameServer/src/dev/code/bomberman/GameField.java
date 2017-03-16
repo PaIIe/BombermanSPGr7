@@ -1,5 +1,8 @@
 package dev.code.bomberman;
+import org.json.JSONObject;
+
 import dev.code.bomberman.GameObject;
+import jsonBomberman.JsonEncoderDecoder;
 
 public class GameField 
 {
@@ -124,6 +127,8 @@ public class GameField
    			}
 		}
 		GameObejctsMatrix = temp;
+		JsonEncoderDecoder.SendInitialGameObjectMatrixToClient(getObject(4,4));
+		
 	}
     
     /**

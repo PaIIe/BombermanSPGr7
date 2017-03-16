@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.*;
+import dev.code.bomberman.GameField;
+import dev.code.bomberman.GameObject;
 
 public class JsonEncoderDecoder {
 	
@@ -30,6 +32,39 @@ public class JsonEncoderDecoder {
 		}
 		return encodedMsg;
 	}
+	
+	
+	public static JSONObject SendInitialGameObjectMatrixToClient(GameObject msg)
+	{
+	  
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  JSONArray jsonArray = new JSONArray();
+	  int ID = msg.getID();
+	  int row = msg.getRow();
+	  int column = msg.getColumn();
+	  boolean isSolid = msg.getSolid();
+	
+	  
+	  jsonArray.put(ID);
+	  
+	
+	  try{
+	   // GameObject temp = GameField.getObject(1, 1);
+	    encodedMsg.put("msg",jsonArray);
+	    System.out.println(encodedMsg.toString());
+	    
+	  }
+	  catch(JSONException e)
+	  {
+	    e.printStackTrace();
+	    return null;
+	  }
+	  return encodedMsg;
+	  
+	}
+	
+	
 	
 	static String decodeFromJsonToString(JSONObject msg){
 		String decodedMsg = null;

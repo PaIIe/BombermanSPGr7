@@ -16,6 +16,7 @@ import jsonBomberman.JsonEncoderDecoder;
 import org.json.JSONObject;
 
 import dev.code.bomberman.Game;
+import dev.code.bomberman.GameField;
  
 public class BombermanGameServer extends Thread {
    
@@ -41,9 +42,11 @@ public class BombermanGameServer extends Thread {
         startBombermanGameServer();
         listenForClients();
         startTickTimer();
+        
         while(gameOver == false){
+          
           if(!msgQueue.isEmpty()){
-            recieveClientMessage();
+            readMsgQueue();
             //System.out.println("MsgQ not empty");
             
           }
@@ -63,47 +66,25 @@ public class BombermanGameServer extends Thread {
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
-    public static String readMsgQueue(final LinkedList<String> msgQueue) //aendern
+    public static String readMsgQueue() //aendern
     {
        String output;
      
        output = msgQueue.getFirst();
        output = output + " " + tick;
        msgQueue.removeFirst();
+       try{ 
+         Thread.sleep(50);
+       }
+       catch (InterruptedException e) {
+         System.err.println("InterruptException: " + e.getMessage());
+         e.printStackTrace();
+       }
        
        System.out.println("readMsgQ " + output);
          
        return output;
     }
-   
-   
-   
-    /**
-     * Prüft ob der Client etwas an den Server geschickt hat, und verarbeitet dies,
-     * Gibt zuerst die Nachrichten die Empfangen wurden aus ins msgQueue
-     *
-     *@return Die letzte Eingabe des Clients wird zurückgegeben
-     * */
-    //TODO Schauen ob der Stack falsch für die Eingabe ist, das steuerung nicht funktioniert weil neuste eingaben vor alten zuerst verarbeitet werden
-    //Refactor
-    private static String recieveClientMessage() {
-       
-      String output = readMsgQueue(msgQueue); //aendern
-     
-     
-      try{  //aendern
-        Thread.sleep(50);
-      }
-      catch (InterruptedException e) {
-        System.err.println("InterruptException: " + e.getMessage());
-        e.printStackTrace();
-      }
-       
-      System.out.println(output);
-      return output;
-    }
-   
-   
    
    
     /**

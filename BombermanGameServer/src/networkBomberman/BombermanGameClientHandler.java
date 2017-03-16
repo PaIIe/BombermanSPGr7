@@ -159,6 +159,11 @@ public class BombermanGameClientHandler implements Runnable {
         }
         return inputFromClient;
     }
+    
+    
+    
+    
+    
  
     /*private void sendToClient(String output) {
         toClient.write(output + "\n");

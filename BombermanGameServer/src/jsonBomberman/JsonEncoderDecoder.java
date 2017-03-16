@@ -105,8 +105,11 @@ public class JsonEncoderDecoder {
       String msg = null;
       try {
           msg = encodedMsg.getString("command");
-          msg = msg + " " + encodedMsg.getString("content");
-          //encodedMsg.remove("Message");
+          if(encodedMsg.toString().contains("content")){
+            msg = msg + " " + encodedMsg.getString("content");
+            System.out.println("content found");
+          }
+         
       } catch (JSONException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();

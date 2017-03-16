@@ -96,13 +96,21 @@ public class BombermanGameClient {
 	public static void sendToServer(JSONObject msg) {
 		
 		try {
-			toServer.write(msg.toString() + "\n");
+		    String temp = msg.toString();
+			toServer.write(temp.length() + 1  + temp + "\n");
 			toServer.flush();
 		} catch (IOException e) {
 		    System.err.println("IOException: " + e.getMessage());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Versendet einen Heartbeat an den Server um die Verbindung zu erhalten
+	 */
+	public static void sendHeartbeatToServer()
+	{
+	 sendToServer(JsonEncoderDecoder.clientToServerJson("xxheartbeat",""));	 
 	}
 
 	private static void receiveFromServer() {

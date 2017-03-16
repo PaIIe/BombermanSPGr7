@@ -13,13 +13,14 @@ public class JsonEncoderDecoder {
 		
 		try {
 			encodedMsg.put("command", command);	//Laenge beim senden ueber "msg.toStrin().length()" + und "\n" ist schon drin
-			encodedMsg.put("content", msg);
+			if(!msg.isEmpty())
+			  encodedMsg.put("content", msg);
 			System.out.println(encodedMsg.toString());
 		
 		
 		
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			System.err.println("JSONException " + e.getMessage() );
 			e.printStackTrace();
 			return null;
 		}
@@ -29,9 +30,10 @@ public class JsonEncoderDecoder {
 	static String decodeFromJsonToString(JSONObject msg){
 		String decodedMsg = null;
 		try {
+		    
 			decodedMsg = msg.getString("command");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			System.err.println("JSONException decodeFromJsonToString" + e.getMessage() );
 			e.printStackTrace();
 			return null;
 		}
@@ -51,7 +53,7 @@ public class JsonEncoderDecoder {
 				//deshalb reicht das Array hier
 			encodedFromListToObject.put("command", jsonArray);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		    System.err.println("JSONException " + e.getMessage() );
 			e.printStackTrace();
 			return null;
 		}
@@ -71,8 +73,8 @@ public class JsonEncoderDecoder {
 				decodedList.add(temp);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		  System.err.println("JSONException " + e.getMessage() );
+		  e.printStackTrace();
 		}
 		return decodedList;
 	}
@@ -86,7 +88,7 @@ public class JsonEncoderDecoder {
 			int sizeOfMsg = msg.length();
 			encodedMsg.put("Size", sizeOfMsg);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		    System.err.println("JSONException " + e.getMessage() );
 			e.printStackTrace();
 		}
 		return encodedMsg;
@@ -95,12 +97,15 @@ public class JsonEncoderDecoder {
 	public static String decodeJsonToString(JSONObject encodedMsg){
       String msg = null;
       try {
+          System.out.println(encodedMsg.toString());
           msg = encodedMsg.getString("command");
-          msg = msg + " " + encodedMsg.getString("content");
-          //encodedMsg.remove("Message");
+          if(encodedMsg.toString().contains("content")){
+            msg = msg + " " + encodedMsg.getString("content");
+            System.out.println("content found");
+          }
       } catch (JSONException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+        System.err.println("JSONException in decodeJsonToString" + e.getMessage() );
+        e.printStackTrace();
       }
       return msg;
     }

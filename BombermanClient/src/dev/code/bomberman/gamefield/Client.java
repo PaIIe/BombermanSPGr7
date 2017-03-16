@@ -172,7 +172,7 @@ public class Client implements Runnable {
               BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","placeBomb"));
             }
             if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false && (counterTicks%50 == 0 ))
-              BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("heartbeat",""));
+              BombermanGameClient.sendHeartbeatToServer();
       /*   }
        if (this.gameState == GameState.STATISTIC)
         {

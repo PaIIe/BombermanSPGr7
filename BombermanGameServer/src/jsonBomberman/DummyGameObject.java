@@ -6,7 +6,7 @@ public class DummyGameObject extends GameObject
 {
     public DummyGameObject(int row, int column)
     {
-        this.setID(0);
+        this.setID(-1);
         this.setRow(row);
         this.setColumn(column);
         this.setSolid(false);

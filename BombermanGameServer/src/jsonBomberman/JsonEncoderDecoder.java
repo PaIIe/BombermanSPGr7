@@ -98,10 +98,42 @@ public class JsonEncoderDecoder {
 	
 	public static Bomberman[] DecodePlayerMatrix(JSONObject msg, int playerCount)
 	{
+	  
+	  GameObject[] gameObject = new GameObject[playerCount];
+      for(int i = 0; i < playerCount; i++){
+          DummyGameObject dummy = new DummyGameObject(i,i);          
+          gameObject[i] = dummy;
+        }
+        
+	  
 	  Bomberman [] playerMatrix = new Bomberman[playerCount];
-	  for (int i = playerCount; i>0; i-- )
+	  
+	  for(int i = 0; i<playerCount; i++)
 	  {
+	    Bomberman dummy = new Bomberman(1, 1, 1);
+	    playerMatrix[i] = dummy;
+	  }
+	  
+	
+	  JSONArray jsonArray = new JSONArray();
+	  jsonArray = msg.getJSONArray("content");
+	  
+	  JSONObject jsonObject = null;
+	  
+	  for (int i = 0; i < playerCount; i++ ){
+	    jsonObject = new JSONObject();
+        jsonObject = jsonArray.getJSONObject(i);
+	    playerMatrix[i].setID(jsonObject.getInt("ID"));	    
+	    playerMatrix[i].setRow(jsonObject.getInt("row"));
+	    playerMatrix[i].setColumn(jsonObject.getInt("column"));
+	    playerMatrix[i].setSolid(jsonObject.getBoolean("isSolid"));
 	    
+	    playerMatrix[i].setAliveStatus(jsonObject.getBoolean("alive"));
+	    playerMatrix[i].setArmor(jsonObject.getBoolean("armor"));
+	    
+	    //DEBUG TODO System out weg	    
+	    System.out.printf("[%d, %d, %d, %b, %b, %b]",playerMatrix[i].getID(),playerMatrix[i].getRow(),playerMatrix[i].getColumn(),playerMatrix[i].getSolid(),playerMatrix[i].getArmor(),playerMatrix[i].getAliveStatus() );
+        
 	  }
 	  return playerMatrix;
 	}
@@ -136,7 +168,7 @@ public class JsonEncoderDecoder {
         gameObject[row][column].setColumn(jsonObject.getInt("column"));
         gameObject[row][column].setSolid(jsonObject.getBoolean("isSolid"));
         
-        System.out.println(gameObject[row][column].getID());
+       // System.out.println(gameObject[row][column].getID());
       }
      
      
@@ -181,6 +213,76 @@ public class JsonEncoderDecoder {
     }
 	  return encodedMsg;
 	}
+	
+	public static JSONObject EncodePlayerMatrix(Bomberman[] msg, int playerCount)
+    {
+      JSONObject encodedMsg = new JSONObject();
+      JSONArray temp = new JSONArray();
+      try{
+        
+      for(int i = 0; i < playerCount; i++ )
+      {
+       
+          temp.put(EncodePlayerObjectToJSON(msg[i]));
+                  
+      }
+      
+      encodedMsg.put("command", "gsInitialGameMatrix");
+      encodedMsg.put("content", temp);
+      
+      System.out.println(encodedMsg);
+      
+      }catch(JSONException e)
+      {
+        e.printStackTrace();
+    
+   
+    }
+      return encodedMsg;
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

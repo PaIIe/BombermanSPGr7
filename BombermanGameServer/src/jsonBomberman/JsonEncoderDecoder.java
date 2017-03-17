@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameField;
 import dev.code.bomberman.GameObject;
+import dev.code.bomberman.Bomberman;
 import jsonBomberman.DummyGameObject;
 public class JsonEncoderDecoder {
 	
@@ -60,6 +61,22 @@ public class JsonEncoderDecoder {
 	    e.printStackTrace();
 	    return null;
 	  }
+	  return encodedMsg;
+	  
+	}
+	
+	public static JSONObject EncodePlayerObjectToJSON(Bomberman msg)
+	{
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  GameObject gameObject = (GameObject) msg
+	  int armorTimer;
+	  int maxBomb;
+	  int radiusBomb;
+	    private int placedBombs;
+	    private boolean armor;
+	    private boolean alive;
+	  
 	  return encodedMsg;
 	  
 	}

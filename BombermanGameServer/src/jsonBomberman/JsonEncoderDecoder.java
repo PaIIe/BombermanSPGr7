@@ -52,7 +52,7 @@ public class JsonEncoderDecoder {
 	  encodedMsg.put("column",column);
 	  encodedMsg.put("isSolid",isSolid);
 	  
-	  System.out.println(encodedMsg.toString());
+	  //System.out.println(encodedMsg.toString());
 	    
 	  }
 	  catch(JSONException e)
@@ -63,23 +63,91 @@ public class JsonEncoderDecoder {
 	  return encodedMsg;
 	  
 	}
+
+	public static GameObject[][] DecodeGameObjectMatrix(JSONObject msg, int width)
+    {
+      GameObject[][] gameObject = new GameObject[width][width];
+      for(int i = width-1; i >= 0; i--){
+        for(int j = width-1; j >= 0; j--){
+          
+          gameObject[i][j].setID(new Integer(i));
+          System.out.println(gameObject[i][j].getID());
+          gameObject[i][j].setColumn(i);
+          gameObject[i][j].setRow(j);
+          gameObject[i][j].setSolid(true);
+        }
+        
+        
+      }
+      
+      JSONArray jsonArray = new JSONArray();
+      jsonArray = msg.getJSONArray("content");
+     
+      JSONObject jsonObject = null;
+     
+      for(int i = width*width - 1; i >= 0; i--){
+        jsonObject = new JSONObject();
+        jsonObject = jsonArray.getJSONObject(i);
+        
+        int row = jsonObject.getInt("row") ;
+        int column = jsonObject.getInt("column");
+        System.out.println(row);
+        System.out.println(jsonObject.getInt("ID"));
+        
+        gameObject[row][column].setID(new Integer(jsonObject.getInt("ID")));
+        System.out.println(gameObject[row][column].getID());
+        
+        gameObject[row][column].setRow(jsonObject.getInt("row"));
+        gameObject[row][column].setColumn(jsonObject.getInt("column"));
+        gameObject[row][column].setSolid(jsonObject.getBoolean("isSolid"));
+      }
+     
+     
+      return gameObject;
+    }
 	
+	
+	
+	
+	
+	/**
+	 * Iteriert die GameObject Matrix und encodiert sie zu einem JSONObjekt
+	 * @param msg
+	 * @param width
+	 * @return Gesamte GameMatrix als JSONObjekt
+	 */
 	public static JSONObject EncodeMatrix(GameObject[][] msg, int width)
 	{
 	  JSONObject encodedMsg = new JSONObject();
 	  JSONArray temp = new JSONArray();
-	  for(int i = width; i >= 0; i--)
+	  try{
+	    
+	  for(int i = width-1; i >= 0; i--)
 	  {
-	    for(int j = width; j >= 0; j--)
+	    for(int j = width-1; j >= 0; j--)
 	    {
 	      temp.put(EncodeGameObjectToJSON(msg[i][j]));
+	      
 	    }
 	  }
-	  encodedMsg.put("command: ", "gsInitialGameMatrix");
-	  encodedMsg.put("content: ", temp);
+	  
+	  encodedMsg.put("command", "gsInitialGameMatrix");
+	  encodedMsg.put("content", temp);
+	  
 	  System.out.println(encodedMsg);
+	  
+	  }catch(JSONException e)
+	  {
+	    e.printStackTrace();
+	
+   
+    }
 	  return encodedMsg;
 	}
+	
+	
+	
+	
 	
 	static String decodeFromJsonToString(JSONObject msg){
 		String decodedMsg = null;

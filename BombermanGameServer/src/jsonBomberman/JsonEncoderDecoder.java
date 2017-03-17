@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameField;
 import dev.code.bomberman.GameObject;
-
+import jsonBomberman.DummyGameObject;
 public class JsonEncoderDecoder {
 	
 	/**
@@ -69,12 +69,9 @@ public class JsonEncoderDecoder {
       GameObject[][] gameObject = new GameObject[width][width];
       for(int i = width-1; i >= 0; i--){
         for(int j = width-1; j >= 0; j--){
+          DummyGameObject dummy = new DummyGameObject(i,j);
           
-          gameObject[i][j].setID(new Integer(i));
-          System.out.println(gameObject[i][j].getID());
-          gameObject[i][j].setColumn(i);
-          gameObject[i][j].setRow(j);
-          gameObject[i][j].setSolid(true);
+          gameObject[i][j] = dummy;
         }
         
         
@@ -91,15 +88,13 @@ public class JsonEncoderDecoder {
         
         int row = jsonObject.getInt("row") ;
         int column = jsonObject.getInt("column");
-        System.out.println(row);
-        System.out.println(jsonObject.getInt("ID"));
-        
-        gameObject[row][column].setID(new Integer(jsonObject.getInt("ID")));
-        System.out.println(gameObject[row][column].getID());
-        
+       
+        gameObject[row][column].setID(jsonObject.getInt("ID"));
         gameObject[row][column].setRow(jsonObject.getInt("row"));
         gameObject[row][column].setColumn(jsonObject.getInt("column"));
         gameObject[row][column].setSolid(jsonObject.getBoolean("isSolid"));
+        
+        System.out.println(gameObject[row][column].getID());
       }
      
      

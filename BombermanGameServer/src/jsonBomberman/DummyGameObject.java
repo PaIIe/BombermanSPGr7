@@ -1,14 +1,14 @@
 package jsonBomberman;
 
-public class DummyGameObject {
-/*
-public EmptyField(int row, int column)
-{
-    this.setID(0);
-    this.setRow(row);
-    this.setColumn(column);
-    this.setSolid(false);
-}
-*/
+import dev.code.bomberman.GameObject;
 
+public class DummyGameObject extends GameObject
+{
+    public DummyGameObject(int row, int column)
+    {
+        this.setID(0);
+        this.setRow(row);
+        this.setColumn(column);
+        this.setSolid(false);
+    }
 }

@@ -95,6 +95,16 @@ public class JsonEncoderDecoder {
 	  return encodedMsg;
 	  
 	}
+	
+	public static Bomberman[] DecodePlayerMatrix(JSONObject msg, int playerCount)
+	{
+	  Bomberman [] playerMatrix = new Bomberman[playerCount];
+	  for (int i = playerCount; i>0; i-- )
+	  {
+	    
+	  }
+	  return playerMatrix;
+	}
 
 	public static GameObject[][] DecodeGameObjectMatrix(JSONObject msg, int width)
     {

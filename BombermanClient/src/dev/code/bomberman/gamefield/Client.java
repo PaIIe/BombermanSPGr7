@@ -65,8 +65,8 @@ public class Client implements Runnable {
     
     private void init(){
         this.gamefield = new GamefieldData();
-        // Test
-        this.gamefield.init(); // Weg --> Testzwecke
+        gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(msg, width));
+        gamefield.setPlayerMatrix(JsonDecoderClient.decodePlayerMatrix(msg, playerCount));
         
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);

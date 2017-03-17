@@ -58,7 +58,6 @@ public class Game implements Runnable {
 		// globale Variablen wegmachen!!!
 		this.fieldWidth = 11;
 		this.playerNumber = 4;
-		
 		new GameField(this.fieldWidth, this.playerNumber);
 		
 		//this.gameState = GameState.RUNNING;

@@ -15,9 +15,8 @@ import org.json.JSONObject;
 
 import dev.code.bomberman.gamefield.Client;
 //import jsonBomberman.JsonEncoderDecoder;
-
-
-import jsonBomberman.JsonEncoderDecoder;
+import jsonBomberman.JsonEncoderClient;
+import jsonBomberman.JsonDecoderClient;
 
 public class BombermanGameClient {
 	
@@ -110,7 +109,7 @@ public class BombermanGameClient {
 	 */
 	public static void sendHeartbeatToServer()
 	{
-	 sendToServer(JsonEncoderDecoder.clientToServerJson("xxheartbeat",""));	 
+	 sendToServer(JsonEncoderClient.commandToServer("xxheartbeat",""));	 
 	}
 
 	private static void receiveFromServer() {
@@ -128,7 +127,7 @@ public class BombermanGameClient {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 		//	}
-			input = JsonEncoderDecoder.decodeJsonToString(jsonObject);
+			input = JsonDecoderClient.decodeJsonToString(jsonObject);
 		System.out.println(input);
 	}
 

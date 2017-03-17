@@ -9,7 +9,24 @@ public class Bomberman extends GameObject{
 	private boolean armor;
 	private boolean alive;
 	
-	
+	 /**
+     * Der Konstruktor für die Spieler.
+     * 
+     * @param maxBomb maximale Bomben, die der Spieler legen kann
+     * @param radiusBomb Radius der Bombenexplosion
+     * @param id ID des Spielers
+     */
+    public Bomberman(int maxBomb, int radiusBomb, int id)
+    {
+        this.setMaxBomb(maxBomb);
+        this.setBombRadius(radiusBomb);
+        this.setArmor(false);
+        this.setAliveStatus(true);
+        this.setSolid(false);
+        this.setID(id);
+        this.placedBombs = 0;
+    }
+    
 	// Getter
 	
 	public int getPlacedBombs()

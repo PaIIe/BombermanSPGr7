@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.*;
-import dev.code.bomberman.GameField;
 import dev.code.bomberman.GameObject;
 import dev.code.bomberman.Bomberman;
 import jsonBomberman.DummyGameObject;
+
 public class JsonEncoderDecoder {
 	
 	/**
@@ -240,50 +240,6 @@ public class JsonEncoderDecoder {
     }
       return encodedMsg;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

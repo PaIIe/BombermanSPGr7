@@ -12,7 +12,8 @@ import dev.code.bomberman.gamefield.GamefieldData;
 import dev.code.bomberman.display.Display;
 import dev.code.bomberman.gfx.ImageLoader;
 import input.KeyManager;
-import jsonBomberman.JsonEncoderDecoder;
+import jsonBomberman.JsonEncoderClient;
+import jsonBomberman.JsonDecoderClient;
 import networkBomberman.BombermanGameClient;
 
 public class Client implements Runnable {
@@ -148,28 +149,28 @@ public class Client implements Runnable {
             if(getKeyManager().up && (counterTicks > inputTicks + 5) )  // 1 Eingabe aller 5 Ticks
             {
                 //GameField.getPlayer(1).walk(Direction.NORTH);
-                BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","moveUp"));
+                BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveUp"));
                 inputTicks = counterTicks;
                 
             }       
             if(getKeyManager().down && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
             {
-              BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","moveDown"));
+              BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveDown"));
                 inputTicks = counterTicks;
             }   
             if(getKeyManager().left  && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
             {
-              BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","moveLeft"));
+              BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveLeft"));
                 inputTicks = counterTicks;
             }           
             if(getKeyManager().right  && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
             {
-              BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","moveRight"));
+              BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveRight"));
                 inputTicks = counterTicks;
             }
             if(getKeyManager().bomb ) // Bombe kann gelget werden ohne Ticks
             {
-              BombermanGameClient.sendToServer(JsonEncoderDecoder.clientToServerJson("action","placeBomb"));
+              BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","placeBomb"));
             }
             if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false && (counterTicks%50 == 0 ))
               BombermanGameClient.sendHeartbeatToServer();

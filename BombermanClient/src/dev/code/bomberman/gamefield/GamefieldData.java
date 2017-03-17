@@ -62,7 +62,7 @@ public class GamefieldData
 			}
 		}
 		this.GameObejctsMatrix = temp;
-		Bomberman man = new Bomberman();
+		Bomberman man = new Bomberman(1,1,1);
 		man.setID(51);
 		man.setAliveStatus(true);
 		Bomberman[] temp2 = new Bomberman[4];

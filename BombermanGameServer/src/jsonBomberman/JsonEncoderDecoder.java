@@ -68,15 +68,30 @@ public class JsonEncoderDecoder {
 	public static JSONObject EncodePlayerObjectToJSON(Bomberman msg)
 	{
 	  JSONObject encodedMsg = new JSONObject();
+	  boolean alive = msg.getAliveStatus();
+	  boolean armor = msg.getArmor();
 	  
-	  GameObject gameObject = (GameObject) msg
-	  int armorTimer;
-	  int maxBomb;
-	  int radiusBomb;
-	    private int placedBombs;
-	    private boolean armor;
-	    private boolean alive;
-	  
+	  int ID = msg.getID();
+      int row = msg.getRow();
+      int column = msg.getColumn();
+      boolean isSolid = msg.getSolid();
+      
+      try{
+        encodedMsg.put("ID",ID);
+        encodedMsg.put("row",row);
+        encodedMsg.put("column",column);
+        encodedMsg.put("isSolid",isSolid);
+        
+        encodedMsg.put("alive", alive);
+        encodedMsg.put("armor", armor);
+      }
+      catch(JSONException e)
+      {
+        e.printStackTrace();
+        return null;
+      }
+      
+      System.out.println(encodedMsg.toString());
 	  return encodedMsg;
 	  
 	}

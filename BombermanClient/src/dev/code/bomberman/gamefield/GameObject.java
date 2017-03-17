@@ -12,6 +12,14 @@ public class GameObject
 	{
 	}
 	
+	public GameObject(int row, int column)
+    {
+        this.setID(-1);
+        this.setRow(row);
+        this.setColumn(column);
+        this.setSolid(false);
+    }
+	
 	// Setter
 	public void setRow(int row)
 	{

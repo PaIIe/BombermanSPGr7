@@ -6,7 +6,7 @@ import org.json.*;
 
 import dev.code.bomberman.gamefield.GameObject;
 import dev.code.bomberman.gamefield.Bomberman;
-import jsonBomberman.DummyGameObject;
+
 
 public class JsonDecoderClient {
 
@@ -20,15 +20,6 @@ public class JsonDecoderClient {
  */
 public static Bomberman[] decodePlayerMatrix(JSONObject msg, int playerCount)
 {
-  
-  GameObject[] gameObject = new GameObject[playerCount];
-  for(int i = 0; i < playerCount; i++)
-  {
-      DummyGameObject dummy = new DummyGameObject(i,i);          
-      gameObject[i] = dummy;
-  }
-    
-  
   Bomberman [] playerMatrix = new Bomberman[playerCount];
   
   for(int i = 0; i<playerCount; i++)
@@ -70,7 +61,7 @@ public static GameObject[][] decodeGameObjectMatrix(JSONObject msg, int width)
   GameObject[][] gameObject = new GameObject[width][width];
   for(int i = width-1; i >= 0; i--){
     for(int j = width-1; j >= 0; j--){      
-      DummyGameObject dummy = new DummyGameObject(i,j);      
+      GameObject dummy = new GameObject(i,j);      
       gameObject[i][j] = dummy;
     }
         

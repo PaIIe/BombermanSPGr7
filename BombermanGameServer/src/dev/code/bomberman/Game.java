@@ -1,6 +1,7 @@
 package dev.code.bomberman;
 
 import dev.code.bomberman.GameField;
+import jsonBomberman.JsonEncoderDecoder;
 
 public class Game implements Runnable {
 	
@@ -60,6 +61,7 @@ public class Game implements Runnable {
 		this.playerNumber = 4;
 		new GameField(this.fieldWidth, this.playerNumber);
 		
+		networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
 		//this.gameState = GameState.RUNNING;
 		
 		// Ranking

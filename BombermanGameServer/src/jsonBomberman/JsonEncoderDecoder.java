@@ -9,7 +9,42 @@ import dev.code.bomberman.Bomberman;
 import jsonBomberman.DummyGameObject;
 
 public class JsonEncoderDecoder {
+
+
+    private static JSONObject playerObject;
+    private static JSONObject gameObject;
 	
+    
+    
+    public JsonEncoderDecoder()
+    {
+      playerObject = new JSONObject();
+      gameObject = new JSONObject();
+    }
+    
+    public static JSONObject getPlayerObject()
+    {
+      return playerObject;
+      
+    }
+    
+    public static JSONObject getGameObject()
+    {
+      return gameObject;
+    }
+    
+    public void encodeInitMatrices(Bomberman[] player, int playerCount, GameObject[][] game, int width)
+    {
+      
+      playerObject = EncodePlayerMatrix(player,playerCount);
+      gameObject = EncodeMatrix(game, width);
+      
+      System.out.println(gameObject);
+      
+    }
+    
+    
+    
 	/**
 	 * Nimmt einen command und die enthaltene Nachricht und wandelt diese in ein JSONObject um der Struktur {"command":"","content":""}
 	 * @param command
@@ -22,7 +57,7 @@ public class JsonEncoderDecoder {
 		try {
 			encodedMsg.put("command", command);	//Laenge beim senden ueber "msg.toStrin().length()" + und "\n" ist schon drin
 			encodedMsg.put("content", msg);
-			System.out.println(encodedMsg.toString());
+			//System.out.println(encodedMsg.toString());
 		
 		
 		
@@ -91,20 +126,13 @@ public class JsonEncoderDecoder {
         return null;
       }
       
-      System.out.println(encodedMsg.toString());
+      //System.out.println(encodedMsg.toString());
 	  return encodedMsg;
 	  
 	}
 	
 	public static Bomberman[] DecodePlayerMatrix(JSONObject msg, int playerCount)
 	{
-	  
-	  GameObject[] gameObject = new GameObject[playerCount];
-      for(int i = 0; i < playerCount; i++){
-          DummyGameObject dummy = new DummyGameObject(i,i);          
-          gameObject[i] = dummy;
-        }
-        
 	  
 	  Bomberman [] playerMatrix = new Bomberman[playerCount];
 	  
@@ -132,7 +160,7 @@ public class JsonEncoderDecoder {
 	    playerMatrix[i].setArmor(jsonObject.getBoolean("armor"));
 	    
 	    //DEBUG TODO System out weg	    
-	    System.out.printf("[%d, %d, %d, %b, %b, %b]",playerMatrix[i].getID(),playerMatrix[i].getRow(),playerMatrix[i].getColumn(),playerMatrix[i].getSolid(),playerMatrix[i].getArmor(),playerMatrix[i].getAliveStatus() );
+	    //System.out.printf("[%d, %d, %d, %b, %b, %b]",playerMatrix[i].getID(),playerMatrix[i].getRow(),playerMatrix[i].getColumn(),playerMatrix[i].getSolid(),playerMatrix[i].getArmor(),playerMatrix[i].getAliveStatus() );
         
 	  }
 	  return playerMatrix;
@@ -203,7 +231,7 @@ public class JsonEncoderDecoder {
 	  encodedMsg.put("command", "gsInitialGameMatrix");
 	  encodedMsg.put("content", temp);
 	  
-	  System.out.println(encodedMsg);
+	  //System.out.println(encodedMsg);
 	  
 	  }catch(JSONException e)
 	  {
@@ -230,7 +258,7 @@ public class JsonEncoderDecoder {
       encodedMsg.put("command", "gsInitialGameMatrix");
       encodedMsg.put("content", temp);
       
-      System.out.println(encodedMsg);
+      //System.out.println(encodedMsg);
       
       }catch(JSONException e)
       {
@@ -320,7 +348,7 @@ public class JsonEncoderDecoder {
           msg = encodedMsg.getString("command");
           if(encodedMsg.toString().contains("content")){
             msg = msg + " " + encodedMsg.getString("content");
-            System.out.println("content found");
+            //System.out.println("content found");
           }
          
       } catch (JSONException e) {

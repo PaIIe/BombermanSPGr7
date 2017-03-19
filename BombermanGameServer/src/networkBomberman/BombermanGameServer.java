@@ -91,14 +91,16 @@ public class BombermanGameServer extends Thread {
      * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der Veränderungen im Spiel verwendet
      * @param Message
      */
-    private static void broadcastToClient(JSONObject Message)
+    public static void broadcastToClient(JSONObject player, JSONObject game)
     {//BENUTZEN clientToServerJson(String command, String msg){
      
       Iterator<OutputStreamWriter> it = writer_list.iterator();
         while(it.hasNext()){
             OutputStreamWriter writer = it.next();
             try {
-                writer.write(Message.length() + Message.toString() + "\n");
+                writer.write(player.length() + player.toString() + "\n");
+                writer.flush();
+                writer.write(game.length() + game.toString() + "\n");
                 writer.flush();
             } catch (IOException e) {
                 // TODO Auto-generated catch block

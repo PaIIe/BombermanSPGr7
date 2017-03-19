@@ -20,6 +20,11 @@ public class GameField
 		GameField.width = width;
 		this.generateObjectMatrix();
 		this.generatePlayerMatrix(playerNumber);
+		
+		JsonEncoderDecoder JsonEncoderDecoder = new JsonEncoderDecoder();
+	    JsonEncoderDecoder.encodeInitMatrices(PlayerMatrix, playerNumber, GameObejctsMatrix, width);
+		
+		
 	}
 	
 	/**
@@ -217,5 +222,7 @@ public class GameField
     {
     	return PlayerMatrix[playerNumber - 1];
     }
+    
+   
 }
 

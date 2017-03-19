@@ -9,6 +9,7 @@ public class Bomberman extends GameObject{
 	private boolean armor;
 	private boolean alive;
 	
+	
 	 /**
      * Der Konstruktor für die Spieler.
      * 

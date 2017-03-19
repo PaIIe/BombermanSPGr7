@@ -28,7 +28,19 @@ public class BombermanGameClient {
 	static BufferedReader fromServer = null;
 	static OutputStreamWriter toServer = null;
 	static Scanner inputFromClient = null;
+	
+	static JSONObject gameObject;
+	static JSONObject player;
 	//static JsonEncoderDecoder encoderDecoder = null;
+	
+	public static JSONObject getGameObject()
+	{
+	  return gameObject;
+	}
+	public static JSONObject getPlayer()
+	{
+	  return player;
+	}
 
 	public static void main(String[] args) {
 		startBombermanGameClient();
@@ -113,22 +125,40 @@ public class BombermanGameClient {
 	}
 
 	private static void receiveFromServer() {
-		String input = null;
-		JSONObject jsonObject = null;
+		String playerInput = null;
+		String gameObjectInput = null;
+		JSONObject jsonObjectPlayer = null;
+		JSONObject jsonObjectGame = null;
 			//try {
 				try {
-					input = fromServer.readLine();
+					playerInput = fromServer.readLine();
+					try{
+					  Thread.sleep(50);
+					}catch (InterruptedException e) {
+                      // TODO Auto-generated catch block
+                      e.printStackTrace();
+					  
+					}					
+					gameObjectInput = fromServer.readLine();
+					
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				jsonObject = new JSONObject(input);
+				jsonObjectPlayer = new JSONObject(playerInput);
+				jsonObjectGame = new JSONObject(gameObjectInput);
+				
+				player = jsonObjectPlayer;
+				gameObject = jsonObjectGame;
 			//} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 		//	}
-			input = JsonDecoderClient.decodeJsonToString(jsonObject);
-		System.out.println(input);
+			//input = JsonDecoderClient.decodeJsonToString(jsonObject);
+			
+			
+		//System.out.println(input);
 	}
 
 	private static void startBombermanGameClient() {

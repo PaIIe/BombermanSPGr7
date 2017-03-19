@@ -42,7 +42,8 @@ public class BombermanGameServer extends Thread {
         startBombermanGameServer();
         listenForClients();
         startTickTimer();
-        
+        Game game = new Game("Title!", 1000, 1000);
+        game.start();
         while(gameOver == false){
           
           if(!msgQueue.isEmpty()){
@@ -158,8 +159,7 @@ public class BombermanGameServer extends Thread {
         msgQueue = new LinkedList<String>();
         writer_list = new ArrayList<OutputStreamWriter>();
         System.out.println("Server has started");
-        Game game = new Game("Title!", 1000, 1000);
-		game.start();
+       
     }
  
 }

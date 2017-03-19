@@ -22,6 +22,9 @@ public class Client implements Runnable {
     public int width, height;
     public String title;
     
+    //TODO Müssen noch getter dafür besorgen
+    private int playerCount = 4;
+    
     private boolean running = false;
     private Thread thread;
     
@@ -65,8 +68,8 @@ public class Client implements Runnable {
     
     private void init(){
         this.gamefield = new GamefieldData();
-        gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(msg, width));
-        gamefield.setPlayerMatrix(JsonDecoderClient.decodePlayerMatrix(msg, playerCount));
+        gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(networkBomberman.BombermanGameClient.getGameObject(), width));
+        gamefield.setPlayerMatrix(JsonDecoderClient.decodePlayerMatrix(networkBomberman.BombermanGameClient.getPlayer(), playerCount));
         
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);

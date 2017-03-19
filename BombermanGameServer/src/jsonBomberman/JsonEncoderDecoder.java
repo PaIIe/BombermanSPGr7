@@ -255,7 +255,7 @@ public class JsonEncoderDecoder {
                   
       }
       
-      encodedMsg.put("command", "gsInitialGameMatrix");
+      encodedMsg.put("command", "gsInitialPlayerMatrix");
       encodedMsg.put("content", temp);
       
       //System.out.println(encodedMsg);

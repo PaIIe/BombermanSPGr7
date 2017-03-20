@@ -35,6 +35,7 @@ public class BombermanGameClient {
 	
 	public static JSONObject getGameObject()
 	{
+	  System.out.println(gameObject);
 	  return gameObject;
 	}
 	public static JSONObject getPlayer()
@@ -149,6 +150,7 @@ public class BombermanGameClient {
 					}					
 					gameObjectInput = fromServer.readLine();
 					gameObjectInput = jsonBomberman.JsonDecoderClient.extractJsonString(gameObjectInput);
+					//System.out.println(gameObjectInput);
 					
 					
 				} catch (IOException e) {
@@ -160,6 +162,7 @@ public class BombermanGameClient {
 				
 				player = jsonObjectPlayer;
 				gameObject = jsonObjectGame;
+				
 			//} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();

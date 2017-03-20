@@ -45,6 +45,7 @@ public static Bomberman[] decodePlayerMatrix(JSONObject msg, int playerCount)
     playerMatrix[i].setAliveStatus(jsonObject.getBoolean("alive"));
     playerMatrix[i].setArmor(jsonObject.getBoolean("armor"));
   }
+ // System.out.println(playerMatrix[1].getID());
   return playerMatrix;
 }
 
@@ -58,6 +59,7 @@ public static Bomberman[] decodePlayerMatrix(JSONObject msg, int playerCount)
  */
 public static GameObject[][] decodeGameObjectMatrix(JSONObject msg, int width)
 {
+  System.out.println(width);
   GameObject[][] gameObject = new GameObject[width][width];
   for(int i = width-1; i >= 0; i--){
     for(int j = width-1; j >= 0; j--){      
@@ -85,12 +87,14 @@ public static GameObject[][] decodeGameObjectMatrix(JSONObject msg, int width)
       gameObject[row][column].setColumn(jsonObject.getInt("column"));
       gameObject[row][column].setSolid(jsonObject.getBoolean("isSolid"));
       
+     
+      
     }catch (JSONException e) {
       System.err.println("JSONException " + e.getMessage());
       e.printStackTrace();
     }
   }
-  System.out.println(gameObject);
+  System.out.println(gameObject[1][1].getID());
   return gameObject;
  
 }

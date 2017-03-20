@@ -39,6 +39,7 @@ public class GamefieldData
 	
 	public void setObjectMatrix(GameObject[][] objectMatrix)
 	{
+	  System.out.println(objectMatrix);
 		this.GameObejctsMatrix = objectMatrix;
 	}
 	

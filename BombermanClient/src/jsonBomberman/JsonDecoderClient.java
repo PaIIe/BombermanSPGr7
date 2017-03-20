@@ -116,6 +116,18 @@ public static String decodeJsonToString(JSONObject encodedMsg)
   return msg;
 }
 
+public static String extractJsonString(String outputFromClient) {
+  while(true){
+      char c = outputFromClient.charAt(0);
+      if(c != '{'){
+          outputFromClient = outputFromClient.substring(1);
+      }
+      else
+          break;
+  }
+  
+  return outputFromClient;
+}
 
 
 } 

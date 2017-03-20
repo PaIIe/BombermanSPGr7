@@ -55,16 +55,23 @@ public class BombermanGameClient {
 		  try{
 		    if(fromServer.ready()){
 		      receiveFromServer();
+		      
 		      try{
 		        Thread.sleep(10);
 		      }catch(InterruptedException e)
 		      {
 		        System.err.println("InterruptedException: " + e.getMessage());
 		      }
+		      break;
 		    }
 		    else
 		    {
-		      break;
+		      try{
+                Thread.sleep(20);
+              }catch(InterruptedException e)
+              {
+                System.err.println("InterruptedException: " + e.getMessage());
+              }
 		    }
 		  }
 		  catch (IOException e) {
@@ -132,6 +139,7 @@ public class BombermanGameClient {
 			//try {
 				try {
 					playerInput = fromServer.readLine();
+					playerInput = jsonBomberman.JsonDecoderClient.extractJsonString(playerInput);
 					try{
 					  Thread.sleep(50);
 					}catch (InterruptedException e) {
@@ -140,6 +148,7 @@ public class BombermanGameClient {
 					  
 					}					
 					gameObjectInput = fromServer.readLine();
+					gameObjectInput = jsonBomberman.JsonDecoderClient.extractJsonString(gameObjectInput);
 					
 					
 				} catch (IOException e) {

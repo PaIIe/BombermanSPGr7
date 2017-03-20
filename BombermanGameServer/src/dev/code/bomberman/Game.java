@@ -49,6 +49,11 @@ public class Game implements Runnable {
 
 	}
 	
+	public int getfliedWidth()
+	{
+	  return this.fieldWidth;
+	}
+	
 	/**
 	 * Die Init-Funkion des Spiels wird einmal vor dem Start des Games asugeführt
 	 * und initialisiert das Spielfeld, den Display, den KeyListener, das Ranking, den Log und schließlich die Images

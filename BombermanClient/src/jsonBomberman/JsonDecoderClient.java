@@ -89,8 +89,10 @@ public static GameObject[][] decodeGameObjectMatrix(JSONObject msg, int width)
       System.err.println("JSONException " + e.getMessage());
       e.printStackTrace();
     }
-  } 
+  }
+  System.out.println(gameObject);
   return gameObject;
+ 
 }
 
 /**

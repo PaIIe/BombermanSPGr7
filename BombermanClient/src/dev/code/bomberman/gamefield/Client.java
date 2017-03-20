@@ -16,6 +16,7 @@ import jsonBomberman.JsonEncoderClient;
 import jsonBomberman.JsonDecoderClient;
 import networkBomberman.BombermanGameClient;
 
+
 public class Client implements Runnable {
 
     private Display display;
@@ -68,7 +69,7 @@ public class Client implements Runnable {
     
     private void init(){
         this.gamefield = new GamefieldData();
-        gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(networkBomberman.BombermanGameClient.getGameObject(), width));
+        gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(networkBomberman.BombermanGameClient.getGameObject(), gamefield.getWidth()));
         gamefield.setPlayerMatrix(JsonDecoderClient.decodePlayerMatrix(networkBomberman.BombermanGameClient.getPlayer(), playerCount));
         
         display = new Display(title, width, height);

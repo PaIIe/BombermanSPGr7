@@ -133,7 +133,7 @@ public class GameField
 		}
 		GameObejctsMatrix = temp;
 		
-		JsonEncoderDecoder.DecodeGameObjectMatrix(JsonEncoderDecoder.EncodeMatrix(GameObejctsMatrix, getWidth()), getWidth());
+		//JsonEncoderDecoder.DecodeGameObjectMatrix(JsonEncoderDecoder.EncodeMatrix(GameObejctsMatrix, getWidth()), getWidth());
 		//JsonEncoderDecoder.EncodeGameObjectToJSON(getObject(4,4));
 		
 	}
@@ -163,7 +163,7 @@ public class GameField
     		temp[3] = player4;
     	}
     	PlayerMatrix = temp;
-    	JsonEncoderDecoder.DecodePlayerMatrix(JsonEncoderDecoder.EncodePlayerMatrix(PlayerMatrix, playerNumber), playerNumber);
+    	//JsonEncoderDecoder.DecodePlayerMatrix(JsonEncoderDecoder.EncodePlayerMatrix(PlayerMatrix, playerNumber), playerNumber);
     }
     
     // Setter

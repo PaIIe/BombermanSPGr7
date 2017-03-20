@@ -71,11 +71,17 @@ public class Client implements Runnable {
     
     private void init(){
         this.gamefield = new GamefieldData();
+        
+        
+        //TODO müsste man vom Server bekommen denk ich
         this.gamefield.setWidth(11);
+        
+        
+        
+        
         this.gamefield.setObjectMatrix(JsonDecoderClient.decodeGameObjectMatrix(networkBomberman.BombermanGameClient.getGameObject(), this.gamefield.getWidth()));
         this.gamefield.setPlayerMatrix(JsonDecoderClient.decodePlayerMatrix(networkBomberman.BombermanGameClient.getPlayer(), playerCount));
         
-        System.out.println(this.gamefield.getGameObject(1,1).getID());
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         

@@ -207,6 +207,7 @@ public class Game implements Runnable {
 			if (delta >= 1)
 			{
 				tick(); // update
+				networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
 				render(); // zeichnen
 				
 				

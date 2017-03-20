@@ -45,7 +45,7 @@ public static Bomberman[] decodePlayerMatrix(JSONObject msg, int playerCount)
     playerMatrix[i].setAliveStatus(jsonObject.getBoolean("alive"));
     playerMatrix[i].setArmor(jsonObject.getBoolean("armor"));
   }
- // System.out.println(playerMatrix[1].getID());
+ 
   return playerMatrix;
 }
 
@@ -94,7 +94,7 @@ public static GameObject[][] decodeGameObjectMatrix(JSONObject msg, int width)
       e.printStackTrace();
     }
   }
-  System.out.println(gameObject[1][1].getID());
+ 
   return gameObject;
  
 }

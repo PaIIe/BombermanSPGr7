@@ -17,22 +17,22 @@ public class GameObject
 	// Setter
 	public void setRow(int row)
 	{
-		this.row = row;
+		row = row;
 	}
 	
-	public void setColumn(int column)
+	public  void setColumn(int column)
 	{
-		this.column = column;
+		column = column;
 	}
 	
-	public void setID(int id)
+	public  void setID(int id)
 	{
-		this.ID = id;
+		ID = id;
 	}
 	
-	public void setSolid(boolean solid)
+	public  void setSolid(boolean solid)
 	{
-		this.isSolid = solid;
+		isSolid = solid;
 	}
 	
 	

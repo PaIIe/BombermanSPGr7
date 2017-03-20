@@ -15,6 +15,8 @@ import jsonBomberman.JsonEncoderDecoder;
  
 import org.json.JSONObject;
 
+import dev.code.bomberman.Bomberman;
+import dev.code.bomberman.Direction;
 import dev.code.bomberman.Game;
 import dev.code.bomberman.GameField;
  
@@ -31,14 +33,14 @@ public class BombermanGameServer extends Thread {
     static boolean gameStart = false;
    
     static LinkedList<String> msgQueue = null;
-    static ArrayList<OutputStreamWriter> writer_list = null;
+    ArrayList<OutputStreamWriter> writer_list = null;
    
     static Timer timer;
     static int delay = 0;
     static int period = 50;
     static int tick = 0;
  
-    public static void main(String[] args) {
+    public void main(String[] args) {
         startBombermanGameServer();
         listenForClients();
         startTickTimer();
@@ -57,7 +59,7 @@ public class BombermanGameServer extends Thread {
         closeBombermanGameServer();
     }
  
-    private static void startTickTimer() {
+    private void startTickTimer() {
         timer = new Timer();
         TickTimer tickTimer = new TickTimer();
         timer.scheduleAtFixedRate(tickTimer, delay, period);
@@ -67,14 +69,26 @@ public class BombermanGameServer extends Thread {
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
-    public static String readMsgQueue() //aendern
+    public String readMsgQueue()
     {
        String output;
-     
+       Direction direction = null;
        output = msgQueue.getFirst();
+       
+       if(output.equals("moveRight"));
+         direction = Direction.EAST;
+       if(output.equals("moveLeft"));
+         direction = Direction.WEST;
+       if(output.equals("moveUp"));
+         direction = Direction.NORTH;
+       if(output.equals("moveDown"));
+         direction = Direction.SOUTH;
+       
+      //TODO fehler finden
+      Bomberman.walk(direction);
        output = output + " " + tick;
        msgQueue.removeFirst();
-       try{ 
+       try{
          Thread.sleep(50);
        }
        catch (InterruptedException e) {
@@ -114,7 +128,7 @@ public class BombermanGameServer extends Thread {
  
    
    
-    private static void closeBombermanGameServer() {
+    private void closeBombermanGameServer() {
         try {
             socketBombermanGameServer.close();
         } catch (IOException e) {
@@ -127,7 +141,7 @@ public class BombermanGameServer extends Thread {
      *
      * Server verbindet sich über Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe für den Spielstart
      */
-    private static void listenForClients() {
+    private void listenForClients() {
         clientHandlerPool = Executors.newFixedThreadPool(player);
         while(clientID <= 2 ){
             try {              
@@ -149,7 +163,7 @@ public class BombermanGameServer extends Thread {
         gameStart =  true;
     }
  
-    private static void startBombermanGameServer() {
+    private void startBombermanGameServer() {
         try {
             socketBombermanGameServer = new ServerSocket(port);
         } catch (IOException e) {

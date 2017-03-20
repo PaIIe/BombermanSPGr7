@@ -65,6 +65,12 @@ public class Game implements Runnable {
 	private int minutes;
 	private int seconds;
 	
+	// Movement Player
+	private int movementTicksPlayer1;
+	private int movementTicksPlayer2;
+	private int movementTicksPlayer3;
+	private int movementTicksPlayer4;
+	
 	/**
 	 * Konstruktor für unser Spiel
 	 * 
@@ -93,6 +99,11 @@ public class Game implements Runnable {
 		new GameField(11);
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
+		
+		this.movementTicksPlayer1 = 10;
+		this.movementTicksPlayer2 = 10;
+		this.movementTicksPlayer3 = 10;
+		this.movementTicksPlayer4 = 10;
 		
 		this.gameState = GameState.RUNNING;
 		
@@ -181,22 +192,22 @@ public class Game implements Runnable {
 			// Eingaben
 			
 			counterTicks++;
-			if(getKeyManager().up && (counterTicks > inputTicks + 5) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().up && (counterTicks > inputTicks + this.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.NORTH);
 				inputTicks = counterTicks;
 			}		
-			if(getKeyManager().down && (counterTicks > inputTicks + 5) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().down && (counterTicks > inputTicks + this.movementTicksPlayer2) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.SOUTH);
 				inputTicks = counterTicks;
 			}	
-			if(getKeyManager().left  && (counterTicks > inputTicks + 5) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().left  && (counterTicks > inputTicks + this.movementTicksPlayer3) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.WEST);
 				inputTicks = counterTicks;
 			}			
-			if(getKeyManager().right  && (counterTicks > inputTicks + 5) && GameField.getPlayer(1).getAliveStatus() == true) // 1 Eingabe aller 5 Ticks
+			if(getKeyManager().right  && (counterTicks > inputTicks + this.movementTicksPlayer4) && GameField.getPlayer(1).getAliveStatus() == true) // 1 Eingabe aller 5 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.EAST);
 				inputTicks = counterTicks;

@@ -33,7 +33,7 @@ public class BombermanGameServer extends Thread {
     static boolean gameStart = false;
    
     static LinkedList<String> msgQueue = null;
-    ArrayList<OutputStreamWriter> writer_list = null;
+    static ArrayList<OutputStreamWriter> writer_list = null;
    
     static Timer timer;
     static int delay = 0;
@@ -84,8 +84,17 @@ public class BombermanGameServer extends Thread {
        if(output.equals("moveDown"));
          direction = Direction.SOUTH;
        
-      //TODO fehler finden
-      Bomberman.walk(direction);
+       //TODO fehler finden
+      
+       Bomberman.walk(direction); // ihr müsst hier mit Gamfield.getPlayer arbeiten!!!!
+       // BEISPIELE... vorher noch abfrage wer sendet?????
+       // dann..
+       /*GameField.getPlayer(1).walk(direction);
+       GameField.getPlayer(2).walk(direction);
+       GameField.getPlayer(3).walk(direction);
+       GameField.getPlayer(4).walk(direction);*/
+       
+       
        output = output + " " + tick;
        msgQueue.removeFirst();
        try{

@@ -119,5 +119,9 @@ public class Boni extends GameObject
 		}
 	}
 
+	public void enableSprint(int id)
+	{
+		
+	}
 	
 }

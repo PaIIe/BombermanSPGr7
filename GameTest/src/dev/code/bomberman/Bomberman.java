@@ -77,6 +77,22 @@ public class Bomberman extends GameObject{
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 24)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
+				{
+					
+				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
 				{

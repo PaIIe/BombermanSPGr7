@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameObject;
 import dev.code.bomberman.Bomberman;
-import jsonBomberman.DummyGameObject;
+
 
 public class JsonEncoderDecoder {
 

@@ -40,7 +40,7 @@ public class BombermanGameServer extends Thread {
     static int period = 50;
     static int tick = 0;
  
-    public void main(String[] args) {
+    public static void main(String[] args) {
         startBombermanGameServer();
         listenForClients();
         startTickTimer();
@@ -59,42 +59,20 @@ public class BombermanGameServer extends Thread {
         closeBombermanGameServer();
     }
  
-    private void startTickTimer() {
+    private static void startTickTimer() {
         timer = new Timer();
         TickTimer tickTimer = new TickTimer();
         timer.scheduleAtFixedRate(tickTimer, delay, period);
     }
     /**
-     * Thread liest die Beschriebene msgQueue aus und fügt seine ID hinzu, die der ID des Clients entspricht.
+     * Thread liest die Beschriebene msgQueue aus und fÑŒgt seine ID hinzu, die der ID des Clients entspricht.
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
-    public String readMsgQueue()
+    public static String readMsgQueue()
     {
        String output;
-       Direction direction = null;
        output = msgQueue.getFirst();
-       
-       if(output.equals("moveRight"));
-         direction = Direction.EAST;
-       if(output.equals("moveLeft"));
-         direction = Direction.WEST;
-       if(output.equals("moveUp"));
-         direction = Direction.NORTH;
-       if(output.equals("moveDown"));
-         direction = Direction.SOUTH;
-       
-       //TODO fehler finden
-      
-       Bomberman.walk(direction); // ihr müsst hier mit Gamfield.getPlayer arbeiten!!!!
-       // BEISPIELE... vorher noch abfrage wer sendet?????
-       // dann..
-       /*GameField.getPlayer(1).walk(direction);
-       GameField.getPlayer(2).walk(direction);
-       GameField.getPlayer(3).walk(direction);
-       GameField.getPlayer(4).walk(direction);*/
-       
-       
        output = output + " " + tick;
        msgQueue.removeFirst();
        try{
@@ -112,7 +90,7 @@ public class BombermanGameServer extends Thread {
    
    
     /**
-     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der Veränderungen im Spiel verwendet
+     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerÐ´nderungen im Spiel verwendet
      * @param Message
      */
     public static void broadcastToClient(JSONObject player, JSONObject game)
@@ -137,7 +115,7 @@ public class BombermanGameServer extends Thread {
  
    
    
-    private void closeBombermanGameServer() {
+    private static void closeBombermanGameServer() {
         try {
             socketBombermanGameServer.close();
         } catch (IOException e) {
@@ -148,9 +126,9 @@ public class BombermanGameServer extends Thread {
     /**
      * Verbindet die anfragenden Clients mti dem Server
      *
-     * Server verbindet sich über Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe für den Spielstart
+     * Server verbindet sich ÑŒber Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe fÑŒr den Spielstart
      */
-    private void listenForClients() {
+    private static void listenForClients() {
         clientHandlerPool = Executors.newFixedThreadPool(player);
         while(clientID <= 2 ){
             try {              
@@ -172,7 +150,7 @@ public class BombermanGameServer extends Thread {
         gameStart =  true;
     }
  
-    private void startBombermanGameServer() {
+    private static void startBombermanGameServer() {
         try {
             socketBombermanGameServer = new ServerSocket(port);
         } catch (IOException e) {

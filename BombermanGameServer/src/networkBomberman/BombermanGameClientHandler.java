@@ -8,6 +8,9 @@ import java.net.Socket;
  
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import dev.code.bomberman.Direction;
+import dev.code.bomberman.GameField;
 import jsonBomberman.JsonEncoderDecoder;
  
 public class BombermanGameClientHandler implements Runnable {
@@ -61,9 +64,23 @@ public class BombermanGameClientHandler implements Runnable {
                         System.err.println("JSONException in Run: " + e1.getMessage());
                         e1.printStackTrace();
                     }
+                   
+                   ////////////////////////neu
+              Direction direction = null;
+              if(outputFromClient.equals("moveRight"));
+              	direction = Direction.EAST;
+              if(outputFromClient.equals("moveLeft"));
+                direction = Direction.WEST;
+              if(outputFromClient.equals("moveUp"));
+                direction = Direction.NORTH;
+              if(outputFromClient.equals("moveDown"));
+              	 direction = Direction.SOUTH;
+              	 
+              GameField.getPlayer(clientID).walk(direction);
+              ////////////////////////////
                     outputFromClient = outputFromClient + " " + clientID;
                    
-                    BombermanGameServer.msgQueue.add(outputFromClient); //Füllt msgQueue mit dem command und dem content des clients
+                    BombermanGameServer.msgQueue.add(outputFromClient); //FÑŒllt msgQueue mit dem command und dem content des clients
                    
                     System.out.println(outputFromClient);
                    
@@ -100,7 +117,7 @@ public class BombermanGameClientHandler implements Runnable {
         }
     }
     /**
-     * Extrahiert das Übergebene ([Länge]JSONObject) so das die Übergebene länge entfernt wird und nur noch ein JSONObject übrig bleibt
+     * Extrahiert das Ð¬bergebene ([LÐ´nge]JSONObject) so das die Ð¬bergebene lÐ´nge entfernt wird und nur noch ein JSONObject ÑŒbrig bleibt
      * @param outputFromClient
      * @return
      */
@@ -119,7 +136,7 @@ public class BombermanGameClientHandler implements Runnable {
       return outputFromClient;
   }
     
-    /*UNNÜTZ zur zeit, sollte die JSONString länge filtern.. TODO
+    /*UNNÐ¬TZ zur zeit, sollte die JSONString lÐ´nge filtern.. TODO
     private int extractLenght(String outputFromClient){
       int length;
       String temp = null;

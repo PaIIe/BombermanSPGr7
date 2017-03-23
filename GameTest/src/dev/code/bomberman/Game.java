@@ -55,6 +55,11 @@ public class Game implements Runnable {
 	private BufferedImage powerUpArmor;
 	private BufferedImage powerUpRadius;
 	private BufferedImage powerUpNumber;
+	private BufferedImage powerUpMaxRadius;
+	private BufferedImage powerUpKick;
+	private BufferedImage powerUpBombwalker;
+	private BufferedImage powerUpSuperbomb;
+	private BufferedImage powerUpSpeed;
 	private BufferedImage blueBombermanArmor;
 	private BufferedImage redBombermanArmor;
 	private BufferedImage yellowBombermanArmor;
@@ -66,10 +71,10 @@ public class Game implements Runnable {
 	private int seconds;
 	
 	// Movement Player
-	private int movementTicksPlayer1;
-	private int movementTicksPlayer2;
-	private int movementTicksPlayer3;
-	private int movementTicksPlayer4;
+	private static int movementTicksPlayer1;
+	private static int movementTicksPlayer2;
+	private static int movementTicksPlayer3;
+	private static int movementTicksPlayer4;
 	
 	/**
 	 * Konstruktor für unser Spiel
@@ -100,10 +105,10 @@ public class Game implements Runnable {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		
-		this.movementTicksPlayer1 = 10;
-		this.movementTicksPlayer2 = 10;
-		this.movementTicksPlayer3 = 10;
-		this.movementTicksPlayer4 = 10;
+		Game.movementTicksPlayer1 = 10;
+		Game.movementTicksPlayer2 = 10;
+		Game.movementTicksPlayer3 = 10;
+		Game.movementTicksPlayer4 = 10;
 		
 		this.gameState = GameState.RUNNING;
 		
@@ -130,6 +135,11 @@ public class Game implements Runnable {
 		powerUpArmor = ImageLoader.loadImage("/textures/powerUp_armor.png");
 		powerUpRadius = ImageLoader.loadImage("/textures/powerUp_biggerBomb.png");
 		powerUpNumber = ImageLoader.loadImage("/textures/powerUp_extraBomb.png");
+		powerUpMaxRadius = ImageLoader.loadImage("/textures/powerUp_radius.png");
+		powerUpKick = ImageLoader.loadImage("/textures/powerUp_kick.png");
+		powerUpBombwalker = ImageLoader.loadImage("/textures/powerUp_bombwalker.png");
+		powerUpSuperbomb = ImageLoader.loadImage("/textures/powerUp_superbomb.png");
+		powerUpSpeed = ImageLoader.loadImage("/textures/powerUp_sprint.png");
 		blueBombermanArmor = ImageLoader.loadImage("/textures/bomberman_blue_armor.png");
 		redBombermanArmor = ImageLoader.loadImage("/textures/bomberman_rot_armor.png");
 		yellowBombermanArmor = ImageLoader.loadImage("/textures/bomberman_yellow_armor.png");
@@ -192,22 +202,22 @@ public class Game implements Runnable {
 			// Eingaben
 			
 			counterTicks++;
-			if(getKeyManager().up && (counterTicks > inputTicks + this.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().up && (counterTicks > inputTicks + Game.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 10 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.NORTH);
 				inputTicks = counterTicks;
 			}		
-			if(getKeyManager().down && (counterTicks > inputTicks + this.movementTicksPlayer2) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().down && (counterTicks > inputTicks + Game.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 10 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.SOUTH);
 				inputTicks = counterTicks;
 			}	
-			if(getKeyManager().left  && (counterTicks > inputTicks + this.movementTicksPlayer3) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 5 Ticks
+			if(getKeyManager().left  && (counterTicks > inputTicks + Game.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true)	// 1 Eingabe aller 10 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.WEST);
 				inputTicks = counterTicks;
 			}			
-			if(getKeyManager().right  && (counterTicks > inputTicks + this.movementTicksPlayer4) && GameField.getPlayer(1).getAliveStatus() == true) // 1 Eingabe aller 5 Ticks
+			if(getKeyManager().right  && (counterTicks > inputTicks + Game.movementTicksPlayer1) && GameField.getPlayer(1).getAliveStatus() == true) // 1 Eingabe aller 10 Ticks
 			{
 				GameField.getPlayer(1).walk(Direction.EAST);
 				inputTicks = counterTicks;
@@ -273,6 +283,26 @@ public class Game implements Runnable {
 	    			{
 	    				g.drawImage(powerUpArmor, j*64, i*64, null);
 	    			}
+	    			if (GameField.getObject(i, j).getID() == 24) // powerUp schneller Laufen
+	    			{
+	    				g.drawImage(powerUpSpeed, j*64, i*64, null);
+	    			}
+	    			if (GameField.getObject(i, j).getID() == 25) // powerUp Kick
+	    			{
+	    				g.drawImage(powerUpKick, j*64, i*64, null);
+	    			}
+	    			if (GameField.getObject(i, j).getID() == 26) // powerUp SuperBombe
+	    			{
+	    				g.drawImage(powerUpSuperbomb, j*64, i*64, null);
+	    			}
+	    			if (GameField.getObject(i, j).getID() == 27) // powerUp Max Bombenradius
+	    			{
+	    				g.drawImage(powerUpMaxRadius, j*64, i*64, null);
+	    			}
+	    			if (GameField.getObject(i, j).getID() == 28) // powerUp Bombenläufer
+	    			{
+	    				g.drawImage(powerUpBombwalker, j*64, i*64, null);
+	    			}
 	    			if (GameField.getObject(i, j).getID() == 61 || GameField.getObject(i, j).getID() == 71 || GameField.getObject(i, j).getID() == 81 || GameField.getObject(i, j).getID() == 91) // Bombenphase 1
 	    				g.drawImage(bombPhase1, j*64, i*64, null);
 	    			if (GameField.getObject(i, j).getID() == 62 || GameField.getObject(i, j).getID() == 72 || GameField.getObject(i, j).getID() == 82 || GameField.getObject(i, j).getID() == 92) // Bombenphase 2
@@ -298,8 +328,7 @@ public class Game implements Runnable {
 				if (GameField.getPlayer(2).getArmor() == true) // Spieler2 mit Armor
 					g.drawImage(greenBombermanArmor, GameField.getPlayer(2).getColumn() * 64, GameField.getPlayer(2).getRow() * 64, null);
 			}	
-			// DEMO
-			/*if (GameField.getPlayer(3).getAliveStatus() == true)
+			if (GameField.getPlayer(3).getAliveStatus() == true)
 			{
 				if (GameField.getPlayer(3).getArmor() == false)	// Spieler3 ohne Armor
 					g.drawImage(redBomberman, GameField.getPlayer(3).getColumn() * 64, GameField.getPlayer(3).getRow() * 64, null);
@@ -312,7 +341,7 @@ public class Game implements Runnable {
 					g.drawImage(yellowBomberman, GameField.getPlayer(4).getColumn() * 64, GameField.getPlayer(4).getRow() * 64, null);
 				if (GameField.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
 					g.drawImage(yellowBombermanArmor, GameField.getPlayer(4).getColumn() * 64, GameField.getPlayer(4).getRow() * 64, null);
-			}*/
+			}
 			
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect( GameField.getWidth() * 64 / 2 - 35, GameField.getWidth() * 64 + 10, 70, 40);
@@ -453,5 +482,25 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void speedUpPlayer1()
+	{
+		Game.movementTicksPlayer1 = 5;
+	}
+	
+	public static void speedUpPlayer2()
+	{
+		Game.movementTicksPlayer2 = 5;
+	}
+	
+	public static void speedUpPlayer3()
+	{
+		Game.movementTicksPlayer3 = 5;
+	}
+	
+	public static void speedUpPlayer4()
+	{
+		Game.movementTicksPlayer4 = 5;
 	}
 }

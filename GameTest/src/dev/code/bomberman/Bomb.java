@@ -6,6 +6,7 @@ public class Bomb extends GameObject
 	private int explosionRadius;
 	private int explosionTime;
 	private int countdownTime;
+	private boolean superbomb;
 	
 	/**
 	 * Konstruktor für die Bomben der Spieler.
@@ -15,7 +16,7 @@ public class Bomb extends GameObject
 	 * @param time Zeit, wie lange die Bombe bis zur Explosion tickt
 	 * @param radius Radius der Bombenexplosion
 	 */
-	public Bomb(int row, int column, int time, int radius)
+	public Bomb(int row, int column, int time, int radius, boolean superbomb)
 	{
 		this.explosionRadius=radius;	
 		this.explosionTime=time * 20; // 20 Ticks pro Sekunde
@@ -23,6 +24,7 @@ public class Bomb extends GameObject
 		this.setRow(row);
 		this.setColumn(column);
 		this.setSolid(true);
+		this.superbomb = superbomb;
 	}
 	public Bomb() 
 	{
@@ -77,14 +79,6 @@ public class Bomb extends GameObject
 	{
 		this.generateFlames();
 		Game.logs.ExplodeLog(this.getRow(), this.getColumn());
-		/*playerCheck(this.getRow(), this.getColumn());
-		this.generateFlames(this.getRow(), this.getColumn());
-		
-		for(int i; i=1; i++)
-		{
-			if(ObjectAt(this.getRow()+i,this.getColumn())==2)
-				this.destroyWall(this.row, this.column);
-		}*/
 	}
 	
 	/**
@@ -123,12 +117,16 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() == 1)
-					 break; // Abbruch der Flammen, da Wand
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() == 2) 
 				 {
 					 this.destroyWall(this.getRow() - i, this.getColumn());
-					 break; // Abbruch der Flammen, da Wand
+					 if (this.superbomb == false)
+						 break; // Abbruch der Flammen, da Wand
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() >= 61 && GameField.getObject(this.getRow()- i, this.getColumn()).getID() <= 63) // Bomben von Player1
@@ -176,9 +174,12 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flammen erzeugen
-				 Flame flame = new Flame(this.getRow() - i, this.getColumn());
-				 GameField.setObject(flame, this.getRow() - i, this.getColumn());
+				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() != 1)
+				 {
+					// Flammen erzeugen
+					 Flame flame = new Flame(this.getRow() - i, this.getColumn());
+					 GameField.setObject(flame, this.getRow() - i, this.getColumn());
+				 }	 
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach WESTEN
@@ -187,12 +188,17 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
+					 
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow(), this.getColumn() - i);
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() >= 61 && GameField.getObject(this.getRow(), this.getColumn() - i).getID() <= 63) // Bomben von Player1
@@ -240,8 +246,11 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
-				 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
+				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() != 1)
+				 {
+					 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
+					 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
+				 }
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach SÜDEN
@@ -250,12 +259,16 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow() + i, this.getColumn());
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow()+ i, this.getColumn()).getID() >= 61 && GameField.getObject(this.getRow()+ i, this.getColumn()).getID() <= 63) // Bomben von Player1
@@ -303,9 +316,12 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flammen erzeugen
-				 Flame flame = new Flame(this.getRow() + i, this.getColumn());
-				 GameField.setObject(flame, this.getRow() + i, this.getColumn());
+				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() != 1)
+				 {
+					 // Flammen erzeugen
+					 Flame flame = new Flame(this.getRow() + i, this.getColumn());
+					 GameField.setObject(flame, this.getRow() + i, this.getColumn());
+				 }			 
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach OSTEN
@@ -314,12 +330,16 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
 				 //destroyable Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow(), this.getColumn() + i);
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 //
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() >= 61 && GameField.getObject(this.getRow(), this.getColumn() + i).getID() <= 63) // Bomben von Player1
@@ -367,13 +387,20 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flamme
-				 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
-				 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
+				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() != 1)
+				 {
+					 // Flamme
+					 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
+					 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
+				 } 
 			 }
 		}
 	}
 	
+	public void kicked(Direction direction)
+	{
+		
+	}
 	/**
 	 * Diese Funktion kümmert sich um das Zerstören der Mauern, sobald eine im Explosionsradius gefunden wurde und ruft eine Funktion auf, die sich um den Bonus kümmert.
 	 * @param row Zeile der Mauer, die zerstört werden soll
@@ -408,4 +435,5 @@ public class Bomb extends GameObject
 	{
 		return this.explosionRadius;
 	}
+	
 }

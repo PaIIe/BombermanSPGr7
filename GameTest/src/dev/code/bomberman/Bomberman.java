@@ -6,9 +6,13 @@ public class Bomberman extends GameObject{
 	private int armorTimer;
 	private int maxBomb;
 	private int radiusBomb;
+	private int maxRadius;
 	private int placedBombs;
 	private boolean armor;
 	private boolean alive;
+	private boolean bombwalker;
+	private boolean superbomb;
+	private boolean kick;
 	
 	/**
 	 * Der Konstruktor für die Spieler.
@@ -25,7 +29,11 @@ public class Bomberman extends GameObject{
 		this.setAliveStatus(true);
 		this.setSolid(false);
 		this.setID(id);
+		this.bombwalker = false;
+		this.superbomb = false;
+		this.kick = false;
 		this.placedBombs = 0;
+		this.maxRadius = 7; // Server!!!!! konfigurierbar
 	}
 	
 	/**
@@ -50,6 +58,27 @@ public class Bomberman extends GameObject{
 	{
 		if (direction == Direction.NORTH)
 		{
+			// Bonus Kick
+			if (this.kick == true && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 63 ||
+					   				 GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 71 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 73 ||
+					   				 GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 81 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 83 ||
+					   				 GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 93)
+			{
+				Bomb bomb = (Bomb) GameField.getObject(this.getRow() - 1, this.getColumn());
+				bomb.kicked(Direction.NORTH);
+			}
+			// Bonus Bombwalker
+			if (this.bombwalker == true && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 63 ||
+										   GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 71 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 73 ||
+										   GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 81 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 83 ||
+										   GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 93)
+			{
+				this.setRow(this.getRow() - 1);
+				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
+				return;
+			}
+			// "normales Laufen"
 			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() - 1);
@@ -79,19 +108,38 @@ public class Bomberman extends GameObject{
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 24)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSprint(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableKick(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSuperbomb(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.setToMaxRadius(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableBombwalker(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
@@ -109,6 +157,19 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.EAST)
 		{
+			// Bonus Bombwalker
+			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 63 ||
+										   GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 73 ||
+										   GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 81 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 83 ||
+										   GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 91 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 93)
+			{
+				this.setColumn(this.getColumn() + 1);
+				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
+				return;
+			}
+			
+			// Standart
 			if (GameField.getObject(this.getRow(), (this.getColumn() + 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() + 1);
@@ -136,6 +197,38 @@ public class Bomberman extends GameObject{
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 24)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSprint(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSuperbomb(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.setToMaxRadius(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableBombwalker(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
 				{
@@ -152,6 +245,18 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.SOUTH)
 		{
+			// Bonus Bombwalker
+			if (this.bombwalker == true && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 63 ||
+										   GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 71 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 73 ||
+										   GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 81 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 83 ||
+										   GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 93)
+			{
+				this.setRow(this.getRow() + 1);
+				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
+				return;
+			}
+			// Standart
 			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() + 1);
@@ -179,6 +284,38 @@ public class Bomberman extends GameObject{
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 24)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSprint(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSuperbomb(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.setToMaxRadius(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableBombwalker(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
 				{
@@ -195,6 +332,17 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.WEST)
 		{
+			// Bonus Bombwalker
+			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 63 ||
+										   GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 73 ||
+										   GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 81 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 83 ||
+										   GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 91 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 93)
+			{
+				this.setColumn(this.getColumn() - 1);
+				Game.ranking.updateSteps(this.getID());
+				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
+				return;
+			}
 			if (GameField.getObject(this.getRow(), (this.getColumn() - 1)).getSolid() == false)
 			{
 				this.setColumn(this.getColumn() - 1);
@@ -222,6 +370,38 @@ public class Bomberman extends GameObject{
 					boni.setArmor(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 24)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSprint(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
+				{
+					
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableSuperbomb(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.setToMaxRadius(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
+				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
+				{
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableBombwalker(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
 				{
@@ -246,35 +426,70 @@ public class Bomberman extends GameObject{
 	{
 		if (this.getPlacedBombs() < this.getMaxBombs() && GameField.getObject(this.getRow(), this.getColumn()).getID() == 0)
 		{
-			Bomb bomb = new Bomb(this.getRow(), this.getColumn(), 3, this.radiusBomb); // time Server???
-			Game.ranking.updateBombs(this.getID());
-			this.increasePlacedBombs();
-			if (this.getID() == 51 || this.getID() == 55)
+			if (this.superbomb == true)
 			{
-				bomb.setID(61);
-				bomb.counter();
-				Game.logs.BombLog(1 , this.getRow(), this.getColumn());
+				Bomb superboomb = new Bomb(this.getRow(), this.getColumn(), 3, this.radiusBomb, true);
+				this.superbomb = false;
+				Game.ranking.updateBombs(this.getID());
+				this.increasePlacedBombs();
+				if (this.getID() == 51 || this.getID() == 55)
+				{
+					superboomb.setID(61);
+					superboomb.counter();
+					Game.logs.BombLog(1 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 52 || this.getID() == 56)
+				{
+					superboomb.setID(71);
+					superboomb.counter();
+					Game.logs.BombLog(2 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 53 || this.getID() == 57)
+				{
+					superboomb.setID(81);
+					superboomb.counter();
+					Game.logs.BombLog(3 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 54 || this.getID() == 58)
+				{
+					superboomb.setID(91);
+					superboomb.counter();
+					Game.logs.BombLog(4 , this.getRow(), this.getColumn());
+				}
+				GameField.setObject(superboomb, this.getRow(), this.getColumn());
 			}
-			if (this.getID() == 52 || this.getID() == 56)
+			else
 			{
-				bomb.setID(71);
-				bomb.counter();
-				Game.logs.BombLog(2 , this.getRow(), this.getColumn());
+				Bomb bomb = new Bomb(this.getRow(), this.getColumn(), 3, this.radiusBomb, false); // time Server???
+				Game.ranking.updateBombs(this.getID());
+				this.increasePlacedBombs();
+				if (this.getID() == 51 || this.getID() == 55)
+				{
+					bomb.setID(61);
+					bomb.counter();
+					Game.logs.BombLog(1 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 52 || this.getID() == 56)
+				{
+					bomb.setID(71);
+					bomb.counter();
+					Game.logs.BombLog(2 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 53 || this.getID() == 57)
+				{
+					bomb.setID(81);
+					bomb.counter();
+					Game.logs.BombLog(3 , this.getRow(), this.getColumn());
+				}
+				if (this.getID() == 54 || this.getID() == 58)
+				{
+					bomb.setID(91);
+					bomb.counter();
+					Game.logs.BombLog(4 , this.getRow(), this.getColumn());
+				}
+				GameField.setObject(bomb, this.getRow(), this.getColumn());
 			}
-			if (this.getID() == 53 || this.getID() == 57)
-			{
-				bomb.setID(81);
-				bomb.counter();
-				Game.logs.BombLog(3 , this.getRow(), this.getColumn());
-			}
-			if (this.getID() == 54 || this.getID() == 58)
-			{
-				bomb.setID(91);
-				bomb.counter();
-				Game.logs.BombLog(4 , this.getRow(), this.getColumn());
-			}
-			GameField.setObject(bomb, this.getRow(), this.getColumn());
-		}	
+		}		
 	}
 	
 	/**
@@ -383,9 +598,16 @@ public class Bomberman extends GameObject{
 	{
 		this.maxBomb++;
 	}
+	
 	public void increaseBombRadius()
 	{
-		this.radiusBomb++;
+		if (this.radiusBomb < this.maxRadius)
+			this.radiusBomb++;
+	}
+	
+	public void setBombradiusToMax()
+	{
+		this.radiusBomb = this.maxRadius;
 	}
 	
 	// Getter
@@ -412,6 +634,16 @@ public class Bomberman extends GameObject{
 	public boolean getAliveStatus()
 	{
 		return this.alive;
+	}
+	
+	public int getMaxRadius()
+	{
+		return this.maxRadius;
+	}
+	
+	public boolean getBombwalker()
+	{
+		return this.bombwalker;
 	}
 	
 	// Setter
@@ -448,7 +680,21 @@ public class Bomberman extends GameObject{
 
 	public void setArmorTimer(int timer) 
 	{
-		this.armorTimer = timer * 20;
-		
+		this.armorTimer = timer * 20;	
+	}
+	
+	public void setBombwalker()
+	{
+		this.bombwalker = true;
+	}
+	
+	public void setSuperbomb()
+	{
+		this.superbomb = true;
+	}
+	
+	public void setKick()
+	{
+		this.kick = true;
 	}
 }

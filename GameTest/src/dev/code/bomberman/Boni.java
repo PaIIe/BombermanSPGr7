@@ -121,7 +121,121 @@ public class Boni extends GameObject
 
 	public void enableSprint(int id)
 	{
-		
+		if (id == 51 || id == 55)
+		{
+			Game.speedUpPlayer1();
+			Game.logs.PowerUpLog(1, "SpeedUp");
+		}
+		if (id == 52 || id == 56)
+		{
+			Game.speedUpPlayer2();
+			Game.logs.PowerUpLog(2, "SpeedUp");
+		}
+		if (id == 53 || id == 57)
+		{
+			Game.speedUpPlayer3();
+			Game.logs.PowerUpLog(3, "SpeedUp");
+		}
+		if (id == 54 || id == 58)
+		{
+			Game.speedUpPlayer4();
+			Game.logs.PowerUpLog(4, "SpeedUp");
+		}
 	}
 	
+	public void setToMaxRadius(int id)
+	{
+		if (id == 51 || id == 55)
+		{
+			GameField.getPlayer(1).setBombradiusToMax();
+			Game.logs.PowerUpLog(1, "Maxradius");
+		}
+		if (id == 52 || id == 56)
+		{
+			GameField.getPlayer(2).setBombradiusToMax();
+			Game.logs.PowerUpLog(2, "Maxradius");
+		}
+		if (id == 53 || id == 57)
+		{
+			GameField.getPlayer(3).setBombradiusToMax();
+			Game.logs.PowerUpLog(3, "Maxradius");
+		}
+		if (id == 54 || id == 58)
+		{
+			GameField.getPlayer(4).setBombradiusToMax();
+			Game.logs.PowerUpLog(4, "Maxradius");
+		}
+	}
+	
+	public void enableBombwalker(int id)
+	{
+		if (id == 51 || id == 55)
+		{
+			GameField.getPlayer(1).setBombwalker();
+			Game.logs.PowerUpLog(1, "Bombwalker");
+		}
+		if (id == 52 || id == 56)
+		{
+			GameField.getPlayer(2).setBombwalker();
+			Game.logs.PowerUpLog(2, "Bombwalker");
+		}
+		if (id == 53 || id == 57)
+		{
+			GameField.getPlayer(3).setBombwalker();
+			Game.logs.PowerUpLog(3, "Bombwalker");
+		}
+		if (id == 54 || id == 58)
+		{
+			GameField.getPlayer(4).setBombwalker();
+			Game.logs.PowerUpLog(4, "Bombwalker");
+		}
+	}
+	
+	public void enableSuperbomb(int id)
+	{
+		if (id == 51 || id == 55)
+		{
+			GameField.getPlayer(1).setSuperbomb();
+			Game.logs.PowerUpLog(1, "Superbomb");
+		}
+		if (id == 52 || id == 56)
+		{
+			GameField.getPlayer(2).setSuperbomb();
+			Game.logs.PowerUpLog(2, "Superbomb");
+		}
+		if (id == 53 || id == 57)
+		{
+			GameField.getPlayer(3).setSuperbomb();
+			Game.logs.PowerUpLog(3, "Superbomb");
+		}
+		if (id == 54 || id == 58)
+		{
+			GameField.getPlayer(4).setSuperbomb();
+			Game.logs.PowerUpLog(4, "Superbomb");
+		}
+	}
+	
+	public void enableKick(int id)
+	{
+		if (id == 51 || id == 55)
+		{
+			GameField.getPlayer(1).setKick();
+			Game.logs.PowerUpLog(1, "Kick");
+		}
+		if (id == 52 || id == 56)
+		{
+			GameField.getPlayer(2).setKick();
+			Game.logs.PowerUpLog(2, "Kick");
+		}
+		if (id == 53 || id == 57)
+		{
+			GameField.getPlayer(3).setKick();
+			Game.logs.PowerUpLog(3, "Kick");
+		}
+		if (id == 54 || id == 58)
+		{
+			GameField.getPlayer(4).setKick();
+			Game.logs.PowerUpLog(4, "Kick");
+		}
+	}
 }

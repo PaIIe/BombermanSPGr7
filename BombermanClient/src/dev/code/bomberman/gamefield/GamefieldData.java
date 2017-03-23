@@ -26,6 +26,16 @@ public class GamefieldData
 		return this.width;
 	}
 	
+	public GameObject[][] getGameObjectMatrix()
+	{
+		return this.GameObejctsMatrix;
+	}
+	
+	public Bomberman[] getPlayerMatrix()
+	{
+		return this.PlayerMatrix;
+	}
+	
 	// Setter
 	public void setGameObject(GameObject object, int row, int column)
 	{

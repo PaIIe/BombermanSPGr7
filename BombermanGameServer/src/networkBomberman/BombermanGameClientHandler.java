@@ -47,42 +47,36 @@ public class BombermanGameClientHandler implements Runnable {
           
             if(BombermanGameServer.gameStart == true){
             try {
-                if(((BombermanGameServer.tick % 4) == 0) && fromClient.ready()){
-                    String outputFromClient = receiveFromClient();
-                    
-                    
-                    
+            	if(((BombermanGameServer.tick % 4) == 0) && fromClient.ready()){
+            		String outputFromClient = receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
                     outputFromClient = extractJsonString(outputFromClient);
-                    
-                    
-                    
-                   try {
-                        JSONObject jsonObject = new JSONObject(outputFromClient);
+                    try {
+                    	JSONObject jsonObject = new JSONObject(outputFromClient);
                         outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
                     } catch (JSONException e1) {
                         System.err.println("JSONException in Run: " + e1.getMessage());
                         e1.printStackTrace();
                     }
-                   
-                   ////////////////////////neu
-              Direction direction = null;
-              if(outputFromClient.equals("moveRight"));
-              	direction = Direction.EAST;
-              if(outputFromClient.equals("moveLeft"));
-                direction = Direction.WEST;
-              if(outputFromClient.equals("moveUp"));
-                direction = Direction.NORTH;
-              if(outputFromClient.equals("moveDown"));
-              	 direction = Direction.SOUTH;
-              	 
-              GameField.getPlayer(clientID).walk(direction);
-              ////////////////////////////
+                    System.out.println(outputFromClient);
+                    if(outputFromClient.equals("action moveRight")){
+	            	  GameField.getPlayer(clientID).walk(Direction.EAST);
+	            	  }
+                    if(outputFromClient.equals("action moveLeft")){
+	            	  GameField.getPlayer(clientID).walk(Direction.WEST);
+	            	  }
+	              if(outputFromClient.equals("action moveUp")){
+	            	  GameField.getPlayer(clientID).walk(Direction.NORTH);
+	              }
+	              if(outputFromClient.equals("action moveDown")){
+	            	  GameField.getPlayer(clientID).walk(Direction.SOUTH);
+	              }
+          
                     outputFromClient = outputFromClient + " " + clientID;
                    
-                    BombermanGameServer.msgQueue.add(outputFromClient); //Fьllt msgQueue mit dem command und dem content des clients
+                    BombermanGameServer.msgQueue.add(outputFromClient); //Fuellt msgQueue mit dem command und dem content des clients
                    
-                    System.out.println(outputFromClient);
+                    //System.out.println(outputFromClient);
                    
                     try {
                         Thread.sleep(50);
@@ -117,7 +111,7 @@ public class BombermanGameClientHandler implements Runnable {
         }
     }
     /**
-     * Extrahiert das Ьbergebene ([Lдnge]JSONObject) so das die Ьbergebene lдnge entfernt wird und nur noch ein JSONObject ьbrig bleibt
+     * Extrahiert das Р¬bergebene ([LРґnge]JSONObject) so das die Р¬bergebene lРґnge entfernt wird und nur noch ein JSONObject СЊbrig bleibt
      * @param outputFromClient
      * @return
      */
@@ -136,7 +130,7 @@ public class BombermanGameClientHandler implements Runnable {
       return outputFromClient;
   }
     
-    /*UNNЬTZ zur zeit, sollte die JSONString lдnge filtern.. TODO
+    /*UNNР¬TZ zur zeit, sollte die JSONString lРґnge filtern.. TODO
     private int extractLenght(String outputFromClient){
       int length;
       String temp = null;
@@ -188,3 +182,4 @@ public class BombermanGameClientHandler implements Runnable {
     }*/
  
 }
+

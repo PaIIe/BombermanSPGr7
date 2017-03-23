@@ -28,15 +28,15 @@ public class Game implements Runnable {
 	
 	private int playerNumber;
 	private int fieldWidth;
-	private int armorTime;
-	private int bombExplosionTime;
+	//private int armorTime;
+	//private int bombExplosionTime;
 	
 	/**
-	 * Konstruktor für unser Spiel
+	 * Konstruktor fÃ¼r unser Spiel
 	 * 
 	 * @param title Title des Spiels, der oben links angezeigt wird
 	 * @param width Breite des Spielfensters
-	 * @param height Höhe des Spielfensters
+	 * @param height HÃ¶he des Spielfensters
 	 */
 	public Game(String title, int width, int height){
 		
@@ -55,9 +55,9 @@ public class Game implements Runnable {
 	}
 	
 	/**
-	 * Die Init-Funkion des Spiels wird einmal vor dem Start des Games asugeführt
-	 * und initialisiert das Spielfeld, den Display, den KeyListener, das Ranking, den Log und schließlich die Images
-	 * für die grafische Darstellung. 
+	 * Die Init-Funkion des Spiels wird einmal vor dem Start des Games asugefÃ¼hrt
+	 * und initialisiert das Spielfeld, den Display, den KeyListener, das Ranking, den Log und schlieÃŸlich die Images
+	 * fÃ¼r die grafische Darstellung. 
 	 */
 	private void init(){
 		
@@ -79,14 +79,14 @@ public class Game implements Runnable {
 		
 	}
 	
-	int counterTicks = 0; // Tickzähler
+	int counterTicks = 0; // TickzÃ¤hler
 	int inputTicks = -40;	// Tickzahl bei Eingabebefehl (damit erste Eingabe klappt -40)
 	
 	/**
-	 * Die tick-Funktion wird jeden GameLoop ausgeführt (bei uns also 20 mal pro Sekunde).
+	 * Die tick-Funktion wird jeden GameLoop ausgefÃ¼hrt (bei uns also 20 mal pro Sekunde).
 	 * Hier werden alle Objekte im Spiel, die mit Zeit in Verbindung stehen (also z.B. einen Counter haben) aktualisiert.
-	 * Dazu zählen Rüstungen, Bomben und Flammen. Außerdem werden hier noch die Eingaben der Spieler bearbeitet und 
-	 * entsprechend der Einschränkungen (1 Befehl aller 5 Ticks) betrachtet.
+	 * Dazu zÃ¤hlen RÃ¼stungen, Bomben und Flammen. AuÃŸerdem werden hier noch die Eingaben der Spieler bearbeitet und 
+	 * entsprechend der EinschrÃ¤nkungen (1 Befehl aller 5 Ticks) betrachtet.
 	 */
 	private void tick(){ // Update
 		int playerAlive = 0;
@@ -111,7 +111,7 @@ public class Game implements Runnable {
 		{*/
 			// PERFORMANZ???????????????????????????
 			
-			for (int i = 0; i < GameField.getWidth(); i++)	// iterieren über GameField Matrix 
+			for (int i = 0; i < GameField.getWidth(); i++)	// iterieren Ã¼ber GameField Matrix 
 			{
 				for (int j = 0; j < GameField.getWidth(); j++)
 				{
@@ -142,7 +142,7 @@ public class Game implements Runnable {
 	}
 	
 	/**
-	 * Die render-Funktion ist für das Zeichnen des Spielfeldes verantwortlich. Hier werden die Images auf Grundlage der IDs in der Objekt- bzw. Spielermatrix 
+	 * Die render-Funktion ist fÃ¼r das Zeichnen des Spielfeldes verantwortlich. Hier werden die Images auf Grundlage der IDs in der Objekt- bzw. Spielermatrix 
 	 * entsprechend ihrer Position gezeichnet.
 	 */
 	private void render(){	// Zeichnen
@@ -207,7 +207,7 @@ public class Game implements Runnable {
 			if (delta >= 1)
 			{
 				tick(); // update
-				networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
+				//networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
 				render(); // zeichnen
 				
 				

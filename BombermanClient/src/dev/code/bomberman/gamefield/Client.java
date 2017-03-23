@@ -2,11 +2,12 @@ package dev.code.bomberman.gamefield;
 
 
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import org.json.JSONObject;
 
 import dev.code.bomberman.gamefield.GamefieldData;
 import dev.code.bomberman.display.Display;
@@ -23,9 +24,9 @@ public class Client implements Runnable {
     public int width, height;
     public String title;
     
-    //TODO Müssen noch getter dafür besorgen
+    //TODO MÑŒssen noch getter dafÑŒr besorgen
     private int playerCount = 4;
-    private int ingameWidth = 11;
+    //private int ingameWidth = 11;
     
     
     private boolean running = false;
@@ -69,11 +70,19 @@ public class Client implements Runnable {
         keyManager = new KeyManager();  
     }
     
+    public void newPlayerPosition(int row, int column, int ID, boolean armor, boolean alive, boolean isSolid){
+    	gamefield.getPlayer(ID-50).setRow(row);
+    	gamefield.getPlayer(ID-50).setColumn(column);
+    	gamefield.getPlayer(ID-50).setArmor(armor);
+    	gamefield.getPlayer(ID-50).setAliveStatus(alive);
+    	gamefield.getPlayer(ID-50).setSolid(isSolid);
+    }
+    
     private void init(){
         this.gamefield = new GamefieldData();
         
         
-        //TODO müsste man vom Server bekommen denk ich
+        //TODO mÑŒsste man vom Server bekommen denk ich
         this.gamefield.setWidth(11);
         
         
@@ -116,7 +125,7 @@ public class Client implements Runnable {
         greenBombermanArmor = ImageLoader.loadImage("/textures/bomberman_green_armor.png");
     }
     
-    int counterTicks = 0; // Tickzähler
+    int counterTicks = 0; // TickzÐ´hler
     int inputTicks = -40;   // Tickzahl bei Eingabebefehl
     
     private void tick(){ // Update
@@ -135,7 +144,7 @@ public class Client implements Runnable {
             
             
     
-            for (int i = 0; i < GameField.getWidth(); i++)  // iterieren über GameField Matrix 
+            for (int i = 0; i < GameField.getWidth(); i++)  // iterieren ÑŒber GameField Matrix 
             {
                 for (int j = 0; j < GameField.getWidth(); j++)
                 {
@@ -336,6 +345,28 @@ public class Client implements Runnable {
                 ticks = 0;
                 timer = 0;
             }
+            
+            try {
+				if(BombermanGameClient.getFromServer().ready()){
+					String inputFromServer = BombermanGameClient.getFromServer().readLine();
+					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
+					JSONObject jsonObject = new JSONObject(inputFromServer);
+					int ID = jsonObject.getInt("ID");
+					
+					gamefield.getPlayer(ID-50).setRow(jsonObject.getInt("row"));
+			    	gamefield.getPlayer(ID-50).setColumn(jsonObject.getInt("column"));
+			    	gamefield.getPlayer(ID-50).setArmor(jsonObject.getBoolean("armor"));
+			    	gamefield.getPlayer(ID-50).setAliveStatus(jsonObject.getBoolean("alive"));
+			    	gamefield.getPlayer(ID-50).setSolid(jsonObject.getBoolean("isSolid"));
+					
+					System.out.println(jsonObject);
+				}
+				/*else
+					System.out.println("Nichts neues!");*/
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
         stop();

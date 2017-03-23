@@ -10,13 +10,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import dev.code.bomberman.gamefield.Client;
+import jsonBomberman.JsonDecoderClient;
 //import jsonBomberman.JsonEncoderDecoder;
 import jsonBomberman.JsonEncoderClient;
-import jsonBomberman.JsonDecoderClient;
 
 public class BombermanGameClient {
 	
@@ -33,6 +32,10 @@ public class BombermanGameClient {
 	static JSONObject player;
 	//static JsonEncoderDecoder encoderDecoder = null;
 	
+	public static BufferedReader getFromServer(){
+		return fromServer;
+	}
+	
 	public static JSONObject getGameObject()
 	{
 	  System.out.println(gameObject);
@@ -40,6 +43,7 @@ public class BombermanGameClient {
 	}
 	public static JSONObject getPlayer()
 	{
+	  System.out.println(player);
 	  return player;
 	}
 
@@ -56,7 +60,6 @@ public class BombermanGameClient {
 		  try{
 		    if(fromServer.ready()){
 		      receiveFromServer();
-		      
 		      try{
 		        Thread.sleep(10);
 		      }catch(InterruptedException e)
@@ -83,33 +86,39 @@ public class BombermanGameClient {
 		}
 		Client game = new Client("Title!", 1000, 1000);
 	    game.start();
-		/*
-		while(true){
+	    ///////////////////neu///////////////////////
+		/*while(true){
 			try {
 				if(fromServer.ready()){
-					receiveFromServer();
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					//receiveFromServer();
+					//System.out.println(gameObject);
+					//System.out.println(player);
+					String inputFromServer = fromServer.readLine();
+					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
+					JSONObject jsonObject = new JSONObject(inputFromServer);
+					
+					//Client.gamefield.getPlayer(ID-50).setRow(row);
+			    	//Client.getGamefield.getPlayer(ID-50).setColumn(column);
+			    	//gamefield.getPlayer(ID-50).setArmor(armor);
+			    	//gamefield.getPlayer(ID-50).setAliveStatus(alive);
+			    	//gamefield.getPlayer(ID-50).setSolid(isSolid);
+					
+					System.out.println(jsonObject);
 				}
-				else if(!fromServer.ready()){
-					sendToServer();
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+				else
+					System.out.println("Nichts neues!");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		*/
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
+		///////////////////////////////////////////////
 	}
 
 	public static void sendToServer(JSONObject msg) {

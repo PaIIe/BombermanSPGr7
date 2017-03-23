@@ -1,6 +1,8 @@
 package dev.code.bomberman;
 
 import dev.code.bomberman.GameField;
+import jsonBomberman.JsonEncoderDecoder;
+import networkBomberman.BombermanGameServer;
 
 public class Bomberman extends GameObject{
 	private int armorTimer;
@@ -11,7 +13,7 @@ public class Bomberman extends GameObject{
 	private boolean alive;
 	
 	/**
-	 * Der Konstruktor für die Spieler.
+	 * Der Konstruktor fÑŒr die Spieler.
 	 * 
 	 * @param maxBomb maximale Bomben, die der Spieler legen kann
 	 * @param radiusBomb Radius der Bombenexplosion
@@ -41,13 +43,14 @@ public class Bomberman extends GameObject{
 	}
 	
 	/**
-	 * In dieser Funktion wird die Bewegung der Spieler nach einer bestimmten Einhabe bearbeitet. Dabei wird für alle Richtungen getestet, ob das Spielfeld begehbar ist (keine Mauer),
+	 * In dieser Funktion wird die Bewegung der Spieler nach einer bestimmten Einhabe bearbeitet. Dabei wird fÑŒr alle Richtungen getestet, ob das Spielfeld begehbar ist (keine Mauer),
 	 * ob Boni zu finden sind oder ob eine Flamme einer Bombenexplosion dort ist.
 	 * 
-	 * @param direction Enumeration, die die 4 Himmelsrichtungen (NORTH, SOUTH, EAST, WEST) enthält, für die entsprechedne Bewegung des Spielers
+	 * @param direction Enumeration, die die 4 Himmelsrichtungen (NORTH, SOUTH, EAST, WEST) enthÐ´lt, fÑŒr die entsprechedne Bewegung des Spielers
 	 */
 	public void walk(Direction direction)
 	{
+		System.out.println("Betrete Walk()");
 		if (direction == Direction.NORTH)
 		{
 			if (GameField.getObject((this.getRow() - 1), this.getColumn()).getSolid() == false)
@@ -220,10 +223,12 @@ public class Bomberman extends GameObject{
 				}
 			}
 		}
+		BombermanGameServer.sendToAllClients(JsonEncoderDecoder.EncodePlayerObjectToJSON(GameField.getPlayer(this.getID()-50)));
+		System.out.println(JsonEncoderDecoder.EncodePlayerObjectToJSON(GameField.getPlayer(this.getID()-50)));
 	}
 	
 	/**
-	 * Diese Funktion dient dem Platzieren der Bomben für die Spieler, dabei wird geschaut, ob der Spieler eine Bombe legen kann (platzierte Bomben < maximale Bomben).
+	 * Diese Funktion dient dem Platzieren der Bomben fÑŒr die Spieler, dabei wird geschaut, ob der Spieler eine Bombe legen kann (platzierte Bomben < maximale Bomben).
 	 * Danach wird die Bombe mit den entsprechenden Attributen erstellt und der Counter initialisiert.
 	 */
 	public void placeBomb()
@@ -263,7 +268,7 @@ public class Bomberman extends GameObject{
 	
 	/**
 	 * Diese Funktion wird aufgerufen, wenn ein Spieler von einer Explosion getroffen wurde.
-	 * Dabei wird auf eine mögliche Rüstung getestet, wenn diese nicht vorhanden ist, stribt der Spieler.
+	 * Dabei wird auf eine mÑ†gliche RÑŒstung getestet, wenn diese nicht vorhanden ist, stribt der Spieler.
 	 */
 	public void gotHit()
 	{
@@ -271,7 +276,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 51)
 		{
 			this.setAliveStatus(false);
-			this.setRow(-1); // außerhalb der Matrix
+			this.setRow(-1); // auÐ¯erhalb der Matrix
 			this.setColumn(-1);
 			Game.logs.DiedLog(1);
 		}
@@ -286,7 +291,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 52)
 		{
 			this.setAliveStatus(false);
-			this.setRow(-1); // außerhalb der Matrix
+			this.setRow(-1); // auÐ¯erhalb der Matrix
 			this.setColumn(-1);
 			Game.logs.DiedLog(2);
 		}
@@ -301,7 +306,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 53)
 		{
 			this.setAliveStatus(false);
-			this.setRow(-1); // außerhalb der Matrix
+			this.setRow(-1); // auÐ¯erhalb der Matrix
 			this.setColumn(-1);
 			Game.logs.DiedLog(3);
 		}
@@ -316,7 +321,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == false && this.getID() == 54)
 		{
 			this.setAliveStatus(false);
-			this.setRow(-1); // außerhalb der Matrix
+			this.setRow(-1); // auÐ¯erhalb der Matrix
 			this.setColumn(-1);
 			Game.logs.DiedLog(4);
 		}
@@ -329,7 +334,7 @@ public class Bomberman extends GameObject{
 	}
 	
 	/**
-	 * Rüstung laufen nach einer gewissen Zeit ab. Dafür ist diese Funktion zuständig.
+	 * RÑŒstung laufen nach einer gewissen Zeit ab. DafÑŒr ist diese Funktion zustÐ´ndig.
 	 */
 	public void counterArmor() 
 	{
@@ -436,3 +441,4 @@ public class Bomberman extends GameObject{
 		
 	}
 }
+

@@ -15,8 +15,6 @@ import jsonBomberman.JsonEncoderDecoder;
  
 import org.json.JSONObject;
 
-import dev.code.bomberman.Bomberman;
-import dev.code.bomberman.Direction;
 import dev.code.bomberman.Game;
 import dev.code.bomberman.GameField;
  
@@ -51,11 +49,26 @@ public class BombermanGameServer extends Thread {
           if(!msgQueue.isEmpty()){
             readMsgQueue();
             //System.out.println("MsgQ not empty");
+            ////////////////////neu//////////////////////////
             
+            /*for(int i = 1; i < clientID; i++){
+            	sendToAllClients(JsonEncoderDecoder.EncodePlayerObjectToJSON(GameField.getPlayer(i)));
+            }*/
+            
+            //Bomberman[] PlayerMatrix = new Bomberman[]
+            //JsonEncoderDecoder.EncodePlayerMatrix(GameField.getPlayerMatrix(), 4);
+            //broadcastToClient(JsonEncoderDecoder.getPlayerObject(), JsonEncoderDecoder.getGameObject());
+            /////////////////////////////////////////////////
           }
+          
+          try {
+			Thread.sleep(25);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
          
         }
-       
         closeBombermanGameServer();
     }
  
@@ -65,7 +78,7 @@ public class BombermanGameServer extends Thread {
         timer.scheduleAtFixedRate(tickTimer, delay, period);
     }
     /**
-     * Thread liest die Beschriebene msgQueue aus und fьgt seine ID hinzu, die der ID des Clients entspricht.
+     * Thread liest die Beschriebene msgQueue aus und fСЊgt seine ID hinzu, die der ID des Clients entspricht.
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
@@ -75,13 +88,13 @@ public class BombermanGameServer extends Thread {
        output = msgQueue.getFirst();
        output = output + " " + tick;
        msgQueue.removeFirst();
-       try{
+       /*try{
          Thread.sleep(50);
        }
        catch (InterruptedException e) {
          System.err.println("InterruptException: " + e.getMessage());
          e.printStackTrace();
-       }
+       }*/
        
        System.out.println("readMsgQ " + output);
          
@@ -90,9 +103,10 @@ public class BombermanGameServer extends Thread {
    
    
     /**
-     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der Verдnderungen im Spiel verwendet
+     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerРґnderungen im Spiel verwendet
      * @param Message
      */
+    
     public static void broadcastToClient(JSONObject player, JSONObject game)
     {//BENUTZEN clientToServerJson(String command, String msg){
      
@@ -100,9 +114,9 @@ public class BombermanGameServer extends Thread {
         while(it.hasNext()){
             OutputStreamWriter writer = it.next();
             try {
-                writer.write(player.length() + player.toString() + "\n");
+                writer.write(player.toString().length() + 1 + player.toString() + "\n");
                 writer.flush();
-                writer.write(game.length() + game.toString() + "\n");
+                writer.write(game.toString().length() + 1 + game.toString() + "\n");
                 writer.flush();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -111,8 +125,22 @@ public class BombermanGameServer extends Thread {
          }
     }
     
-   
- 
+    //zum Versenden von Aenderungen
+    public static void sendToAllClients(JSONObject jsonObject)
+    {//BENUTZEN clientToServerJson(String command, String msg){
+     
+      Iterator<OutputStreamWriter> it = writer_list.iterator();
+        while(it.hasNext()){
+            OutputStreamWriter writer = it.next();
+            try {
+                writer.write(jsonObject.toString().length() + 1 + jsonObject.toString() + "\n");
+                writer.flush();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+         }
+    }
    
    
     private static void closeBombermanGameServer() {
@@ -126,11 +154,11 @@ public class BombermanGameServer extends Thread {
     /**
      * Verbindet die anfragenden Clients mti dem Server
      *
-     * Server verbindet sich ьber Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe fьr den Spielstart
+     * Server verbindet sich СЊber Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe fСЊr den Spielstart
      */
     private static void listenForClients() {
         clientHandlerPool = Executors.newFixedThreadPool(player);
-        while(clientID <= 2 ){
+        while(clientID <= 2 ){	//spaeter auf player setzen
             try {              
                 Socket toClientSocket = socketBombermanGameServer.accept();
                 DataOutputStream output = new DataOutputStream(toClientSocket.getOutputStream());
@@ -145,9 +173,8 @@ public class BombermanGameServer extends Thread {
                 e.printStackTrace();
             }
         }
-       
-       
         gameStart =  true;
+        //clientID--; //neu
     }
  
     private static void startBombermanGameServer() {

@@ -33,6 +33,78 @@ public class JsonEncoderDecoder {
       return gameObject;
     }
     
+    public static JSONObject gameObjectToJSON(GameObject msg)
+	{
+	  JSONObject jsonObject = new JSONObject();
+	  JSONArray jsonArray = new JSONArray();
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  int ID = msg.getID();
+	  int row = msg.getRow();
+	  int column = msg.getColumn();
+	  boolean isSolid = msg.getSolid();
+	 
+	  
+	  try{
+	  
+		  jsonObject.put("ID",ID);
+		  jsonObject.put("row",row);
+		  jsonObject.put("column",column);
+		  jsonObject.put("isSolid",isSolid);
+	  
+	  //System.out.println(encodedMsg.toString());
+	    
+	  }
+	  catch(JSONException e)
+	  {
+	    e.printStackTrace();
+	    return null;
+	  }
+	  jsonArray.put(jsonObject);
+	  encodedMsg.put("command", "updateObject");
+	  encodedMsg.put("content", jsonArray);
+	  System.out.println(encodedMsg);
+	  return encodedMsg;
+	  
+	}
+	
+	public static JSONObject playerObjectToJSON(Bomberman msg)
+	{
+	  JSONObject jsonObject = new JSONObject();
+	  JSONArray jsonArray = new JSONArray();
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  boolean alive = msg.getAliveStatus();
+	  boolean armor = msg.getArmor();
+	  
+	  int ID = msg.getID();
+      int row = msg.getRow();
+      int column = msg.getColumn();
+      boolean isSolid = msg.getSolid();
+      
+      try{
+    	  jsonObject.put("ID",ID);
+    	  jsonObject.put("row",row);
+    	  jsonObject.put("column",column);
+    	  jsonObject.put("isSolid",isSolid);
+        
+    	  jsonObject.put("alive", alive);
+    	  jsonObject.put("armor", armor);
+      }
+      catch(JSONException e)
+      {
+        e.printStackTrace();
+        return null;
+      }
+      jsonArray.put(jsonObject);
+      encodedMsg.put("command", "updatePlayer");
+      encodedMsg.put("content", jsonArray);
+      
+      //System.out.println(encodedMsg.toString());
+	  return encodedMsg;
+	  
+	}
+    
     public void encodeInitMatrices(Bomberman[] player, int playerCount, GameObject[][] game, int width)
     {
       

@@ -57,6 +57,11 @@ public class Client implements Runnable {
     private BufferedImage powerUpArmor;
     private BufferedImage powerUpRadius;
     private BufferedImage powerUpNumber;
+    private BufferedImage powerUpMaxRadius;
+	private BufferedImage powerUpKick;
+	private BufferedImage powerUpBombwalker;
+	private BufferedImage powerUpSuperbomb;
+	private BufferedImage powerUpSpeed;
     private BufferedImage blueBombermanArmor;
     private BufferedImage redBombermanArmor;
     private BufferedImage yellowBombermanArmor;
@@ -119,6 +124,11 @@ public class Client implements Runnable {
         powerUpArmor = ImageLoader.loadImage("/textures/powerUp_armor.png");
         powerUpRadius = ImageLoader.loadImage("/textures/powerUp_biggerBomb.png");
         powerUpNumber = ImageLoader.loadImage("/textures/powerUp_extraBomb.png");
+        powerUpMaxRadius = ImageLoader.loadImage("/textures/powerUp_radius.png");
+		powerUpKick = ImageLoader.loadImage("/textures/powerUp_kick.png");
+		powerUpBombwalker = ImageLoader.loadImage("/textures/powerUp_bombwalker.png");
+		powerUpSuperbomb = ImageLoader.loadImage("/textures/powerUp_superbomb.png");
+		powerUpSpeed = ImageLoader.loadImage("/textures/powerUp_sprint.png");
         blueBombermanArmor = ImageLoader.loadImage("/textures/bomberman_blue_armor.png");
         redBombermanArmor = ImageLoader.loadImage("/textures/bomberman_rot_armor.png");
         yellowBombermanArmor = ImageLoader.loadImage("/textures/bomberman_yellow_armor.png");
@@ -251,6 +261,26 @@ public class Client implements Runnable {
                 {
                     g.drawImage(powerUpArmor, j*64, i*64, null);
                 }
+                if (this.gamefield.getGameObject(i, j).getID() == 24) // powerUp schneller Laufen
+    			{
+    				g.drawImage(powerUpSpeed, j*64, i*64, null);
+    			}
+    			if (this.gamefield.getGameObject(i, j).getID() == 25) // powerUp Kick
+    			{
+    				g.drawImage(powerUpKick, j*64, i*64, null);
+    			}
+    			if (this.gamefield.getGameObject(i, j).getID() == 26) // powerUp SuperBombe
+    			{
+    				g.drawImage(powerUpSuperbomb, j*64, i*64, null);
+    			}
+    			if (this.gamefield.getGameObject(i, j).getID() == 27) // powerUp Max Bombenradius
+    			{
+    				g.drawImage(powerUpMaxRadius, j*64, i*64, null);
+    			}
+    			if (this.gamefield.getGameObject(i, j).getID() == 28) // powerUp Bombenläufer
+    			{
+    				g.drawImage(powerUpBombwalker, j*64, i*64, null);
+    			}
                 if (this.gamefield.getGameObject(i, j).getID() == 61 || this.gamefield.getGameObject(i, j).getID() == 71 || this.gamefield.getGameObject(i, j).getID() == 81 || this.gamefield.getGameObject(i, j).getID() == 91) // Bombenphase 1
                     g.drawImage(bombPhase1, j*64, i*64, null);
                 if (this.gamefield.getGameObject(i, j).getID() == 62 || this.gamefield.getGameObject(i, j).getID() == 72 || this.gamefield.getGameObject(i, j).getID() == 82 || this.gamefield.getGameObject(i, j).getID() == 92) // Bombenphase 2

@@ -16,7 +16,7 @@ import jsonBomberman.JsonEncoderDecoder;
 public class BombermanGameClientHandler implements Runnable {
    
     Socket socketBombermanGameClient;
-    int clientID;
+    private int clientID;
     BufferedReader fromClient;
     DataInputStream input;
     String outputFromClient = null;
@@ -43,38 +43,41 @@ public class BombermanGameClientHandler implements Runnable {
         //outputFromClient = receiveFromClient();
         //setPlayerName(outputFromClient);
         //sendToClient("Hello: " + playerName + " your ID is " + clientID);
-        while(BombermanGameServer.gameOver == false){
-          
-            if(BombermanGameServer.gameStart == true){
+    	while(BombermanGameServer.gameOver == false){
+    		//aus irgendwelchen seltsamen Gruenden muss die Ausgabe hier drin bleiben, weil sonst immer nur der zu letzt hinzugefuegte BombermanGameClientHandler funktioniert
+    		System.out.println("Empfang funktioniert");
+    		if(BombermanGameServer.gameStart == true){
             try {
-            	if(((BombermanGameServer.tick % 4) == 0) && fromClient.ready()){
-            		String outputFromClient = receiveFromClient();
+            	if(((BombermanGameServer.tick % 4) == 0) && this.fromClient.ready()){
+            		this.outputFromClient = this.receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
-                    outputFromClient = extractJsonString(outputFromClient);
+                    this.outputFromClient = this.extractJsonString(this.outputFromClient);
                     try {
-                    	JSONObject jsonObject = new JSONObject(outputFromClient);
-                        outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
+                    	JSONObject jsonObject = new JSONObject(this.outputFromClient);
+                        this.outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
                     } catch (JSONException e1) {
                         System.err.println("JSONException in Run: " + e1.getMessage());
                         e1.printStackTrace();
                     }
                     System.out.println(outputFromClient);
-                    if(outputFromClient.equals("action moveRight")){
+                    if(this.outputFromClient.equals("action moveRight")){
 	            	  GameField.getPlayer(clientID).walk(Direction.EAST);
 	            	  }
-                    if(outputFromClient.equals("action moveLeft")){
+                    if(this.outputFromClient.equals("action moveLeft")){
 	            	  GameField.getPlayer(clientID).walk(Direction.WEST);
 	            	  }
-	              if(outputFromClient.equals("action moveUp")){
+                    if(this.outputFromClient.equals("action moveUp")){
 	            	  GameField.getPlayer(clientID).walk(Direction.NORTH);
-	              }
-	              if(outputFromClient.equals("action moveDown")){
+                    }
+                    if(this.outputFromClient.equals("action moveDown")){
 	            	  GameField.getPlayer(clientID).walk(Direction.SOUTH);
-	              }
+                    }
+                    if(outputFromClient.equals("action placeBomb")){
+                    	GameField.getPlayer(clientID).placeBomb();
+                    }
           
-                    outputFromClient = outputFromClient + " " + clientID;
-                   
-                    BombermanGameServer.msgQueue.add(outputFromClient); //Fuellt msgQueue mit dem command und dem content des clients
+                    this.outputFromClient = this.outputFromClient + " " + clientID;
+                    BombermanGameServer.msgQueue.add(this.outputFromClient); //Fuellt msgQueue mit dem command und dem content des clients
                    
                     //System.out.println(outputFromClient);
                    
@@ -92,7 +95,7 @@ public class BombermanGameClientHandler implements Runnable {
                 } else
                     try {
                      
-                        Thread.sleep(50);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         System.err.println("InterruptException: " + e.getMessage());
                         e.printStackTrace();
@@ -101,36 +104,29 @@ public class BombermanGameClientHandler implements Runnable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-           }try {
-             
-             Thread.sleep(200);
-         } catch (InterruptedException e) {
-             System.err.println("InterruptException: " + e.getMessage());
-             e.printStackTrace();
-         }
+           }
         }
     }
     /**
-     * Extrahiert das Р¬bergebene ([LРґnge]JSONObject) so das die Р¬bergebene lРґnge entfernt wird und nur noch ein JSONObject СЊbrig bleibt
+     * Extrahiert das Ð Â¬bergebene ([LÐ Ò‘nge]JSONObject) so das die Ð Aebergebene lÐ Ò‘nge entfernt wird und nur noch ein JSONObject Uebrig bleibt
      * @param outputFromClient
      * @return
      */
     
  
-    private String extractJsonString(String outputFromClient) {
-      while(true){
-          char c = outputFromClient.charAt(0);
-          if(c != '{'){
-              outputFromClient = outputFromClient.substring(1);
-          }
-          else
-              break;
-      }
-      
-      return outputFromClient;
-  }
+    private String extractJsonString(String inputString){
+    	while(true){
+    		char c = inputString.charAt(0);
+    		if(c != '{'){
+    			inputString = inputString.substring(1);
+    			}
+    		else
+    			break;
+    		}
+    	return inputString;
+    	}
     
-    /*UNNР¬TZ zur zeit, sollte die JSONString lРґnge filtern.. TODO
+    /*UNNÐ Â¬TZ zur zeit, sollte die JSONString lÐ Ò‘nge filtern.. TODO
     private int extractLenght(String outputFromClient){
       int length;
       String temp = null;
@@ -159,8 +155,8 @@ public class BombermanGameClientHandler implements Runnable {
     private String receiveFromClient() {
         String inputFromClient = null;
         try {
-            while(fromClient.ready()){
-                inputFromClient = fromClient.readLine();
+            while(this.fromClient.ready()){
+                inputFromClient = this.fromClient.readLine();
                
             }
         } catch (IOException e) {

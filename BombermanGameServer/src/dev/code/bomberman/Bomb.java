@@ -1,5 +1,7 @@
 package dev.code.bomberman;
 
+import jsonBomberman.JsonEncoderDecoder;
+import networkBomberman.BombermanGameServer;
 
 public class Bomb extends GameObject
 {
@@ -8,7 +10,7 @@ public class Bomb extends GameObject
 	private int countdownTime;
 	
 	/**
-	 * Konstruktor f¸r die Bomben der Spieler.
+	 * Konstruktor f√ºr die Bomben der Spieler.
 	 * 
 	 * @param row Reihe in der Matrix
 	 * @param column Spalte in der Matrix
@@ -30,13 +32,13 @@ public class Bomb extends GameObject
 	}
 	
 	/**
-	 * Diese Funktion z‰hlt den Bombentimer runter und ‰ndert entsprechend der vergangenen Zeit (nach 2/3 und 1/3 der Zeit)
+	 * Diese Funktion z√§hlt den Bombentimer runter und √§ndert entsprechend der vergangenen Zeit (nach 2/3 und 1/3 der Zeit)
 	 * das Bild der Bombe, so dass eine Art kleine Animation entsteht. Ist der Timer auf 0, so wird die Bombe zum explodieren gebracht.
 	 */
 	public void counter()
 	{
 		this.countdownTime--;
-		if (this.countdownTime == (this.explosionTime * 2 / 3)) // nach 2/3 der Zeit ID ‰ndern --> neues Bild
+		if (this.countdownTime == (this.explosionTime * 2 / 3)) // nach 2/3 der Zeit ID √§ndern --> neues Bild
 		{
 			if (this.getID() == 61)
 				this.setID(62);
@@ -47,7 +49,7 @@ public class Bomb extends GameObject
 			if (this.getID() == 91)
 				this.setID(92);
 		}
-		if (this.countdownTime == (this.explosionTime * 1 / 3)) // nach 1/3 der Zeit ID ‰ndern --> neues Bild
+		if (this.countdownTime == (this.explosionTime * 1 / 3)) // nach 1/3 der Zeit ID √§ndern --> neues Bild
 		{
 			if (this.getID() == 62)
 				this.setID(63);
@@ -89,12 +91,13 @@ public class Bomb extends GameObject
 	
 	/**
 	 * Diese Funktion erzeugt den Explosionsradius der Bombe und die FLammen entpsrechend.
-	 * Auﬂerdem wird hier getestet, welche Objekte sich im Explosionsradius der Bombe befinden (z.B. Spieler, Mauern, Bomben, etc..)
+	 * Au√üerdem wird hier getestet, welche Objekte sich im Explosionsradius der Bombe befinden (z.B. Spieler, Mauern, Bomben, etc..)
 	 */
 	public void generateFlames()
 	{
 		Flame flames = new Flame(this.getRow(), this.getColumn());
 		GameField.setObject(flames, this.getRow(), this.getColumn());
+		BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 		
 		// Player auf der Bombe
 		 if (GameField.getPlayer(1).getRow() == this.getRow() && GameField.getPlayer(1).getColumn() == this.getColumn())
@@ -179,6 +182,7 @@ public class Bomb extends GameObject
 				 // Flammen erzeugen
 				 Flame flame = new Flame(this.getRow() - i, this.getColumn());
 				 GameField.setObject(flame, this.getRow() - i, this.getColumn());
+				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() - i, this.getColumn())));
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach WESTEN
@@ -242,9 +246,10 @@ public class Bomb extends GameObject
 				 }
 				 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
 				 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
+				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() - i)));
 			 }
 		}
-		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach S‹DEN
+		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach S√úDEN
 		{
 			 if (this.getRow() + i < GameField.getWidth()) // Grenzen
 			 {
@@ -306,6 +311,7 @@ public class Bomb extends GameObject
 				 // Flammen erzeugen
 				 Flame flame = new Flame(this.getRow() + i, this.getColumn());
 				 GameField.setObject(flame, this.getRow() + i, this.getColumn());
+				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() + i, this.getColumn())));
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach OSTEN
@@ -370,21 +376,22 @@ public class Bomb extends GameObject
 				 // Flamme
 				 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
 				 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
+				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() + i)));
 			 }
 		}
 	}
 	
 	/**
-	 * Diese Funktion k¸mmert sich um das Zerstˆren der Mauern, sobald eine im Explosionsradius gefunden wurde und ruft eine Funktion auf, die sich um den Bonus k¸mmert.
-	 * @param row Zeile der Mauer, die zerstˆrt werden soll
-	 * @param column Spalte der Mauer, die zerstˆrt werden soll
+	 * Diese Funktion k√ºmmert sich um das Zerst√∂ren der Mauern, sobald eine im Explosionsradius gefunden wurde und ruft eine Funktion auf, die sich um den Bonus k√ºmmert.
+	 * @param row Zeile der Mauer, die zerst√∂rt werden soll
+	 * @param column Spalte der Mauer, die zerst√∂rt werden soll
 	 */
 	public void destroyWall(int row, int column)
 	{
 		Wall wall = new Wall();
 		wall = (Wall) GameField.getObject(row, column);
 		wall.dropBoni(row, column);
-		// Ranking zerstˆrte Mauern
+		// Ranking zerst√∂rte Mauern
 		Game.ranking.updateWalls(this.getID());	
 		Game.logs.DestroyedWallLog(row, column);
 	}
@@ -396,7 +403,7 @@ public class Bomb extends GameObject
 	
 	public void setexplosionRadius(int radius)
 	{
-		 // wahrscheinlich unnˆtig weil radius wird nie ge‰ndert
+		 // wahrscheinlich unn√∂tig weil radius wird nie ge√§ndert
 	}
 	
 	public int getexplosionTime()

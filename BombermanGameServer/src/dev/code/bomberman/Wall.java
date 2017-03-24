@@ -2,6 +2,9 @@ package dev.code.bomberman;
 
 import java.util.Random;
 
+import jsonBomberman.JsonEncoderDecoder;
+import networkBomberman.BombermanGameServer;
+
 public class Wall extends GameObject
 {
 	private boolean isDestroyable;
@@ -39,21 +42,25 @@ public class Wall extends GameObject
 		{
 			EmptyField empty = new EmptyField(row, column);
 			GameField.setObject(empty, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber >= 10 && randomNumber <= 19)		// mehr Bomben
 		{
 			Boni boni = new Boni(row, column, 22);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
-		if (randomNumber >= 20 && randomNumber <= 29)		// Explosionsradius größer
+		if (randomNumber >= 20 && randomNumber <= 29)		// Explosionsradius grÃ¶ÃŸer
 		{
 			Boni boni = new Boni(row, column, 21);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber >= 30 && randomNumber <= 39)		// Armor
 		{
 			Boni boni = new Boni(row, column, 23);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 	}
 	

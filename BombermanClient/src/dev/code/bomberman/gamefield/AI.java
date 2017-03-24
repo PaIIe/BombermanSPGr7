@@ -20,17 +20,17 @@ public class AI {
 		{
 			for(int j=0; j<=width; j++)
 			{	
-				this.aimatrix[i][j]=GamefieldData.getObject(i, j).getID;
+				//this.aimatrix[i][j]=GamefieldData.getObject(i, j).getID;
 			
 			}
 		}
 		
 		GenerateMap();
 		
-		int r=GamefieldData.getPlayer(1).getRow();
-		int c=GamefieldData.getPlayer(1).getColumn();
+		//int r=GamefieldData.getPlayer(1).getRow();
+		//int c=GamefieldData.getPlayer(1).getColumn();
 		
-		this.danger=CheckDanger(r, c);
+		//this.danger=CheckDanger(r, c);
 		
 		
 			

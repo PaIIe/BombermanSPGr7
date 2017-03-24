@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dev.code.bomberman.gamefield.GamefieldData;
@@ -24,7 +25,7 @@ public class Client implements Runnable {
     public int width, height;
     public String title;
     
-    //TODO Mьssen noch getter dafьr besorgen
+    //TODO MÑŒssen noch getter dafÑŒr besorgen
     private int playerCount = 4;
     //private int ingameWidth = 11;
     
@@ -87,7 +88,7 @@ public class Client implements Runnable {
         this.gamefield = new GamefieldData();
         
         
-        //TODO mьsste man vom Server bekommen denk ich
+        //TODO mÑŒsste man vom Server bekommen denk ich
         this.gamefield.setWidth(11);
         
         
@@ -135,7 +136,7 @@ public class Client implements Runnable {
         greenBombermanArmor = ImageLoader.loadImage("/textures/bomberman_green_armor.png");
     }
     
-    //int counterTicks = 0; // Tickzдhler
+    //int counterTicks = 0; // TickzÐ´hler
     //int inputTicks = -40;   // Tickzahl bei Eingabebefehl
     
     private void tick(){ // Update
@@ -154,7 +155,7 @@ public class Client implements Runnable {
             
             
     
-            for (int i = 0; i < GameField.getWidth(); i++)  // iterieren ьber GameField Matrix 
+            for (int i = 0; i < GameField.getWidth(); i++)  // iterieren ÑŒber GameField Matrix 
             {
                 for (int j = 0; j < GameField.getWidth(); j++)
                 {
@@ -205,8 +206,11 @@ public class Client implements Runnable {
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","placeBomb"));
             }
-            if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false /*&& (counterTicks%50 == 0 )*/)
-              BombermanGameClient.sendHeartbeatToServer();
+            if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false
+            		&& getKeyManager().bomb == false /*&& (counterTicks%50 == 0 )*/){
+            	BombermanGameClient.sendHeartbeatToServer();
+            }
+              
       /*   }
        if (this.gameState == GameState.STATISTIC)
         {
@@ -277,7 +281,7 @@ public class Client implements Runnable {
     			{
     				g.drawImage(powerUpMaxRadius, j*64, i*64, null);
     			}
-    			if (this.gamefield.getGameObject(i, j).getID() == 28) // powerUp Bombenl�ufer
+    			if (this.gamefield.getGameObject(i, j).getID() == 28) // powerUp Bombenläufer
     			{
     				g.drawImage(powerUpBombwalker, j*64, i*64, null);
     			}
@@ -381,15 +385,36 @@ public class Client implements Runnable {
 					String inputFromServer = BombermanGameClient.getFromServer().readLine();
 					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
 					JSONObject jsonObject = new JSONObject(inputFromServer);
-					int ID = jsonObject.getInt("ID");
-					
-					gamefield.getPlayer(ID-50).setRow(jsonObject.getInt("row"));
-			    	gamefield.getPlayer(ID-50).setColumn(jsonObject.getInt("column"));
-			    	gamefield.getPlayer(ID-50).setArmor(jsonObject.getBoolean("armor"));
-			    	gamefield.getPlayer(ID-50).setAliveStatus(jsonObject.getBoolean("alive"));
-			    	gamefield.getPlayer(ID-50).setSolid(jsonObject.getBoolean("isSolid"));
-					
-					System.out.println(jsonObject);
+					if(jsonObject.get("command").equals("updatePlayer")){
+						JSONArray jsonArray = new JSONArray();
+						jsonArray = jsonObject.getJSONArray("content");
+						jsonObject = jsonArray.getJSONObject(0);
+						int ID = jsonObject.getInt("ID");
+						if(ID < 55){
+							gamefield.getPlayer(ID-50).setRow(jsonObject.getInt("row"));
+							gamefield.getPlayer(ID-50).setColumn(jsonObject.getInt("column"));
+							gamefield.getPlayer(ID-50).setArmor(jsonObject.getBoolean("armor"));
+							gamefield.getPlayer(ID-50).setAliveStatus(jsonObject.getBoolean("alive"));
+							gamefield.getPlayer(ID-50).setSolid(jsonObject.getBoolean("isSolid"));
+						}
+						else{
+							gamefield.getPlayer(ID-54).setRow(jsonObject.getInt("row"));
+							gamefield.getPlayer(ID-54).setColumn(jsonObject.getInt("column"));
+							gamefield.getPlayer(ID-54).setArmor(jsonObject.getBoolean("armor"));
+							gamefield.getPlayer(ID-54).setAliveStatus(jsonObject.getBoolean("alive"));
+							gamefield.getPlayer(ID-54).setSolid(jsonObject.getBoolean("isSolid"));
+						}
+					}
+					else if(jsonObject.get("command").equals("updateObject")){
+						JSONArray jsonArray = new JSONArray();
+						jsonArray = jsonObject.getJSONArray("content");
+						jsonObject = jsonArray.getJSONObject(0);
+						int ID = jsonObject.getInt("ID");
+						gamefield.getGameObject(jsonObject.getInt("row"), jsonObject.getInt("column")).setColumn(jsonObject.getInt("column"));
+						gamefield.getGameObject(jsonObject.getInt("row"), jsonObject.getInt("column")).setRow(jsonObject.getInt("row"));
+						gamefield.getGameObject(jsonObject.getInt("row"), jsonObject.getInt("column")).setID(ID);
+						gamefield.getGameObject(jsonObject.getInt("row"), jsonObject.getInt("column")).setSolid(jsonObject.getBoolean("isSolid"));
+					}
 				}
 				/*else
 					System.out.println("Nichts neues!");*/

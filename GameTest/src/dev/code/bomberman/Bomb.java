@@ -7,6 +7,10 @@ public class Bomb extends GameObject
 	private int explosionTime;
 	private int countdownTime;
 	private boolean superbomb;
+	private boolean slideNorth;
+	private boolean slideEast;
+	private boolean slideSouth;
+	private boolean slideWest;
 	
 	/**
 	 * Konstruktor für die Bomben der Spieler.
@@ -25,6 +29,10 @@ public class Bomb extends GameObject
 		this.setColumn(column);
 		this.setSolid(true);
 		this.superbomb = superbomb;
+		this.slideNorth = false;
+		this.slideEast = false;
+		this.slideSouth = false;
+		this.slideWest = false;
 	}
 	public Bomb() 
 	{
@@ -399,8 +407,76 @@ public class Bomb extends GameObject
 	
 	public void kicked(Direction direction)
 	{
-		
+		if (direction == Direction.NORTH)
+		{
+			this.slideNorth = true;
+			this.slideNorth();
+		}
+		if (direction == Direction.EAST)
+		{
+			this.slideEast = true;
+			this.slideEast();
+		}
+		if (direction == Direction.SOUTH)
+		{
+			this.slideSouth = true;
+			this.slideSouth();
+		}
+		if (direction == Direction.WEST)
+		{
+			this.slideWest = true;
+			this.slideWest();
+		}
 	}
+	
+	public void slideNorth()
+	{
+		if (GameField.getObject(this.getRow() - 1, this.getColumn()).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() - 1, this.getColumn());
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setRow(this.getRow() - 1);
+			return;
+		}	
+		this.slideNorth = false;
+	}
+	
+	public void slideEast()
+	{
+		if (GameField.getObject(this.getRow(), this.getColumn() + 1).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() + 1);
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setColumn(this.getColumn() + 1);
+			return;
+		}	
+		this.slideEast = false;
+	}
+	
+	public void slideSouth()
+	{
+		if (GameField.getObject(this.getRow() + 1, this.getColumn()).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() + 1, this.getColumn());
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setRow(this.getRow() + 1);
+			return;
+		}	
+		this.slideSouth = false;
+	}
+	
+	public void slideWest()
+	{
+		if (GameField.getObject(this.getRow(), this.getColumn() - 1).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() - 1);
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setColumn(this.getColumn() - 1);
+			return;
+		}	
+		this.slideWest = false;
+	}
+	
 	/**
 	 * Diese Funktion kümmert sich um das Zerstören der Mauern, sobald eine im Explosionsradius gefunden wurde und ruft eine Funktion auf, die sich um den Bonus kümmert.
 	 * @param row Zeile der Mauer, die zerstört werden soll
@@ -436,4 +512,23 @@ public class Bomb extends GameObject
 		return this.explosionRadius;
 	}
 	
+	public boolean getSlideNorth()
+	{
+		return this.slideNorth;
+	}
+	
+	public boolean getSlideEast()
+	{
+		return this.slideEast;
+	}
+	
+	public boolean getSlideSouth()
+	{
+		return this.slideSouth;
+	}
+	
+	public boolean getSlideWest()
+	{
+		return this.slideWest;
+	}
 }

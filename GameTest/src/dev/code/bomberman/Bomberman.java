@@ -157,6 +157,15 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.EAST)
 		{
+			// Bonus Kick
+			if (this.kick == true && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 63 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 73 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 81 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 83 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 91 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 93)
+			{
+				Bomb bomb = (Bomb) GameField.getObject(this.getRow(), this.getColumn() + 1);
+				bomb.kicked(Direction.EAST);
+			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 63 ||
 										   GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 73 ||
@@ -206,7 +215,10 @@ public class Bomberman extends GameObject{
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableKick(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -245,6 +257,15 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.SOUTH)
 		{
+			// Bonus Kick
+			if (this.kick == true && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 63 ||
+									 GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 71 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 73 ||
+									 GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 81 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 83 ||
+									 GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 93)
+			{
+				Bomb bomb = (Bomb) GameField.getObject(this.getRow() + 1, this.getColumn());
+			    bomb.kicked(Direction.SOUTH);
+			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 63 ||
 										   GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 71 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 73 ||
@@ -293,7 +314,10 @@ public class Bomberman extends GameObject{
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableKick(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -332,6 +356,15 @@ public class Bomberman extends GameObject{
 		}
 		if (direction == Direction.WEST)
 		{
+			// Bonus Kick
+			if (this.kick == true && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 63 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 73 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 81 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 83 ||
+					   				 GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 91 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 93)
+			{
+				Bomb bomb = (Bomb) GameField.getObject(this.getRow(), this.getColumn() - 1);
+				bomb.kicked(Direction.WEST);
+			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 63 ||
 										   GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 71 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 73 ||
@@ -379,7 +412,10 @@ public class Bomberman extends GameObject{
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
-					
+					Game.ranking.updateBoni(this.getID());
+					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
+					boni.enableKick(this.getID());
+					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{

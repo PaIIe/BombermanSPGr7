@@ -188,6 +188,14 @@ public class Game implements Runnable {
 						Bomb bomb = new Bomb();
 						bomb = (Bomb) GameField.getObject(i, j);
 						bomb.counter();	// Bomben updaten
+						if (bomb.getSlideNorth() == true)
+							bomb.slideNorth();
+						if (bomb.getSlideEast() == true)
+							bomb.slideEast();
+						if (bomb.getSlideSouth() == true)
+							bomb.slideSouth();
+						if (bomb.getSlideWest() == true)
+							bomb.slideWest();
 					}
 					if (GameField.getObject(i, j).getID() == 3)
 					{

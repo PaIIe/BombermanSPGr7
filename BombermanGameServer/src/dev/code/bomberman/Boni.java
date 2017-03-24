@@ -1,10 +1,12 @@
 package dev.code.bomberman;
 
+import jsonBomberman.JsonEncoderDecoder;
+import networkBomberman.BombermanGameServer;
 
 public class Boni extends GameObject 
 {
 	/**
-	 * Konstruktor für Boni
+	 * Konstruktor fÃ¼r Boni
 	 * 
 	 * @param row Zeile in Matrix
 	 * @param column Spalte in Matrix
@@ -19,9 +21,9 @@ public class Boni extends GameObject
 	}
 	
 	/**
-	 * Erhöht die maximale Anzahl an Bomben, die der Spieler legen kann entsprechend der übergbenen ID des Spielers.
+	 * ErhÃ¶ht die maximale Anzahl an Bomben, die der Spieler legen kann entsprechend der Ã¼bergbenen ID des Spielers.
 	 * 
-	 * @param id ID des Spielers dessen Maxbombenanzahl erhöht werden soll
+	 * @param id ID des Spielers dessen Maxbombenanzahl erhÃ¶ht werden soll
 	 */
 	public void increaseBombNumber(int id)
 	{
@@ -48,9 +50,9 @@ public class Boni extends GameObject
 	}
 	
 	/**
-	 * Der Spieler sammelt eine Rüstung auf und wird dadurch unverwundbar.
+	 * Der Spieler sammelt eine RÃ¼stung auf und wird dadurch unverwundbar.
 	 * 
-	 * @param id ID des Spielers, der die Rüstung erhalten soll
+	 * @param id ID des Spielers, der die RÃ¼stung erhalten soll
 	 */
 	public void setArmor(int id)
 	{
@@ -67,33 +69,33 @@ public class Boni extends GameObject
 		{
 			GameField.getPlayer(2).setArmor(true);
 			GameField.getPlayer(2).setID(56);
-			GameField.getPlayer(1).setArmorTimer(5);
-			GameField.getPlayer(1).counterArmor();
+			GameField.getPlayer(2).setArmorTimer(5);
+			GameField.getPlayer(2).counterArmor();
 			Game.logs.PowerUpLog(2, "Armor");
 		}	
 		if (id == 53 || id == 57)
 		{
 			GameField.getPlayer(3).setArmor(true);
 			GameField.getPlayer(3).setID(57);
-			GameField.getPlayer(1).setArmorTimer(5);
-			GameField.getPlayer(1).counterArmor();
+			GameField.getPlayer(3).setArmorTimer(5);
+			GameField.getPlayer(3).counterArmor();
 			Game.logs.PowerUpLog(3, "Armor");
 		}	
 		if (id == 54 || id == 58)
 		{
 			GameField.getPlayer(4).setArmor(true);
 			GameField.getPlayer(4).setID(58);
-			GameField.getPlayer(1).setArmorTimer(5);
-			GameField.getPlayer(1).counterArmor();
+			GameField.getPlayer(4).setArmorTimer(5);
+			GameField.getPlayer(4).counterArmor();
 			Game.logs.PowerUpLog(4, "Armor");
 		}
 			
 	}
 	
 	/**
-	 * Explosionsradius wird erhöht.
+	 * Explosionsradius wird erhÃ¶ht.
 	 * 
-	 * @param id ID des Spielers, dessen Radius erhöht werden soll
+	 * @param id ID des Spielers, dessen Radius erhÃ¶ht werden soll
 	 */
 	public void increaseExplosionRadius(int id)
 	{

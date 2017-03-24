@@ -135,8 +135,8 @@ public class Client implements Runnable {
         greenBombermanArmor = ImageLoader.loadImage("/textures/bomberman_green_armor.png");
     }
     
-    int counterTicks = 0; // Tickzдhler
-    int inputTicks = -40;   // Tickzahl bei Eingabebefehl
+    //int counterTicks = 0; // Tickzдhler
+    //int inputTicks = -40;   // Tickzahl bei Eingabebefehl
     
     private void tick(){ // Update
    /*   int playerAlive = 0;
@@ -178,34 +178,34 @@ public class Client implements Runnable {
             
             // Eingaben
             //WEnn spieler stirbt nimmt server keine Eingabe mehr an von dieser ID
-            counterTicks++;
-            if(getKeyManager().up && (counterTicks > inputTicks + 5) )  // 1 Eingabe aller 5 Ticks
+            //counterTicks++;
+            if(getKeyManager().up /*&& (counterTicks > inputTicks + 5)*/ )  // 1 Eingabe aller 5 Ticks
             {
                 //GameField.getPlayer(1).walk(Direction.NORTH);
                 BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveUp"));
-                inputTicks = counterTicks;
+                //inputTicks = counterTicks;
                 
             }       
-            if(getKeyManager().down && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().down /*&& (counterTicks > inputTicks + 5) */) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveDown"));
-                inputTicks = counterTicks;
+                //inputTicks = counterTicks;
             }   
-            if(getKeyManager().left  && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().left  /*&& (counterTicks > inputTicks + 5)*/ ) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveLeft"));
-                inputTicks = counterTicks;
+                //inputTicks = counterTicks;
             }           
-            if(getKeyManager().right  && (counterTicks > inputTicks + 5) ) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().right  /*&& (counterTicks > inputTicks + 5)*/ ) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveRight"));
-                inputTicks = counterTicks;
+                //inputTicks = counterTicks;
             }
             if(getKeyManager().bomb ) // Bombe kann gelget werden ohne Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","placeBomb"));
             }
-            if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false && (counterTicks%50 == 0 ))
+            if(getKeyManager().up == false && getKeyManager().down == false && getKeyManager().left == false && getKeyManager().right == false /*&& (counterTicks%50 == 0 )*/)
               BombermanGameClient.sendHeartbeatToServer();
       /*   }
        if (this.gameState == GameState.STATISTIC)

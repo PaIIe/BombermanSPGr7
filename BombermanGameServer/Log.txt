@@ -1,0 +1,16 @@
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 1 moved to 1, 2
+INFO	Player 1 moved to 1, 1
+INFO	Player 1 moved to 1, 2
+INFO	Player 1 moved to 1, 1
+INFO	Player 1 moved to 2, 1
+INFO	Player 1 moved to 1, 1
+INFO	Player 1 moved to 1, 2

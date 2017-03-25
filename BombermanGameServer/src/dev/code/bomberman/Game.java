@@ -101,7 +101,7 @@ public class Game implements Runnable {
 		if (GameField.getPlayer(1).getID() == 55)
 			GameField.getPlayer(1).counterArmor();
 		if (GameField.getPlayer(2).getID() == 56)
-			GameField.getPlayer(3).counterArmor();
+			GameField.getPlayer(2).counterArmor();
 		if (GameField.getPlayer(3).getID() == 57)
 			GameField.getPlayer(3).counterArmor();
 		if (GameField.getPlayer(4).getID() == 58)

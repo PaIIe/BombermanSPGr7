@@ -18,14 +18,7 @@ public class AI {
 	{
 		this.aimatrix = new GameObject[width][width];
 		this.aimatrix=obj;
-		/*for(int i=0; i<=width; i++)
-		{
-			for(int j=0; j<=width; j++)
-			{	
-				
-			
-			}
-		}*/
+		
 		
 		GenerateMap();
 		
@@ -103,5 +96,16 @@ public class AI {
 				}
 			}
 		}
+	}
+	
+	void TestMap(){
+		for(int i=0; i<=width; i++)
+		{
+			for(int j=0; j<=width; j++)
+			{		
+			
+			}
+		}
+		
 	}
 }

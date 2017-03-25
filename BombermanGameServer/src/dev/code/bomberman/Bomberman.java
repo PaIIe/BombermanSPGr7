@@ -316,7 +316,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == true && this.getID() == 56)
 		{
 			this.setArmor(false);
-			this.setID(51);
+			this.setID(52);
 			Game.logs.LostArmorLog(2);
 		}
 		
@@ -331,7 +331,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == true && this.getID() == 57)
 		{
 			this.setArmor(false);
-			this.setID(51);
+			this.setID(53);
 			Game.logs.LostArmorLog(3);
 		}
 		
@@ -346,7 +346,7 @@ public class Bomberman extends GameObject{
 		if (this.getArmor() == true && this.getID() == 58)
 		{
 			this.setArmor(false);
-			this.setID(51);
+			this.setID(54);
 			Game.logs.LostArmorLog(4);
 		}
 	}

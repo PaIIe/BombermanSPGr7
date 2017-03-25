@@ -41,9 +41,9 @@ public class AI {
 	
 	private void GenerateMap()
 	{
-		for(int i=0; i<width; i++)
+		for(int i=0; i<=width-1; i++)
 		{
-			for(int j=0; j<width; j++)
+			for(int j=0; j<=width-1; j++)
 			{	
 				if(this.aimatrix[i][j].getID()>=61 && this.aimatrix[i][j].getID()<=93)
 				{
@@ -58,7 +58,7 @@ public class AI {
 							this.aimatrix[i][j].setID(999);							
 						}
 					}
-					for(int k=1; i-k>=0; k++)
+					/*for(int k=1; i-k>=0; k++)
 					{
 						if(this.aimatrix[i][j].getID()==1 || this.aimatrix[i][j].getID()==2 || this.aimatrix[i][j].getID()==3 || this.aimatrix[i][j].getID()>=61)
 						{
@@ -90,7 +90,7 @@ public class AI {
 						{
 							this.aimatrix[i][j].setID(999);							
 						}
-					}
+					}*/
 					
 		
 				}
@@ -99,9 +99,9 @@ public class AI {
 	}
 	
 	void TestMap(){
-		for(int i=0; i<=width; i++)
+		for(int i=0; i<width; i++)
 		{
-			for(int j=0; j<=width; j++)
+			for(int j=0; j<width; j++)
 			{		
 			
 			}

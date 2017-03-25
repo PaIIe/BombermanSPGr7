@@ -45,7 +45,7 @@ public class BombermanGameClientHandler implements Runnable {
         //sendToClient("Hello: " + playerName + " your ID is " + clientID);
     	while(BombermanGameServer.gameOver == false){
     		//aus irgendwelchen seltsamen Gruenden muss die Ausgabe hier drin bleiben, weil sonst immer nur der zu letzt hinzugefuegte BombermanGameClientHandler funktioniert
-    		System.out.println("Empfang funktioniert");
+    		//System.out.println("Empfang funktioniert");
     		if(BombermanGameServer.gameStart == true){
             try {
             	if(((BombermanGameServer.tick % 4) == 0) && this.fromClient.ready()){
@@ -108,7 +108,7 @@ public class BombermanGameClientHandler implements Runnable {
         }
     }
     /**
-     * Extrahiert das Ð Â¬bergebene ([LÐ Ò‘nge]JSONObject) so das die Ð Aebergebene lÐ Ò‘nge entfernt wird und nur noch ein JSONObject Uebrig bleibt
+     * Extrahiert das Ã�Â Ã‚Â¬bergebene ([LÃ�Â Ã’â€˜nge]JSONObject) so das die Ã�Â Aebergebene lÃ�Â Ã’â€˜nge entfernt wird und nur noch ein JSONObject Uebrig bleibt
      * @param outputFromClient
      * @return
      */
@@ -126,7 +126,7 @@ public class BombermanGameClientHandler implements Runnable {
     	return inputString;
     	}
     
-    /*UNNÐ Â¬TZ zur zeit, sollte die JSONString lÐ Ò‘nge filtern.. TODO
+    /*UNNÃ�Â Ã‚Â¬TZ zur zeit, sollte die JSONString lÃ�Â Ã’â€˜nge filtern.. TODO
     private int extractLenght(String outputFromClient){
       int length;
       String temp = null;

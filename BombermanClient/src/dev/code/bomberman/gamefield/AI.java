@@ -3,34 +3,36 @@ package dev.code.bomberman.gamefield;
 import input.KeyManager;
 
 public class AI {
-	private GamefieldData aimatrix;
+	private GameObject[][] aimatrix;
 	int width;
 	private boolean danger;
 	
 
 	
-	public AI(int width) {
-    	this.aimatrix.setWidth(11);
+	public AI(int w) {
+		width=w;
     	this.danger=false;
     	}
 
-	/*public void AIMain(int width)
+	public void AIMain(GameObject[][] obj)
 	{
-		for(int i=0; i<=width; i++)
+		this.aimatrix = new GameObject[width][width];
+		this.aimatrix=obj;
+		/*for(int i=0; i<=width; i++)
 		{
 			for(int j=0; j<=width; j++)
 			{	
-				this.aimatrix=speicher
+				
 			
 			}
-		}
+		}*/
 		
 		GenerateMap();
 		
-		int r=GamefieldData.getPlayer(1).getRow();
-		int c=GamefieldData.getPlayer(1).getColumn();
+		//int r=GamefieldData.getPlayer(1).getRow();
+		//int c=GamefieldData.getPlayer(1).getColumn();
 		
-		this.danger=CheckDanger(r, c);
+		//this.danger=CheckDanger(r, c);
 		
 		
 			
@@ -38,7 +40,7 @@ public class AI {
 	
 	private boolean CheckDanger(int r, int c)
 	{
-		if((this.aimatrix[r][c]>=61 && this.aimatrix[r][c]<=93) || this.aimatrix[r][c]==999 || this.aimatrix[r][c]==3)
+		if((this.aimatrix[r][c].getID()>=61 && this.aimatrix[r][c].getID()<=93) || this.aimatrix[r][c].getID()==999 || this.aimatrix[r][c].getID()==3)
 			return true;
 		else 
 			return false;
@@ -50,50 +52,50 @@ public class AI {
 		{
 			for(int j=0; j<=width; j++)
 			{	
-				if(this.aimatrix[i][j]>=61 && this.aimatrix[i][j]<=93)
+				if(this.aimatrix[i][j].getID()>=61 && this.aimatrix[i][j].getID()<=93)
 				{
 					for(int k=1; i+k<=width; k++)
 					{
-						if(this.aimatrix[i+k][j]==1 || this.aimatrix[i+k][j]==2 || this.aimatrix[i+k][j]==3 || this.aimatrix[i+k][j]>=61)
+						if(this.aimatrix[i+k][j].getID()==1 || this.aimatrix[i+k][j].getID()==2 || this.aimatrix[i+k][j].getID()==3 || this.aimatrix[i+k][j].getID()>=61)
 						{
 							break;							
 						}
 						else
 						{
-							this.aimatrix[i][j]=999;							
+							this.aimatrix[i][j].setID(999);							
 						}
 					}
 					for(int k=1; i-k>0; k++)
 					{
-						if(this.aimatrix[i][j]==1 || this.aimatrix[i][j]==2 || this.aimatrix[i][j]==3 || this.aimatrix[i][j]>=61)
+						if(this.aimatrix[i][j].getID()==1 || this.aimatrix[i][j].getID()==2 || this.aimatrix[i][j].getID()==3 || this.aimatrix[i][j].getID()>=61)
 						{
 							break;							
 						}
 						else
 						{
-							this.aimatrix[i][j]=999;							
+							this.aimatrix[i][j].setID(999);							
 						}
 					}
 					for(int k=1; j+k<=width; k++)
 					{
-						if(this.aimatrix[i][j]==1 || this.aimatrix[i][j]==2 || this.aimatrix[i][j]==3 || this.aimatrix[i][j]>=61)
+						if(this.aimatrix[i][j].getID()==1 || this.aimatrix[i][j].getID()==2 || this.aimatrix[i][j].getID()==3 || this.aimatrix[i][j].getID()>=61)
 						{
 							break;							
 						}
 						else
 						{
-							this.aimatrix[i][j]=999;							
+							this.aimatrix[i][j].setID(999);							
 						}
 					}
 					for(int k=1; j-k>0; k++)
 					{
-						if(this.aimatrix[i][j]==1 || this.aimatrix[i][j]==2 || this.aimatrix[i][j]==3 || this.aimatrix[i][j]>=61)
+						if(this.aimatrix[i][j].getID()==1 || this.aimatrix[i][j].getID()==2 || this.aimatrix[i][j].getID()==3 || this.aimatrix[i][j].getID()>=61)
 						{
 							break;							
 						}
 						else
 						{
-							this.aimatrix[i][j]=999;							
+							this.aimatrix[i][j].setID(999);							
 						}
 					}
 					
@@ -101,5 +103,5 @@ public class AI {
 				}
 			}
 		}
-	}*/
+	}
 }

@@ -3,34 +3,34 @@ package dev.code.bomberman.gamefield;
 import input.KeyManager;
 
 public class AI {
-	int[][] aimatrix;
+	private GamefieldData aimatrix;
 	int width;
 	private boolean danger;
 	
-    public AI(int width){ 
-    	this.aimatrix = new int[width][width];
+
+	
+	public AI(int width) {
+    	this.aimatrix.setWidth(11);
     	this.danger=false;
-    }
-    /**
-	 * 
-	 */
-	public void AIMain(int width)
+    	}
+
+	/*public void AIMain(int width)
 	{
 		for(int i=0; i<=width; i++)
 		{
 			for(int j=0; j<=width; j++)
 			{	
-				//this.aimatrix[i][j]=GamefieldData.getObject(i, j).getID;
+				this.aimatrix=speicher
 			
 			}
 		}
 		
 		GenerateMap();
 		
-		//int r=GamefieldData.getPlayer(1).getRow();
-		//int c=GamefieldData.getPlayer(1).getColumn();
+		int r=GamefieldData.getPlayer(1).getRow();
+		int c=GamefieldData.getPlayer(1).getColumn();
 		
-		//this.danger=CheckDanger(r, c);
+		this.danger=CheckDanger(r, c);
 		
 		
 			
@@ -101,5 +101,5 @@ public class AI {
 				}
 			}
 		}
-	}
+	}*/
 }

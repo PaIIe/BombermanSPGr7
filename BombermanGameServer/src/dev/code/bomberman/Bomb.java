@@ -48,6 +48,7 @@ public class Bomb extends GameObject
 				this.setID(82);
 			if (this.getID() == 91)
 				this.setID(92);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 		}
 		if (this.countdownTime == (this.explosionTime * 1 / 3)) // nach 1/3 der Zeit ID ändern --> neues Bild
 		{
@@ -59,6 +60,7 @@ public class Bomb extends GameObject
 				this.setID(83);
 			if (this.getID() == 92)
 				this.setID(93);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 		}
 		if(this.countdownTime == 0)
 		{

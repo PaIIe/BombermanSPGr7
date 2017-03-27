@@ -1,9 +1,10 @@
 package dev.code.bomberman.gamefield;
 
-import input.KeyManager;
 
 public class AI {
 	private GameObject[][] aimatrix;
+	private int[][] aimatrixx;
+	private GameObject[] playermatrix;
 	int width;
 	private boolean danger;
 	
@@ -14,13 +15,24 @@ public class AI {
     	this.danger=false;
     	}
 
-	public void AIMain(GameObject[][] obj)
+	public void AIMain(GameObject[][] obj, GameObject[] pl)
 	{
 		this.aimatrix = new GameObject[width][width];
-		this.aimatrix=obj;
-		
-		
+		this.aimatrix = obj;
+		this.aimatrixx = new int[width][width];
+		for(int i=0; i<this.width; i++)
+		{
+			for(int j=0; j<this.width; j++)
+			{
+				this.aimatrixx[i][j]=obj[i][j].getID();
+			}
+		}
+		this.playermatrix = pl;
+		System.out.println("matrix erstellt");
+		System.out.println(this.aimatrixx[10][10]);
+		System.out.println(this.width);
 		GenerateMap();
+		TestMap();
 		
 		//int r=GamefieldData.getPlayer(1).getRow();
 		//int c=GamefieldData.getPlayer(1).getColumn();
@@ -58,7 +70,7 @@ public class AI {
 							this.aimatrix[i][j].setID(999);							
 						}
 					}
-					/*for(int k=1; i-k>=0; k++)
+					for(int k=1; i-k>=0; k++)
 					{
 						if(this.aimatrix[i][j].getID()==1 || this.aimatrix[i][j].getID()==2 || this.aimatrix[i][j].getID()==3 || this.aimatrix[i][j].getID()>=61)
 						{
@@ -90,7 +102,7 @@ public class AI {
 						{
 							this.aimatrix[i][j].setID(999);							
 						}
-					}*/
+					}
 					
 		
 				}
@@ -103,8 +115,9 @@ public class AI {
 		{
 			for(int j=0; j<width; j++)
 			{		
-			
+				System.out.println(this.aimatrix[i][j].getID());
 			}
+			System.out.println("neue zeile");
 		}
 		
 	}

@@ -100,8 +100,8 @@ public class Client implements Runnable {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         
-        ai = new AI(width);
-        ai.AIMain(this.gamefield.getGameObjectMatrix());
+        ai = new AI(this.gamefield.getWidth());
+        ai.AIMain(this.gamefield.getGameObjectMatrix(), this.gamefield.getPlayerMatrix());
         
         //this.gameState = GameState.RUNNING;
         

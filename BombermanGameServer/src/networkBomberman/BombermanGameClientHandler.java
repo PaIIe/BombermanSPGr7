@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dev.code.bomberman.Direction;
+import dev.code.bomberman.Game;
 import dev.code.bomberman.GameField;
 import jsonBomberman.JsonEncoderDecoder;
  
@@ -48,7 +49,9 @@ public class BombermanGameClientHandler implements Runnable {
     		//System.out.println("Empfang funktioniert");
     		if(BombermanGameServer.gameStart == true){
             try {
-            	if(((BombermanGameServer.tick % 4) == 0) && this.fromClient.ready()){
+            	if(/*((BombermanGameServer.tick % 10) == 0) &&*/ this.fromClient.ready()){
+            		System.out.println(Game.getCounterTicks());
+            		System.out.println(Game.getInputTicksPlayer1());
             		this.outputFromClient = this.receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
                     this.outputFromClient = this.extractJsonString(this.outputFromClient);
@@ -60,20 +63,109 @@ public class BombermanGameClientHandler implements Runnable {
                         e1.printStackTrace();
                     }
                     System.out.println(outputFromClient);
-                    if(this.outputFromClient.equals("action moveRight")){
-	            	  GameField.getPlayer(clientID).walk(Direction.EAST);
-	            	  }
-                    if(this.outputFromClient.equals("action moveLeft")){
-	            	  GameField.getPlayer(clientID).walk(Direction.WEST);
-	            	  }
-                    if(this.outputFromClient.equals("action moveUp")){
-	            	  GameField.getPlayer(clientID).walk(Direction.NORTH);
+                    if (clientID == 1)
+                    {
+                    	if(this.outputFromClient.equals("action moveRight") && Game.getCounterTicks() > Game.getInputTicksPlayer1() + Game.getMovementTicksPlayer1() && GameField.getPlayer(1).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(1).walk(Direction.EAST);
+                        	Game.setInputTicksPlayer1();
+    	            	}
+                        if(this.outputFromClient.equals("action moveLeft") && Game.getCounterTicks() > Game.getInputTicksPlayer1() + Game.getMovementTicksPlayer1() && GameField.getPlayer(1).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(1).walk(Direction.WEST);
+                        	Game.setInputTicksPlayer1();
+    	            	}
+                        if(this.outputFromClient.equals("action moveUp") && Game.getCounterTicks() > Game.getInputTicksPlayer1() + Game.getMovementTicksPlayer1() && GameField.getPlayer(1).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(1).walk(Direction.NORTH);
+                        	Game.setInputTicksPlayer1();
+                        }
+                        if(this.outputFromClient.equals("action moveDown") && Game.getCounterTicks() > Game.getInputTicksPlayer1() + Game.getMovementTicksPlayer1() && GameField.getPlayer(1).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(1).walk(Direction.SOUTH);
+                        	Game.setInputTicksPlayer1();
+                        }
+                        if(outputFromClient.equals("action placeBomb") && GameField.getPlayer(1).getAliveStatus() == true){
+                        	GameField.getPlayer(1).placeBomb();
+                        }
                     }
-                    if(this.outputFromClient.equals("action moveDown")){
-	            	  GameField.getPlayer(clientID).walk(Direction.SOUTH);
+                    if (clientID == 2)
+                    {
+                    	if(this.outputFromClient.equals("action moveRight") && Game.getCounterTicks() > Game.getInputTicksPlayer2() + Game.getMovementTicksPlayer2() && GameField.getPlayer(2).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(2).walk(Direction.EAST);
+                        	Game.setInputTicksPlayer2();
+    	            	}
+                        if(this.outputFromClient.equals("action moveLeft") && Game.getCounterTicks() > Game.getInputTicksPlayer2() + Game.getMovementTicksPlayer2() && GameField.getPlayer(2).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(2).walk(Direction.WEST);
+                        	Game.setInputTicksPlayer2();
+    	            	}
+                        if(this.outputFromClient.equals("action moveUp") && Game.getCounterTicks() > Game.getInputTicksPlayer2() + Game.getMovementTicksPlayer2() && GameField.getPlayer(2).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(2).walk(Direction.NORTH);
+                        	Game.setInputTicksPlayer2();
+                        }
+                        if(this.outputFromClient.equals("action moveDown") && Game.getCounterTicks() > Game.getInputTicksPlayer2() + Game.getMovementTicksPlayer2() && GameField.getPlayer(2).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(2).walk(Direction.SOUTH);
+                        	Game.setInputTicksPlayer2();
+                        }
+                        if(outputFromClient.equals("action placeBomb") && GameField.getPlayer(2).getAliveStatus() == true){
+                        	GameField.getPlayer(2).placeBomb();
+                        }
                     }
-                    if(outputFromClient.equals("action placeBomb")){
-                    	GameField.getPlayer(clientID).placeBomb();
+                    if (clientID == 3)
+                    {
+                    	if(this.outputFromClient.equals("action moveRight") && Game.getCounterTicks() > Game.getInputTicksPlayer3() + Game.getMovementTicksPlayer3() && GameField.getPlayer(3).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(3).walk(Direction.EAST);
+                        	Game.setInputTicksPlayer3();
+    	            	}
+                        if(this.outputFromClient.equals("action moveLeft") && Game.getCounterTicks() > Game.getInputTicksPlayer3() + Game.getMovementTicksPlayer3() && GameField.getPlayer(3).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(3).walk(Direction.WEST);
+                        	Game.setInputTicksPlayer3();
+    	            	}
+                        if(this.outputFromClient.equals("action moveUp") && Game.getCounterTicks() > Game.getInputTicksPlayer3() + Game.getMovementTicksPlayer3() && GameField.getPlayer(3).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(3).walk(Direction.NORTH);
+                        	Game.setInputTicksPlayer3();
+                        }
+                        if(this.outputFromClient.equals("action moveDown") && Game.getCounterTicks() > Game.getInputTicksPlayer3() + Game.getMovementTicksPlayer3() && GameField.getPlayer(3).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(3).walk(Direction.SOUTH);
+                        	Game.setInputTicksPlayer3();
+                        }
+                        if(outputFromClient.equals("action placeBomb") && GameField.getPlayer(3).getAliveStatus() == true){
+                        	GameField.getPlayer(3).placeBomb();
+                        }
+                    }
+                    if (clientID == 4)
+                    {
+                    	if(this.outputFromClient.equals("action moveRight") && Game.getCounterTicks() > Game.getInputTicksPlayer4() + Game.getMovementTicksPlayer4() && GameField.getPlayer(4).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(4).walk(Direction.EAST);
+                        	Game.setInputTicksPlayer4();
+    	            	}
+                        if(this.outputFromClient.equals("action moveLeft") && Game.getCounterTicks() > Game.getInputTicksPlayer4() + Game.getMovementTicksPlayer4() && GameField.getPlayer(4).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(4).walk(Direction.WEST);
+                        	Game.setInputTicksPlayer4();
+    	            	}
+                        if(this.outputFromClient.equals("action moveUp") && Game.getCounterTicks() > Game.getInputTicksPlayer4() + Game.getMovementTicksPlayer4() && GameField.getPlayer(4).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(4).walk(Direction.NORTH);
+                        	Game.setInputTicksPlayer4();
+                        }
+                        if(this.outputFromClient.equals("action moveDown") && Game.getCounterTicks() > Game.getInputTicksPlayer4() + Game.getMovementTicksPlayer4() && GameField.getPlayer(4).getAliveStatus() == true)
+                        {
+                        	GameField.getPlayer(4).walk(Direction.SOUTH);
+                        	Game.setInputTicksPlayer4();
+                        }
+                        if(outputFromClient.equals("action placeBomb") && GameField.getPlayer(4).getAliveStatus() == true){
+                        	GameField.getPlayer(4).placeBomb();
+                        }
                     }
           
                     this.outputFromClient = this.outputFromClient + " " + clientID;

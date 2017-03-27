@@ -31,6 +31,17 @@ public class Game implements Runnable {
 	//private int armorTime;
 	//private int bombExplosionTime;
 	
+	// Playermovement Timer
+	private static int counterTicks = 0; // Tickzähler
+	private static int inputTicksPlayer1 = -40;	// Tickzahl bei Eingabebefehl (damit erste Eingabe klappt -40)
+	private static int inputTicksPlayer2 = -40;
+	private static int inputTicksPlayer3 = -40;
+	private static int inputTicksPlayer4 = -40;
+	private static int movementTicksPlayer1;
+	private static int movementTicksPlayer2;
+	private static int movementTicksPlayer3;
+	private static int movementTicksPlayer4;
+	
 	/**
 	 * Konstruktor für unser Spiel
 	 * 
@@ -69,6 +80,11 @@ public class Game implements Runnable {
 		networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
 		//this.gameState = GameState.RUNNING;
 		
+		Game.movementTicksPlayer1 = 10;
+		Game.movementTicksPlayer2 = 10;
+		Game.movementTicksPlayer3 = 10;
+		Game.movementTicksPlayer4 = 10;
+		
 		// Ranking
 		Ranking ranking = new Ranking();
 		Game.ranking = ranking;
@@ -79,8 +95,7 @@ public class Game implements Runnable {
 		
 	}
 	
-	int counterTicks = 0; // Tickzähler
-	int inputTicks = -40;	// Tickzahl bei Eingabebefehl (damit erste Eingabe klappt -40)
+	
 	
 	/**
 	 * Die tick-Funktion wird jeden GameLoop ausgeführt (bei uns also 20 mal pro Sekunde).
@@ -89,6 +104,7 @@ public class Game implements Runnable {
 	 * entsprechend der Einschränkungen (1 Befehl aller 5 Ticks) betrachtet.
 	 */
 	private void tick(){ // Update
+		Game.counterTicks++;
 		int playerAlive = 0;
 		for (int i = 1; i <= 4; i++)
 		{
@@ -132,7 +148,6 @@ public class Game implements Runnable {
 			}
 
 			
-			counterTicks++;
 			
 		//}
 		/*if (this.gameState == GameState.STATISTIC)
@@ -258,5 +273,70 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static int getCounterTicks()
+	{
+		return Game.counterTicks;
+	}
+	
+	public static int getInputTicksPlayer1()
+	{
+		return Game.inputTicksPlayer1;
+	}
+	
+	public static int getInputTicksPlayer2()
+	{
+		return Game.inputTicksPlayer2;
+	}
+	
+	public static int getInputTicksPlayer3()
+	{
+		return Game.inputTicksPlayer3;
+	}
+	
+	public static int getInputTicksPlayer4()
+	{
+		return Game.inputTicksPlayer4;
+	}
+	
+	public static int getMovementTicksPlayer1()
+	{
+		return Game.movementTicksPlayer1;
+	}
+	
+	public static int getMovementTicksPlayer2()
+	{
+		return Game.movementTicksPlayer2;
+	}
+	
+	public static int getMovementTicksPlayer3()
+	{
+		return Game.movementTicksPlayer3;
+	}
+	
+	public static int getMovementTicksPlayer4()
+	{
+		return Game.movementTicksPlayer4;
+	}
+	
+	public static void setInputTicksPlayer1()
+	{
+		Game.inputTicksPlayer1 = Game.counterTicks;
+	}
+	
+	public static void setInputTicksPlayer2()
+	{
+		Game.inputTicksPlayer2 = Game.counterTicks;
+	}
+	
+	public static void setInputTicksPlayer3()
+	{
+		Game.inputTicksPlayer3 = Game.counterTicks;
+	}
+	
+	public static void setInputTicksPlayer4()
+	{
+		Game.inputTicksPlayer4 = Game.counterTicks;
 	}
 }

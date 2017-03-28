@@ -42,46 +42,55 @@ public class Wall extends GameObject
 		{
 			EmptyField empty = new EmptyField(row, column);
 			GameField.setObject(empty, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 1) // mehr Bomben
 		{
 			Boni boni = new Boni(row, column, 22);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 2) // Explosionsradius größer
 		{
 			Boni boni = new Boni(row, column, 21);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 3) // Armor
 		{
 			Boni boni = new Boni(row, column, 23);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 4) // schneller Laufen
 		{
 			Boni boni = new Boni(row, column, 24);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 5) // Kick
 		{
 			Boni boni = new Boni(row, column, 25);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 6) // Superbombe
 		{
 			Boni boni = new Boni(row, column, 26);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 7) // Max Radius
 		{
 			Boni boni = new Boni(row, column, 27);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 		if (randomNumber == 8) // Bombenläufer
 		{
 			Boni boni = new Boni(row, column, 28);
 			GameField.setObject(boni, row, column);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(row, column)));
 		}
 	}
 	

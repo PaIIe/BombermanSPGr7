@@ -444,7 +444,9 @@ public class Bomb extends GameObject
 		{
 			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() - 1, this.getColumn());
 			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			this.setRow(this.getRow() - 1);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			return;
 		}	
 		this.slideNorth = false;
@@ -456,7 +458,9 @@ public class Bomb extends GameObject
 		{
 			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() + 1);
 			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			this.setColumn(this.getColumn() + 1);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			return;
 		}	
 		this.slideEast = false;
@@ -467,8 +471,10 @@ public class Bomb extends GameObject
 		if (GameField.getObject(this.getRow() + 1, this.getColumn()).getID() == 0)
 		{
 			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() + 1, this.getColumn());
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 			this.setRow(this.getRow() + 1);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			return;
 		}	
 		this.slideSouth = false;
@@ -479,8 +485,10 @@ public class Bomb extends GameObject
 		if (GameField.getObject(this.getRow(), this.getColumn() - 1).getID() == 0)
 		{
 			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() - 1);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
 			this.setColumn(this.getColumn() - 1);
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 			return;
 		}	
 		this.slideWest = false;

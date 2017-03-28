@@ -78,6 +78,7 @@ public class Bomberman extends GameObject{
 										   GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 93)
 			{
 				this.setRow(this.getRow() - 1);
+				BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				Game.ranking.updateSteps(this.getID());
 				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				return;
@@ -119,6 +120,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSprint(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
@@ -126,6 +128,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableKick(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -133,6 +136,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSuperbomb(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
 				{
@@ -140,6 +144,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setToMaxRadius(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
 				{
@@ -147,6 +152,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableBombwalker(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
@@ -180,6 +186,7 @@ public class Bomberman extends GameObject{
 										   GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 91 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 93)
 			{
 				this.setColumn(this.getColumn() + 1);
+				BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				Game.ranking.updateSteps(this.getID());
 				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				return;
@@ -221,6 +228,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSprint(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
@@ -228,6 +236,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableKick(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -235,6 +244,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSuperbomb(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
 				{
@@ -242,6 +252,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setToMaxRadius(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
 				{
@@ -249,6 +260,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableBombwalker(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
@@ -282,6 +294,7 @@ public class Bomberman extends GameObject{
 										   GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 91 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 93)
 			{
 				this.setRow(this.getRow() + 1);
+				BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				Game.ranking.updateSteps(this.getID());
 				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				return;
@@ -289,6 +302,7 @@ public class Bomberman extends GameObject{
 			if (GameField.getObject((this.getRow() + 1), this.getColumn()).getSolid() == false)
 			{
 				this.setRow(this.getRow() + 1);
+				BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				Game.ranking.updateSteps(this.getID());
 				Game.logs.MoveLog(this.getID(), this.getRow(), this.getColumn());
 				// Test auf Boni
@@ -322,6 +336,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSprint(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
@@ -329,6 +344,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableKick(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -336,6 +352,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSuperbomb(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
 				{
@@ -343,6 +360,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setToMaxRadius(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
 				{
@@ -350,6 +368,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableBombwalker(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)
@@ -424,6 +443,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSprint(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 25)
 				{
@@ -431,6 +451,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableKick(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 26)
 				{
@@ -438,6 +459,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableSuperbomb(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 27)
 				{
@@ -445,6 +467,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.setToMaxRadius(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 28)
 				{
@@ -452,6 +475,7 @@ public class Bomberman extends GameObject{
 					Boni boni = (Boni) GameField.getObject(this.getRow(),this.getColumn());
 					boni.enableBombwalker(this.getID());
 					GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+					BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn())));
 				}
 				// Test auf Flamme
 				if (GameField.getObject(this.getRow(),this.getColumn()).getID() == 3)

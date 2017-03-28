@@ -306,4 +306,24 @@ public class Game implements Runnable {
 	{
 		Game.inputTicksPlayer4 = Game.counterTicks;
 	}
+	
+	public static void speedUpPlayer1()
+	{
+		Game.movementTicksPlayer1 = 5;
+	}
+	
+	public static void speedUpPlayer2()
+	{
+		Game.movementTicksPlayer2 = 5;
+	}
+	
+	public static void speedUpPlayer3()
+	{
+		Game.movementTicksPlayer3 = 5;
+	}
+	
+	public static void speedUpPlayer4()
+	{
+		Game.movementTicksPlayer4 = 5;
+	}
 }

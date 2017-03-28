@@ -8,6 +8,11 @@ public class Bomb extends GameObject
 	private int explosionRadius;
 	private int explosionTime;
 	private int countdownTime;
+	private boolean superbomb;
+	private boolean slideNorth;
+	private boolean slideEast;
+	private boolean slideSouth;
+	private boolean slideWest;
 	
 	/**
 	 * Konstruktor für die Bomben der Spieler.
@@ -17,7 +22,7 @@ public class Bomb extends GameObject
 	 * @param time Zeit, wie lange die Bombe bis zur Explosion tickt
 	 * @param radius Radius der Bombenexplosion
 	 */
-	public Bomb(int row, int column, int time, int radius)
+	public Bomb(int row, int column, int time, int radius, boolean superbomb)
 	{
 		this.explosionRadius=radius;	
 		this.explosionTime=time * 20; // 20 Ticks pro Sekunde
@@ -25,6 +30,11 @@ public class Bomb extends GameObject
 		this.setRow(row);
 		this.setColumn(column);
 		this.setSolid(true);
+		this.superbomb = superbomb;
+		this.slideNorth = false;
+		this.slideEast = false;
+		this.slideSouth = false;
+		this.slideWest = false;
 	}
 	public Bomb() 
 	{
@@ -81,14 +91,6 @@ public class Bomb extends GameObject
 	{
 		this.generateFlames();
 		Game.logs.ExplodeLog(this.getRow(), this.getColumn());
-		/*playerCheck(this.getRow(), this.getColumn());
-		this.generateFlames(this.getRow(), this.getColumn());
-		
-		for(int i; i=1; i++)
-		{
-			if(ObjectAt(this.getRow()+i,this.getColumn())==2)
-				this.destroyWall(this.row, this.column);
-		}*/
 	}
 	
 	/**
@@ -128,12 +130,16 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() == 1)
-					 break; // Abbruch der Flammen, da Wand
+				 {
+					 if (this.superbomb == false)
+						 break;	// Abbruch, da Wand und nicht SUperbombe
+				 }
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() == 2) 
 				 {
 					 this.destroyWall(this.getRow() - i, this.getColumn());
-					 break; // Abbruch der Flammen, da Wand
+					 if (this.superbomb == false)
+						 break; // Abbruch der Flammen, da Wand
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() >= 61 && GameField.getObject(this.getRow()- i, this.getColumn()).getID() <= 63) // Bomben von Player1
@@ -181,10 +187,13 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flammen erzeugen
-				 Flame flame = new Flame(this.getRow() - i, this.getColumn());
-				 GameField.setObject(flame, this.getRow() - i, this.getColumn());
-				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() - i, this.getColumn())));
+				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() != 1)
+				 {
+					// Flammen erzeugen
+					 Flame flame = new Flame(this.getRow() - i, this.getColumn());
+					 GameField.setObject(flame, this.getRow() - i, this.getColumn());
+					 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() - i, this.getColumn())));
+				 }	 	 
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach WESTEN
@@ -193,12 +202,17 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
+					 
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow(), this.getColumn() - i);
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() >= 61 && GameField.getObject(this.getRow(), this.getColumn() - i).getID() <= 63) // Bomben von Player1
@@ -246,23 +260,30 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
-				 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
-				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() - i)));
+				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() != 1)
+				 {
+					 Flame flame = new Flame(this.getRow(), this.getColumn() - i);
+					 GameField.setObject(flame, this.getRow(), this.getColumn() - i);
+					 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() - i)));
+				 }		 
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach SÜDEN
 		{
 			 if (this.getRow() + i < GameField.getWidth()) // Grenzen
 			 {
-				 // solid Wall
+				// solid Wall
 				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
 				 // destroyable Wall
 				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow() + i, this.getColumn());
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 // Bomben
 				 if (GameField.getObject(this.getRow()+ i, this.getColumn()).getID() >= 61 && GameField.getObject(this.getRow()+ i, this.getColumn()).getID() <= 63) // Bomben von Player1
@@ -310,10 +331,13 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flammen erzeugen
-				 Flame flame = new Flame(this.getRow() + i, this.getColumn());
-				 GameField.setObject(flame, this.getRow() + i, this.getColumn());
-				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() + i, this.getColumn())));
+				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() != 1)
+				 {
+					 // Flammen erzeugen
+					 Flame flame = new Flame(this.getRow() + i, this.getColumn());
+					 GameField.setObject(flame, this.getRow() + i, this.getColumn());
+					 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow() + i, this.getColumn())));
+				 }			 
 			 }
 		}
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach OSTEN
@@ -322,12 +346,16 @@ public class Bomb extends GameObject
 			 {
 				 // solid Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() == 1)
-					 break;
+				 {
+					 if (this.superbomb == false)
+						 break;
+				 }
 				 //destroyable Wall
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() == 2)
 				 {
 					 this.destroyWall(this.getRow(), this.getColumn() + i);
-					 break;
+					 if (this.superbomb == false)
+						 break;
 				 }
 				 //
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() >= 61 && GameField.getObject(this.getRow(), this.getColumn() + i).getID() <= 63) // Bomben von Player1
@@ -375,12 +403,87 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(4).gotHit();
 					 Game.ranking.updateKill(this.getID(), 4);
 				 }
-				 // Flamme
-				 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
-				 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
-				 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() + i)));
+				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() != 1)
+				 {
+					 // Flamme
+					 Flame flame = new Flame(this.getRow(), this.getColumn() + i);
+					 GameField.setObject(flame, this.getRow(), this.getColumn() + i);
+					 BombermanGameServer.sendToAllClients(JsonEncoderDecoder.gameObjectToJSON(GameField.getObject(this.getRow(), this.getColumn() + i)));
+				 }		 
 			 }
 		}
+	}
+	
+	public void kicked(Direction direction)
+	{
+		if (direction == Direction.NORTH)
+		{
+			this.slideNorth = true;
+			this.slideNorth();
+		}
+		if (direction == Direction.EAST)
+		{
+			this.slideEast = true;
+			this.slideEast();
+		}
+		if (direction == Direction.SOUTH)
+		{
+			this.slideSouth = true;
+			this.slideSouth();
+		}
+		if (direction == Direction.WEST)
+		{
+			this.slideWest = true;
+			this.slideWest();
+		}
+	}
+	
+	public void slideNorth()
+	{
+		if (GameField.getObject(this.getRow() - 1, this.getColumn()).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() - 1, this.getColumn());
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setRow(this.getRow() - 1);
+			return;
+		}	
+		this.slideNorth = false;
+	}
+	
+	public void slideEast()
+	{
+		if (GameField.getObject(this.getRow(), this.getColumn() + 1).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() + 1);
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setColumn(this.getColumn() + 1);
+			return;
+		}	
+		this.slideEast = false;
+	}
+	
+	public void slideSouth()
+	{
+		if (GameField.getObject(this.getRow() + 1, this.getColumn()).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow() + 1, this.getColumn());
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setRow(this.getRow() + 1);
+			return;
+		}	
+		this.slideSouth = false;
+	}
+	
+	public void slideWest()
+	{
+		if (GameField.getObject(this.getRow(), this.getColumn() - 1).getID() == 0)
+		{
+			GameField.setObject(GameField.getObject(this.getRow(), this.getColumn()), this.getRow(), this.getColumn() - 1);
+			GameField.setObject(new EmptyField(this.getRow(), this.getColumn()), this.getRow(), this.getColumn());
+			this.setColumn(this.getColumn() - 1);
+			return;
+		}	
+		this.slideWest = false;
 	}
 	
 	/**
@@ -416,5 +519,25 @@ public class Bomb extends GameObject
 	public int getexplosionRadius()
 	{
 		return this.explosionRadius;
+	}
+	
+	public boolean getSlideNorth()
+	{
+		return this.slideNorth;
+	}
+	
+	public boolean getSlideEast()
+	{
+		return this.slideEast;
+	}
+	
+	public boolean getSlideSouth()
+	{
+		return this.slideSouth;
+	}
+	
+	public boolean getSlideWest()
+	{
+		return this.slideWest;
 	}
 }

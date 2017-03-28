@@ -185,7 +185,6 @@ public class Client implements Runnable {
             //counterTicks++;
             if(getKeyManager().up)  // 1 Eingabe aller 5 Ticks
             {
-            	System.out.println("test");
                 //GameField.getPlayer(1).walk(Direction.NORTH);
                 BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveUp"));
                 //inputTicks = counterTicks;

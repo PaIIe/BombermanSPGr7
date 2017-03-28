@@ -96,7 +96,7 @@ public class BombermanGameServer extends Thread {
          e.printStackTrace();
        }*/
        
-       System.out.println("readMsgQ " + output);
+       //System.out.println("readMsgQ " + output);
          
        return output;
     }
@@ -167,7 +167,9 @@ public class BombermanGameServer extends Thread {
                 clientHandlerPool.execute(new BombermanGameClientHandler(toClientSocket, clientID));
                 //clientHandlerPool.execute(new BombermanGameClientHandler(socketBombermanGameServer.accept(), clientID));
                 clientID++;
+                //TODO 
                 System.out.println(clientHandlerPool.toString() + clientID);
+                
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

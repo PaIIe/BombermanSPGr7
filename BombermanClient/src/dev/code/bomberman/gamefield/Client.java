@@ -89,6 +89,8 @@ public class Client implements Runnable {
     }
     
     private void init(){
+      
+      
         this.gamefield = new GamefieldData();
         
         
@@ -216,7 +218,7 @@ public class Client implements Runnable {
             		&& getKeyManager().bomb == false /*&& (counterTicks%50 == 0 )*/){
             	BombermanGameClient.sendHeartbeatToServer();
             }
-            
+            //toogle Ai with I
             if(getKeyManager().intelligence ){ 
               
               //kurzes warten damit die Eingabe nicht sofort wieder negiert wird

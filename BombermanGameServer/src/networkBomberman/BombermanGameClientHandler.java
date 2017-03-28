@@ -46,13 +46,17 @@ public class BombermanGameClientHandler implements Runnable {
         //sendToClient("Hello: " + playerName + " your ID is " + clientID);
     	while(BombermanGameServer.gameOver == false){
     		//aus irgendwelchen seltsamen Gruenden muss die Ausgabe hier drin bleiben, weil sonst immer nur der zu letzt hinzugefuegte BombermanGameClientHandler funktioniert
-    		//System.out.println("Empfang funktioniert");
+    		
     		if(BombermanGameServer.gameStart == true){
             try {
-            	if(/*((BombermanGameServer.tick % 10) == 0) &&*/ this.fromClient.ready()){
+            	if(((BombermanGameServer.tick % 10) == 0) && this.fromClient.ready()){
+            	  
             		this.outputFromClient = this.receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
+            		 System.out.println("ClientID in Handler: " + clientID );
                     this.outputFromClient = this.extractJsonString(this.outputFromClient);
+                   
+                    
                     try {
                     	JSONObject jsonObject = new JSONObject(this.outputFromClient);
                         this.outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
@@ -60,7 +64,11 @@ public class BombermanGameClientHandler implements Runnable {
                         System.err.println("JSONException in Run: " + e1.getMessage());
                         e1.printStackTrace();
                     }
-                    System.out.println(outputFromClient);
+                    
+                    
+                    System.out.println(outputFromClient + clientID);
+                    
+                    
                     if (clientID == 1)
                     {
                     	if(this.outputFromClient.equals("action moveRight") && Game.getCounterTicks() > Game.getInputTicksPlayer1() + Game.getMovementTicksPlayer1() && GameField.getPlayer(1).getAliveStatus() == true)
@@ -243,10 +251,13 @@ public class BombermanGameClientHandler implements Runnable {
     }*/
  
     private String receiveFromClient() {
+      
         String inputFromClient = null;
+       
         try {
             while(this.fromClient.ready()){
                 inputFromClient = this.fromClient.readLine();
+                
                
             }
         } catch (IOException e) {
@@ -254,6 +265,7 @@ public class BombermanGameClientHandler implements Runnable {
             e.printStackTrace();
             return null;
         }
+        System.out.println("ClientID in Handler: " + clientID + inputFromClient);
         return inputFromClient;
     }
     

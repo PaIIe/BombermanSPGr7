@@ -183,24 +183,25 @@ public class Client implements Runnable {
             // Eingaben
             //WEnn spieler stirbt nimmt server keine Eingabe mehr an von dieser ID
             //counterTicks++;
-            if(getKeyManager().up /*&& (counterTicks > inputTicks + 5)*/ )  // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().up)  // 1 Eingabe aller 5 Ticks
             {
+            	System.out.println("test");
                 //GameField.getPlayer(1).walk(Direction.NORTH);
                 BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveUp"));
                 //inputTicks = counterTicks;
                 
             }       
-            if(getKeyManager().down /*&& (counterTicks > inputTicks + 5) */) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().down) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveDown")); 
                 //inputTicks = counterTicks;
             }   
-            if(getKeyManager().left  /*&& (counterTicks > inputTicks + 5)*/ ) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().left ) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveLeft"));
                 //inputTicks = counterTicks;
             }           
-            if(getKeyManager().right  /*&& (counterTicks > inputTicks + 5)*/ ) // 1 Eingabe aller 5 Ticks
+            if(getKeyManager().right) // 1 Eingabe aller 5 Ticks
             {
               BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveRight"));
                 //inputTicks = counterTicks;

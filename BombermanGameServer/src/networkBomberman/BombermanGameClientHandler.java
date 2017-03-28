@@ -50,8 +50,6 @@ public class BombermanGameClientHandler implements Runnable {
     		if(BombermanGameServer.gameStart == true){
             try {
             	if(/*((BombermanGameServer.tick % 10) == 0) &&*/ this.fromClient.ready()){
-            		System.out.println(Game.getCounterTicks());
-            		System.out.println(Game.getInputTicksPlayer1());
             		this.outputFromClient = this.receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
                     this.outputFromClient = this.extractJsonString(this.outputFromClient);

@@ -1,0 +1,67 @@
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 placed a bomb at pos 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Wall destroyed at 1, 7
+INFO	Bomb exploded at pos 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 got MaxBomb PowerUp
+INFO	Player 2 placed a bomb at pos 1, 7
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 placed a bomb at pos 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 2, 9
+INFO	Wall destroyed at 1, 6
+INFO	Wall destroyed at 2, 7
+INFO	Bomb exploded at pos 1, 8
+INFO	Bomb exploded at pos 1, 7
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 2, 7
+INFO	Player 2 got BombRadius PowerUp
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 1, 6
+INFO	Player 2 got MaxBomb PowerUp
+INFO	Player 2 placed a bomb at pos 1, 6
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 2, 7
+INFO	Player 2 placed a bomb at pos 2, 7
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 9
+INFO	Wall destroyed at 1, 5
+INFO	Bomb exploded at pos 1, 6
+INFO	Player 2 moved to 2, 9
+INFO	Wall destroyed at 3, 7
+INFO	Bomb exploded at pos 2, 7
+INFO	Player 2 moved to 1, 9
+INFO	Player 2 moved to 1, 8
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 1, 6
+INFO	Player 2 moved to 1, 7
+INFO	Player 2 moved to 2, 7
+INFO	Player 2 moved to 3, 7
+INFO	Player 2 got MaxBomb PowerUp

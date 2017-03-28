@@ -28,8 +28,8 @@ public class AI {
 		System.out.println("matrix erstellt");
 		System.out.println("width "+this.width);
 		this.aimatrix[1][2]=72;
-		GenerateMap();
-		TestMap();
+		//GenerateMap();
+		//TestMap();
 		
 		//int r=GamefieldData.getPlayer(1).getRow();
 		//int c=GamefieldData.getPlayer(1).getColumn();

@@ -161,39 +161,6 @@ public class Game implements Runnable {
 	 * entsprechend ihrer Position gezeichnet.
 	 */
 	private void render(){	// Zeichnen
-		
-		
-		/*if (this.gameState == GameState.STATISTIC)
-		{*/
-			// Test
-			/*JFrame frame = new JFrame();
-		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		    Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
-		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
-		    Object columnNames[] = { "Column One", "Column Two", "Column Three" };
-		    JTable table = new JTable(rowData, columnNames);
-
-		    JScrollPane scrollPane = new JScrollPane(table);
-		    frame.add(scrollPane, BorderLayout.CENTER);
-		    frame.setSize(300, 150);
-		    frame.setVisible(true);/*
-
-			
-			
-			
-			// statistik
-			// Draw here
-			/*g.setColor(Color.white);
-			g.fillRect(0, 0, this.width, this.height);
-			g.setColor(Color.black);
-			Font f = new Font("Dialog", Font.ROMAN_BASELINE, 20);
-			g.setFont(f);
-			g.drawString("Statistik", 0, 50);
-			g.drawRect(0, 50, 60, 40);
-			g.drawString("Player", 10, 80);*/
-		//}
-	
 	}
 	
 	/**

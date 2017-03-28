@@ -13,7 +13,7 @@ import java.util.Scanner;
 import org.json.JSONObject;
 
 import dev.code.bomberman.gamefield.Client;
-import jsonBomberman.JsonDecoderClient;
+
 //import jsonBomberman.JsonEncoderDecoder;
 import jsonBomberman.JsonEncoderClient;
 

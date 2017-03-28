@@ -44,6 +44,7 @@ public class Client implements Runnable {
     
 	// AI
 	private AI ai;
+	private boolean toggleAi = false;
 	
     // Images
     
@@ -100,8 +101,9 @@ public class Client implements Runnable {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         
-        ai = new AI(this.gamefield.getWidth());
-        ai.AIMain(this.gamefield.getGameObjectMatrix(), this.gamefield.getPlayerMatrix());
+        
+      
+       
         
         //this.gameState = GameState.RUNNING;
         
@@ -183,6 +185,7 @@ public class Client implements Runnable {
             // Eingaben
             //WEnn spieler stirbt nimmt server keine Eingabe mehr an von dieser ID
             //counterTicks++;
+                      
             if(getKeyManager().up)  // 1 Eingabe aller 5 Ticks
             {
                 //GameField.getPlayer(1).walk(Direction.NORTH);
@@ -213,7 +216,32 @@ public class Client implements Runnable {
             		&& getKeyManager().bomb == false /*&& (counterTicks%50 == 0 )*/){
             	BombermanGameClient.sendHeartbeatToServer();
             }
+            
+            if(getKeyManager().intelligence ){ 
               
+              //kurzes warten damit die Eingabe nicht sofort wieder negiert wird
+              try{
+                Thread.sleep(150);
+              }catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
+              
+              if(this.toggleAi == false){
+                
+                this.toggleAi = true;
+                System.out.println("AI Enabled");
+               
+          
+                ai = new AI(this.gamefield.getWidth());
+                ai.AIMain(this.gamefield.getGameObjectMatrix(), this.gamefield.getPlayerMatrix());
+              }
+              else{
+                this.toggleAi = false;
+                System.out.println("AI Disabled");
+               
+              }
+            }
       /*   }
        if (this.gameState == GameState.STATISTIC)
         {

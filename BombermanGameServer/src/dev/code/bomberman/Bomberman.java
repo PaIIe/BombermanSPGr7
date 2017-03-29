@@ -14,7 +14,7 @@ public class Bomberman extends GameObject{
 	private boolean alive;
 	private boolean bombwalker;
 	private boolean superbomb;
-	private boolean kick;
+	private boolean kick = false;
 	
 	
 	/**
@@ -35,8 +35,8 @@ public class Bomberman extends GameObject{
 		this.placedBombs = 0;
 		this.bombwalker = false;
 		this.superbomb = false;
-		this.kick = false;
 		this.maxRadius = 7; // Server!!!!! konfigurierbar
+		this.kick = false;
 	}
 	
 	/**
@@ -70,6 +70,7 @@ public class Bomberman extends GameObject{
 			{
 				Bomb bomb = (Bomb) GameField.getObject(this.getRow() - 1, this.getColumn());
 				bomb.kicked(Direction.NORTH);
+				return;
 			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() - 1), this.getColumn()).getID() <= 63 ||
@@ -195,6 +196,7 @@ public class Bomberman extends GameObject{
 			{
 				Bomb bomb = (Bomb) GameField.getObject(this.getRow(), this.getColumn() + 1);
 				bomb.kicked(Direction.EAST);
+				return;
 			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() + 1).getID() <= 63 ||
@@ -320,6 +322,7 @@ public class Bomberman extends GameObject{
 			{
 				Bomb bomb = (Bomb) GameField.getObject(this.getRow() + 1, this.getColumn());
 				bomb.kicked(Direction.SOUTH);
+				return;
 			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() >= 61 && GameField.getObject((this.getRow() + 1), this.getColumn()).getID() <= 63 ||
@@ -444,6 +447,7 @@ public class Bomberman extends GameObject{
 			{
 				Bomb bomb = (Bomb) GameField.getObject(this.getRow(), this.getColumn() - 1);
 				bomb.kicked(Direction.WEST);
+				return;
 			}
 			// Bonus Bombwalker
 			if (this.bombwalker == true && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() >= 61 && GameField.getObject((this.getRow()), this.getColumn() - 1).getID() <= 63 ||

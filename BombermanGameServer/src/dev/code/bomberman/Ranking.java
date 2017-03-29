@@ -14,31 +14,30 @@ public class Ranking {
 	 7: ges
 	 */
 	
-	private int[] statsPlayer1;
-	private int[] statsPlayer2;
-	private int[] statsPlayer3;
-	private int[] statsPlayer4;
+	private String namePlayer1, namePlayer2, namePlayer3, namePlayer4;
+	private int[] walkedSteps, plantedBombs, destroyedWalls, killedPlayers, collectedPowerups, score;  
+	private boolean[] isSuicided, isLastPlayer;
 	
 	/**
 	 * Konstruktor: alles Werte mit 0 initialisiert
 	 */
 	public Ranking()
 	{
-		int temp[] = new int[8];
-		for (int i = 0; i < 8; i++)
+		int temp[] = new int[Game.getPlayerNumber()];
+		boolean temp2[] = new boolean[Game.getPlayerNumber()];
+		for (int i = 0; i < Game.getPlayerNumber(); i++)
 		{
 			temp[i] = 0;
+			temp2[i] = false;
 		}
-		this.statsPlayer1 = temp;
-		this.statsPlayer2 = temp;
-		this.statsPlayer3 = temp;
-		this.statsPlayer4 = temp;
-	}
-	
-	public void calculateRanking()
-	{
-		// Spieleranzahl
+		this.walkedSteps = temp;
+		this.plantedBombs = temp;
+		this.destroyedWalls = temp;
+		this.killedPlayers = temp;
+		this.collectedPowerups = temp;
+		this.score = temp;
 		
+		// TODO Spielernamen
 	}
 	
 	/**
@@ -49,13 +48,13 @@ public class Ranking {
 	public void updateBoni(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
-			this.statsPlayer1[6]++; // aufgesammelte Boni + 1
+			this.collectedPowerups[0]++; // aufgesammelte Boni + 1
 		if (id == 52 || id == 56) // Spieler 2
-			this.statsPlayer2[6]++;
+			this.collectedPowerups[1]++;
 		if (id == 53 || id == 57) // Spieler 3
-			this.statsPlayer3[6]++;
+			this.collectedPowerups[2]++;
 		if (id == 54 || id == 58) // Spieler 4
-			this.statsPlayer4[6]++;
+			this.collectedPowerups[3]++;
 	}
 	
 	/**
@@ -67,23 +66,23 @@ public class Ranking {
 	{
 		if (id == 61 || id == 62 || id == 63)
 		{
-			this.statsPlayer1[7]++; // Gesamtpunkte + 1
-			this.statsPlayer1[3]++; // Mauern + 1
+			this.score[0]++; // Gesamtpunkte + 1
+			this.destroyedWalls[0]++; // Mauern + 1
 		}		
 		if (id == 71 || id == 72 || id == 73)
 		{
-			this.statsPlayer2[7]++;
-			this.statsPlayer2[3]++;
+			this.score[1]++; // Gesamtpunkte + 1
+			this.destroyedWalls[1]++; // Mauern + 1
 		}	
 		if (id == 81 || id == 82 || id == 83)
 		{
-			this.statsPlayer3[7]++;
-			this.statsPlayer3[3]++;
+			this.score[2]++; // Gesamtpunkte + 1
+			this.destroyedWalls[2]++; // Mauern + 1
 		}	
 		if (id == 91 || id == 92 || id == 93)
 		{
-			this.statsPlayer4[7]++;
-			this.statsPlayer4[3]++;
+			this.score[3]++; // Gesamtpunkte + 1
+			this.destroyedWalls[3]++; // Mauern + 1
 		}
 	}
 	
@@ -99,52 +98,52 @@ public class Ranking {
 		{
 			if (playerNumber == 1) // Selbstkill
 			{
-				this.statsPlayer1[7] -= 20; // Gesamtpunkte - 20
-				this.statsPlayer1[4]++; // Selbstkill + 1
+				this.score[0] -= 20; // Gesamtpunkte - 20
+				this.isSuicided[0] = true; // Selbstkill
 			}
 			else // anderen Spieler getötet
 			{
-				this.statsPlayer1[7] += 20; // Gesamtpunkte + 20
-				this.statsPlayer1[2]++; // Kills + 1
+				this.score[0] += 20; // Gesamtpunkte + 20
+				this.killedPlayers[0]++; // Kills + 1
 			}
 		}		
 		if (id == 71 || id == 72 || id == 73) // Bomben von Spieler2
 		{
 			if (playerNumber == 2)
 			{
-				this.statsPlayer2[7] -= 20;
-				this.statsPlayer2[4]++;
+				this.score[1] -= 20; // Gesamtpunkte - 20
+				this.isSuicided[1] = true; // Selbstkill
 			}
 			else
 			{
-				this.statsPlayer2[7] += 20;
-				this.statsPlayer2[2]++;
+				this.score[1] += 20; // Gesamtpunkte + 20
+				this.killedPlayers[1]++; // Kills + 1
 			}
 		}	
 		if (id == 81 || id == 82 || id == 83) // Bomben Spieler3
 		{
 			if (playerNumber == 3)
 			{
-				this.statsPlayer3[7] -= 20;
-				this.statsPlayer3[4]++;
+				this.score[2] -= 20; // Gesamtpunkte - 20
+				this.isSuicided[2] = true; // Selbstkill
 			}
 			else
 			{
-				this.statsPlayer3[7] += 20;
-				this.statsPlayer3[2]++;
+				this.score[2] += 20; // Gesamtpunkte + 20
+				this.killedPlayers[2]++; // Kills + 1
 			}
 		}	
 		if (id == 91 || id == 92 || id == 93) // Bomben Spieler4
 		{
 			if (playerNumber == 4)
 			{
-				this.statsPlayer4[7] -= 20;
-				this.statsPlayer4[4]++;
+				this.score[3] -= 20; // Gesamtpunkte - 20
+				this.isSuicided[3] = true; // Selbstkill
 			}
 			else
 			{
-				this.statsPlayer4[7] += 20;
-				this.statsPlayer4[2]++;
+				this.score[3] += 20; // Gesamtpunkte + 20
+				this.killedPlayers[3]++; // Kills + 1
 			}
 		}
 	}
@@ -157,13 +156,13 @@ public class Ranking {
 	void updateSteps(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
-			this.statsPlayer1[0]++; // Schritte + 1
+			this.walkedSteps[0]++; // Schritte + 1
 		if (id == 52 || id == 56) // Spieler 2
-			this.statsPlayer2[0]++;
+			this.walkedSteps[1]++;;
 		if (id == 53 || id == 57) // Spieler 3
-			this.statsPlayer3[0]++;
+			this.walkedSteps[2]++;;
 		if (id == 54 || id == 58) // Spieler 4
-			this.statsPlayer4[0]++;
+			this.walkedSteps[3]++;;
 	}
 	
 	/**
@@ -174,15 +173,26 @@ public class Ranking {
 	void updateBombs(int id)
 	{
 		if (id == 51 || id == 55) // Spieler 1
-			this.statsPlayer1[1]++; // gelegte Bomber + 1
+			this.plantedBombs[0]++; // gelegte Bomber + 1
 		if (id == 52 || id == 56) // Spieler 2
-			this.statsPlayer2[1]++;
+			this.plantedBombs[1]++;;
 		if (id == 53 || id == 57) // Spieler 3
-			this.statsPlayer3[1]++;
+			this.plantedBombs[2]++;
 		if (id == 54 || id == 58) // Spieler 4
-			this.statsPlayer4[1]++;
+			this.plantedBombs[3]++;
 	}
 	
+	void updateLastMan(int playerNumber)
+	{
+		if (playerNumber == 1)
+			this.isLastPlayer[0] = true;
+		if (playerNumber == 2)
+			this.isLastPlayer[1] = true;
+		if (playerNumber == 3)
+			this.isLastPlayer[2] = true;
+		if (playerNumber == 4)
+			this.isLastPlayer[3] = true;
+	}
 	// Getter
 	/**
 	 * gibt gelaufene Schritte zurück 
@@ -193,13 +203,13 @@ public class Ranking {
 	public int getSteps(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[0];
+			return this.walkedSteps[0];
 		if (player == 2)
-			return this.statsPlayer2[0];
+			return this.walkedSteps[1];
 		if (player == 3)
-			return this.statsPlayer3[0];
+			return this.walkedSteps[2];
 		if (player == 4)
-			return this.statsPlayer4[0];
+			return this.walkedSteps[3];
 		return -1; // Fehler
 	}
 	
@@ -212,13 +222,13 @@ public class Ranking {
 	public int getPlacedBombs(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[1];
+			return this.plantedBombs[0];
 		if (player == 2)
-			return this.statsPlayer2[1];
+			return this.plantedBombs[1];
 		if (player == 3)
-			return this.statsPlayer3[1];
+			return this.plantedBombs[2];
 		if (player == 4)
-			return this.statsPlayer4[1];
+			return this.plantedBombs[3];
 		return -1; // Fehler
 	}
 	
@@ -231,13 +241,13 @@ public class Ranking {
 	public int getKills(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[2];
+			return this.killedPlayers[0];
 		if (player == 2)
-			return this.statsPlayer2[2];
+			return this.killedPlayers[1];
 		if (player == 3)
-			return this.statsPlayer3[2];
+			return this.killedPlayers[2];
 		if (player == 4)
-			return this.statsPlayer4[2];
+			return this.killedPlayers[3];
 		return -1; // Fehler
 	}
 	
@@ -250,13 +260,13 @@ public class Ranking {
 	public int getDestroyedWalls(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[3];
+			return this.destroyedWalls[0];
 		if (player == 2)
-			return this.statsPlayer2[3];
+			return this.destroyedWalls[1];
 		if (player == 3)
-			return this.statsPlayer3[3];
+			return this.destroyedWalls[2];
 		if (player == 4)
-			return this.statsPlayer4[3];
+			return this.destroyedWalls[3];
 		return -1; // Fehler
 	}
 	
@@ -266,17 +276,17 @@ public class Ranking {
 	 * @param player Spielernummer (1 == Spieler 1, usw.)
 	 * @return Integer Anzahl Selbstkills
 	 */
-	public int getSelfkill(int player)
+	public boolean getIsSuicided(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[4];
+			return this.isSuicided[0];
 		if (player == 2)
-			return this.statsPlayer2[4];
+			return this.isSuicided[1];
 		if (player == 3)
-			return this.statsPlayer3[4];
+			return this.isSuicided[2];
 		if (player == 4)
-			return this.statsPlayer4[4];
-		return -1; // Fehler
+			return this.isSuicided[3];
+		return false;
 	}
 	
 	/**
@@ -285,17 +295,17 @@ public class Ranking {
 	 * @param player Spielernummer (1 == Spieler 1, usw.)
 	 * @return Integer 1 == Last Man, 0 == nicht Last Man
 	 */
-	public int getLastMan(int player)
+	public boolean getLastMan(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[5];
+			return this.isLastPlayer[0];
 		if (player == 2)
-			return this.statsPlayer2[5];
+			return this.isLastPlayer[1];
 		if (player == 3)
-			return this.statsPlayer3[5];
+			return this.isLastPlayer[2];
 		if (player == 4)
-			return this.statsPlayer4[5];
-		return -1; // Fehler
+			return this.isLastPlayer[3];
+		return false; // Fehler
 	}
 	
 	/**
@@ -307,13 +317,13 @@ public class Ranking {
 	public int getCollectedBoni(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[6];
+			return this.collectedPowerups[0];
 		if (player == 2)
-			return this.statsPlayer2[6];
+			return this.collectedPowerups[1];
 		if (player == 3)
-			return this.statsPlayer3[6];
+			return this.collectedPowerups[2];
 		if (player == 4)
-			return this.statsPlayer4[6];
+			return this.collectedPowerups[3];
 		return -1; // Fehler
 	}
 	
@@ -326,14 +336,14 @@ public class Ranking {
 	public int getPoints(int player)
 	{
 		if (player == 1)
-			return this.statsPlayer1[7];
+			return this.score[0];
 		if (player == 2)
-			return this.statsPlayer2[7];
+			return this.score[1];
 		if (player == 3)
-			return this.statsPlayer3[7];
+			return this.score[2];
 		if (player == 4)
-			return this.statsPlayer4[7];
-		return -1; // Fehler -- schlecht...
+			return this.score[3];
+		return -1; // Fehler -- schlecht, da -1 theoretisch als score möglich o.O...
 	}
 }
 	

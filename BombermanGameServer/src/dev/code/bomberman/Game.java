@@ -30,7 +30,11 @@ public class Game implements Runnable {
 	
 	// Servervariablen
 	
-	private int playerNumber;
+	private static String namePlayer1;
+	private static String namePlayer2;
+	private static String namePlayer3;
+	private static String namePlayer4;
+	private static int playerNumber;
 	private int fieldWidth;
 	//private int armorTime;
 	//private int bombExplosionTime;
@@ -78,8 +82,8 @@ public class Game implements Runnable {
 		this.gamestate = GameState.RUNNING;
 		// globale Variablen wegmachen!!!
 		this.fieldWidth = 11;
-		this.playerNumber = 4;
-		new GameField(this.fieldWidth, this.playerNumber);
+		Game.playerNumber = 4;
+		new GameField(this.fieldWidth, Game.playerNumber);
 		
 		networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
 		//this.gameState = GameState.RUNNING;
@@ -119,6 +123,14 @@ public class Game implements Runnable {
 			}
 			if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
 			{
+				if (GameField.getPlayer(1).getAliveStatus() == true)
+					this.ranking.updateLastMan(1);
+				if (GameField.getPlayer(2).getAliveStatus() == true)
+					this.ranking.updateLastMan(2);
+				if (GameField.getPlayer(3).getAliveStatus() == true)
+					this.ranking.updateLastMan(3);
+				if (GameField.getPlayer(4).getAliveStatus() == true)
+					this.ranking.updateLastMan(4);
 				this.gamestate = GameState.RANKING;
 				System.out.println("RANKING");
 			}
@@ -145,6 +157,14 @@ public class Game implements Runnable {
 						Bomb bomb = new Bomb();
 						bomb = (Bomb) GameField.getObject(i, j);
 						bomb.counter();	// Bomben updaten
+						if (bomb.getSlideNorth() == true)
+							bomb.slideNorth();
+						if (bomb.getSlideEast() == true)
+							bomb.slideEast();
+						if (bomb.getSlideSouth() == true)
+							bomb.slideSouth();
+						if (bomb.getSlideWest() == true)
+							bomb.slideWest();
 					}
 					if (GameField.getObject(i, j).getID() == 3)
 					{
@@ -331,5 +351,30 @@ public class Game implements Runnable {
 	public static void speedUpPlayer4()
 	{
 		Game.movementTicksPlayer4 = 5;
+	}
+	
+	public static int getPlayerNumber()
+	{
+		return Game.playerNumber;
+	}
+	
+	public static String getNamePlayer1()
+	{
+		return Game.namePlayer1;
+	}
+	
+	public static String getNamePlayer2()
+	{
+		return Game.namePlayer2;
+	}
+	
+	public static String getNamePlayer3()
+	{
+		return Game.namePlayer3;
+	}
+	
+	public static String getNamePlayer4()
+	{
+		return Game.namePlayer4;
 	}
 }

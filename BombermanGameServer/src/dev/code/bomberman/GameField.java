@@ -143,7 +143,7 @@ public class GameField
      */
     public void generatePlayerMatrix(int playerNumber)
     {
-    	Bomberman[] temp = new Bomberman[playerNumber]; // 2 <= playerNumber <= 4
+    	Bomberman[] temp = new Bomberman[Game.getPlayerNumber()];
     	Bomberman player1 = new Bomberman(1, 1, 51); // Konstruktor mit Position oben links, ÄNDERN 1 und 3 --> vom Server kommend
     	player1.setStartPos(1, 1);
 		temp[0] = player1;

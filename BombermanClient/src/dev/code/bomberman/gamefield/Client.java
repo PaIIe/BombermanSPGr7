@@ -29,6 +29,8 @@ public class Client implements Runnable {
     private int playerCount = 4;
     //private int ingameWidth = 11;
     
+    // GameState
+    private GameState gamestate;
     
     private boolean running = false;
     private Thread thread;
@@ -93,6 +95,7 @@ public class Client implements Runnable {
       
         this.gamefield = new GamefieldData();
         
+        this.gamestate = GameState.RUNNING;
         
         //TODO mÃ‘Å’sste man vom Server bekommen denk ich
         this.gamefield.setWidth(11);        
@@ -147,44 +150,18 @@ public class Client implements Runnable {
     //int inputTicks = -40;   // Tickzahl bei Eingabebefehl
     
     private void tick(){ // Update
-   /*   int playerAlive = 0;
+    	int playerAlive = 0;
         for (int i = 1; i <= 4; i++)
         {
-            if (GameField.getPlayer(i).getAliveStatus() == true)
+            if (this.gamefield.getPlayer(i).getAliveStatus() == true)
                 playerAlive++;
         }
         if (playerAlive <= 1) // oder Timer auf 0
-            this.gameState = GameState.STATISTIC;
-        if (this.gameState == GameState.RUNNING)
+            this.gamestate = GameState.RANKING;
+        if (this.gamestate == GameState.RUNNING)
         {
-            
-            // PERFORMANZ???????????????????????????
-            
-            
-    
-            for (int i = 0; i < GameField.getWidth(); i++)  // iterieren Ã‘Å’ber GameField Matrix 
-            {
-                for (int j = 0; j < GameField.getWidth(); j++)
-                {
-                    if (GameField.getObject(i, j).getID() >= 61 && GameField.getObject(i, j).getID() <= 63 || GameField.getObject(i, j).getID() >= 71 && GameField.getObject(i, j).getID() <= 73 || 
-                        GameField.getObject(i, j).getID() >= 81 && GameField.getObject(i, j).getID() <= 83 || GameField.getObject(i, j).getID() >= 91 && GameField.getObject(i, j).getID() <= 93) // Test auf Bomben
-                    {
-                        Bomb bomb = new Bomb();
-                        bomb = (Bomb) GameField.getObject(i, j);
-                        bomb.counter(); // Bomben updaten
-                    }
-                    if (GameField.getObject(i, j).getID() == 3)
-                    {
-                        Flame flame = new Flame();
-                        flame = (Flame) GameField.getObject(i, j);
-                        flame.counter(); // Flammen updaten
-                    }
-                }
-            }
-       */
-            keyManager.tick();
-            
-            // Eingaben
+        	keyManager.tick();
+        	// Eingaben
             //WEnn spieler stirbt nimmt server keine Eingabe mehr an von dieser ID
             //counterTicks++;
                       
@@ -244,12 +221,11 @@ public class Client implements Runnable {
                
               }
             }
-      /*   }
-       if (this.gameState == GameState.STATISTIC)
-        {
-            // statistik
         }
-     */
+       	
+            
+            
+     
     }
     
     private void render(){  // Zeichnen

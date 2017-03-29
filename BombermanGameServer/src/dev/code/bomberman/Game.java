@@ -11,6 +11,10 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 	
+	// Game State
+	
+	GameState gamestate;
+	
 	// Rankingobjekt
 	
 	static Ranking ranking;
@@ -71,7 +75,7 @@ public class Game implements Runnable {
 	 * für die grafische Darstellung. 
 	 */
 	private void init(){
-		
+		this.gamestate = GameState.RUNNING;
 		// globale Variablen wegmachen!!!
 		this.fieldWidth = 11;
 		this.playerNumber = 4;
@@ -104,29 +108,33 @@ public class Game implements Runnable {
 	 * entsprechend der Einschränkungen (1 Befehl aller 5 Ticks) betrachtet.
 	 */
 	private void tick(){ // Update
-		Game.counterTicks++;
-		int playerAlive = 0;
-		for (int i = 1; i <= 4; i++)
+		if (this.gamestate == GameState.RUNNING)
 		{
-			if (GameField.getPlayer(i).getAliveStatus() == true)
-				playerAlive++;
-		}
-		/*if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
-			this.gameState = GameState.STATISTIC;*/
-		
-		if (GameField.getPlayer(1).getID() == 55)
-			GameField.getPlayer(1).counterArmor();
-		if (GameField.getPlayer(2).getID() == 56)
-			GameField.getPlayer(2).counterArmor();
-		if (GameField.getPlayer(3).getID() == 57)
-			GameField.getPlayer(3).counterArmor();
-		if (GameField.getPlayer(4).getID() == 58)
-			GameField.getPlayer(4).counterArmor();
-		
-		/*if (this.gameState == GameState.RUNNING)
-		{*/
-			// PERFORMANZ???????????????????????????
+			Game.counterTicks++;
+			int playerAlive = 0;
+			for (int i = 1; i <= 4; i++)
+			{
+				if (GameField.getPlayer(i).getAliveStatus() == true)
+					playerAlive++;
+			}
+			if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
+			{
+				this.gamestate = GameState.RANKING;
+				System.out.println("RANKING");
+			}
+				
 			
+			if (GameField.getPlayer(1).getID() == 55)
+				GameField.getPlayer(1).counterArmor();
+			if (GameField.getPlayer(2).getID() == 56)
+				GameField.getPlayer(2).counterArmor();
+			if (GameField.getPlayer(3).getID() == 57)
+				GameField.getPlayer(3).counterArmor();
+			if (GameField.getPlayer(4).getID() == 58)
+				GameField.getPlayer(4).counterArmor();
+			
+			
+				
 			for (int i = 0; i < GameField.getWidth(); i++)	// iterieren über GameField Matrix 
 			{
 				for (int j = 0; j < GameField.getWidth(); j++)
@@ -146,14 +154,12 @@ public class Game implements Runnable {
 					}
 				}
 			}
+		}
 
-			
-			
-		//}
-		/*if (this.gameState == GameState.STATISTIC)
+		if (this.gamestate == GameState.RANKING)
 		{
-			// statistik
-		}*/
+			// Sende Rankingdaten zu Clients
+		}
 	}
 	
 	/**

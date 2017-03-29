@@ -121,7 +121,6 @@ public class Game implements Runnable {
 				if (GameField.getPlayer(i).getAliveStatus() == true)
 					playerAlive++;
 			}
-			playerAlive = 1;
 			if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
 			{
 				if (GameField.getPlayer(1).getAliveStatus() == true)
@@ -237,6 +236,12 @@ public class Game implements Runnable {
 		
 		if (this.gamestate == GameState.RANKING)
 		{ 
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.EncodeHighscoreToJSON(Game.getPlayerNumber()));
 		}
 		stop();

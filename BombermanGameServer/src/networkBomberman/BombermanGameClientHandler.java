@@ -44,12 +44,26 @@ public class BombermanGameClientHandler implements Runnable {
         //outputFromClient = receiveFromClient();
         //setPlayerName(outputFromClient);
         //sendToClient("Hello: " + playerName + " your ID is " + clientID);
+        
+      //Versuch über sleep eine Synchro hinzubekommen Fails sometimes TODO
+      try {
+          Thread.sleep(200);
+           
+        }
+        catch (InterruptedException e)
+        {
+            System.err.println("InterruptException: " + e.getMessage());
+            e.printStackTrace();
+        }
+      
     	while(BombermanGameServer.gameOver == false){
     		//aus irgendwelchen seltsamen Gruenden muss die Ausgabe hier drin bleiben, weil sonst immer nur der zu letzt hinzugefuegte BombermanGameClientHandler funktioniert
-    		
+    	  //System.out.println("hello this is" + clientID + BombermanGameServer.gameStart);
     		if(BombermanGameServer.gameStart == true){
-            try {
-            	if(((BombermanGameServer.tick % 10) == 0) && this.fromClient.ready()){
+    		 
+    		  
+            try {             
+            	if(/*(BombermanGameServer.tick % 10) == 0) && */this.fromClient.ready()){
             	  
             		this.outputFromClient = this.receiveFromClient();
                     //int JSONlength = extractLenght(outputFromClient);
@@ -204,6 +218,7 @@ public class BombermanGameClientHandler implements Runnable {
             }
            }
         }
+
     }
     /**
      * Extrahiert das Ã�Â Ã‚Â¬bergebene ([LÃ�Â Ã’â€˜nge]JSONObject) so das die Ã�Â Aebergebene lÃ�Â Ã’â€˜nge entfernt wird und nur noch ein JSONObject Uebrig bleibt

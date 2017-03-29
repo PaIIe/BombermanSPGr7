@@ -14,7 +14,7 @@ public class Bomberman extends GameObject{
 	private boolean alive;
 	private boolean bombwalker;
 	private boolean superbomb;
-	private boolean kick = false;
+	private boolean kick;
 	
 	
 	/**

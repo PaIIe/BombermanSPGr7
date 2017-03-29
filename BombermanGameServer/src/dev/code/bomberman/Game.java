@@ -369,4 +369,9 @@ public class Game implements Runnable {
 	{
 		return Game.namePlayer4;
 	}
+	
+	public static Ranking getRanking()
+	{
+		return Game.ranking;
+	}
 }

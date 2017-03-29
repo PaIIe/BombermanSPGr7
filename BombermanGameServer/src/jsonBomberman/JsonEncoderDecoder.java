@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameObject;
 import dev.code.bomberman.Bomberman;
-import dev.code.bomberman.Ranking;
+
 
 public class JsonEncoderDecoder {
 
@@ -208,9 +208,9 @@ public class JsonEncoderDecoder {
 	{
 	  JSONObject encodedMsg = new JSONObject();
 	  
-	  for(int i = 0; i <= playerCount; i++)
+	  for(int i = 1; i <= playerCount; i++)
 	  {
-	    
+	    encodedMsg.put("name", game.)
 	    
 	    
 	  }

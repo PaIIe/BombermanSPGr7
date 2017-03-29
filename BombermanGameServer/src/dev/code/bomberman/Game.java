@@ -86,7 +86,6 @@ public class Game implements Runnable {
 		new GameField(this.fieldWidth, Game.playerNumber);
 		
 		networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
-		//this.gameState = GameState.RUNNING;
 		
 		Game.movementTicksPlayer1 = 10;
 		Game.movementTicksPlayer2 = 10;
@@ -116,7 +115,7 @@ public class Game implements Runnable {
 		{
 			Game.counterTicks++;
 			int playerAlive = 0;
-			for (int i = 1; i <= 4; i++)
+			for (int i = 1; i <= Game.getPlayerNumber(); i++)
 			{
 				if (GameField.getPlayer(i).getAliveStatus() == true)
 					playerAlive++;
@@ -124,15 +123,15 @@ public class Game implements Runnable {
 			if (playerAlive <= 1 || this.minutes == 0 && this.seconds == 0)
 			{
 				if (GameField.getPlayer(1).getAliveStatus() == true)
-					this.ranking.updateLastMan(1);
+					Game.ranking.updateLastMan(1);
 				if (GameField.getPlayer(2).getAliveStatus() == true)
-					this.ranking.updateLastMan(2);
+					Game.ranking.updateLastMan(2);
 				if (GameField.getPlayer(3).getAliveStatus() == true)
-					this.ranking.updateLastMan(3);
+					Game.ranking.updateLastMan(3);
 				if (GameField.getPlayer(4).getAliveStatus() == true)
-					this.ranking.updateLastMan(4);
+					Game.ranking.updateLastMan(4);
 				this.gamestate = GameState.RANKING;
-				System.out.println("RANKING");
+				return;
 			}
 				
 			
@@ -175,18 +174,6 @@ public class Game implements Runnable {
 				}
 			}
 		}
-
-		if (this.gamestate == GameState.RANKING)
-		{
-			// Sende Rankingdaten zu Clients
-		}
-	}
-	
-	/**
-	 * Die render-Funktion ist für das Zeichnen des Spielfeldes verantwortlich. Hier werden die Images auf Grundlage der IDs in der Objekt- bzw. Spielermatrix 
-	 * entsprechend ihrer Position gezeichnet.
-	 */
-	private void render(){	// Zeichnen
 	}
 	
 	/**
@@ -216,10 +203,11 @@ public class Game implements Runnable {
 			{
 				tick(); // update
 				//networkBomberman.BombermanGameServer.broadcastToClient(JsonEncoderDecoder.getPlayerObject(),JsonEncoderDecoder.getGameObject());
-				render(); // zeichnen
-				
-				
-				
+				if (this.gamestate == GameState.RANKING)
+				{
+					break;
+				}
+
 				ticks++;
 				delta--;
 			}
@@ -245,6 +233,10 @@ public class Game implements Runnable {
 			}
 		}
 		
+		if (this.gamestate == GameState.RANKING)
+		{
+			// Sende Ranking an Client
+		}
 		stop();
 	}
 	

@@ -36,6 +36,8 @@ public class Ranking {
 		this.killedPlayers = temp;
 		this.collectedPowerups = temp;
 		this.score = temp;
+		this.isSuicided = temp2;
+		this.isLastPlayer = temp2;
 		
 		// TODO Spielernamen
 	}
@@ -344,6 +346,19 @@ public class Ranking {
 		if (player == 4)
 			return this.score[3];
 		return -1; // Fehler -- schlecht, da -1 theoretisch als score möglich o.O...
+	}
+	
+	public String getName(int player)
+	{
+		if (player == 1)
+			return this.namePlayer1;
+		if (player == 2)
+			return this.namePlayer2;
+		if (player == 3)
+			return this.namePlayer3;
+		if (player == 4)
+			return this.namePlayer4;
+		return "default";
 	}
 }
 	

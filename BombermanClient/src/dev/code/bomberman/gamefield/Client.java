@@ -7,6 +7,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -112,13 +116,6 @@ public class Client implements Runnable {
         
         //this.gameState = GameState.RUNNING;
         
-        // Ranking
-        //  Ranking ranking = new Ranking();
-        // Game.ranking = ranking;
-        
-        // Logs
-        //Logs logs = new Logs();
-        //Game.logs = logs;
         
         // Images einbinden
         solidWall = ImageLoader.loadImage("/textures/wall_solid.png");
@@ -146,20 +143,25 @@ public class Client implements Runnable {
         greenBombermanArmor = ImageLoader.loadImage("/textures/bomberman_green_armor.png");
     }
     
-    //int counterTicks = 0; // Tickzähler
-    //int inputTicks = -40;   // Tickzahl bei Eingabebefehl
+
     
     private void tick(){ // Update
-    	int playerAlive = 0;
-        for (int i = 1; i <= 4; i++)
-        {
-            if (this.gamefield.getPlayer(i).getAliveStatus() == true)
-                playerAlive++;
-        }
-        if (playerAlive <= 1) // oder Timer auf 0
-            this.gamestate = GameState.RANKING;
+    	
         if (this.gamestate == GameState.RUNNING)
         {
+        	int playerAlive = 0;
+            for (int i = 1; i <= 4; i++)
+            {
+                if (this.gamefield.getPlayer(i).getAliveStatus() == true)
+                    playerAlive++;
+            }
+            if (playerAlive <= 1) // oder Timer auf 0
+            {
+            	this.gamestate = GameState.RANKING;
+            	return;
+            }
+                
+            
         	keyManager.tick();
         	// Eingaben
             //WEnn spieler stirbt nimmt server keine Eingabe mehr an von dieser ID
@@ -221,140 +223,120 @@ public class Client implements Runnable {
                
               }
             }
-        }
-       	
-            
-            
-     
+        } 
     }
     
     private void render(){  // Zeichnen
-        bs = display.getCanvas().getBufferStrategy();
-        if(bs == null){
-            display.getCanvas().createBufferStrategy(3);
-            return;
-        }
-        g = bs.getDrawGraphics();
-        // Clear Screen
-        g.clearRect(0, 0, width, height);
-        //if (this.gameState == GameState.RUNNING)
-        //{
-        // Draw here
-        
-        // Objekte
-        for (int i=0; i < this.gamefield.getWidth(); i++)
-        {
-            for (int j=0; j < this.gamefield.getWidth(); j++)
-            {
-                if (this.gamefield.getGameObject(i, j).getID() == 0) // Empty Field
-                {
-                    g.drawImage(emptyField, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 1) // Solid Wall
-                {
-                    g.drawImage(solidWall, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 2) // Destroyable Wall
-                {
-                    g.drawImage(destroyableWall, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 3) // Flamme
-                {
-                    g.drawImage(flame, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 21) // powerUp Bombenradius
-                {
-                    g.drawImage(powerUpRadius, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 22) // powerUp Bombenanzahl
-                {
-                    g.drawImage(powerUpNumber, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 23) // powerUp Armor
-                {
-                    g.drawImage(powerUpArmor, j*64, i*64, null);
-                }
-                if (this.gamefield.getGameObject(i, j).getID() == 24) // powerUp schneller Laufen
-    			{
-    				g.drawImage(powerUpSpeed, j*64, i*64, null);
-    			}
-    			if (this.gamefield.getGameObject(i, j).getID() == 25) // powerUp Kick
-    			{
-    				g.drawImage(powerUpKick, j*64, i*64, null);
-    			}
-    			if (this.gamefield.getGameObject(i, j).getID() == 26) // powerUp SuperBombe
-    			{
-    				g.drawImage(powerUpSuperbomb, j*64, i*64, null);
-    			}
-    			if (this.gamefield.getGameObject(i, j).getID() == 27) // powerUp Max Bombenradius
-    			{
-    				g.drawImage(powerUpMaxRadius, j*64, i*64, null);
-    			}
-    			if (this.gamefield.getGameObject(i, j).getID() == 28) // powerUp BombenlÃ¤ufer
-    			{
-    				g.drawImage(powerUpBombwalker, j*64, i*64, null);
-    			}
-                if (this.gamefield.getGameObject(i, j).getID() == 61 || this.gamefield.getGameObject(i, j).getID() == 71 || this.gamefield.getGameObject(i, j).getID() == 81 || this.gamefield.getGameObject(i, j).getID() == 91) // Bombenphase 1
-                    g.drawImage(bombPhase1, j*64, i*64, null);
-                if (this.gamefield.getGameObject(i, j).getID() == 62 || this.gamefield.getGameObject(i, j).getID() == 72 || this.gamefield.getGameObject(i, j).getID() == 82 || this.gamefield.getGameObject(i, j).getID() == 92) // Bombenphase 2
-                    g.drawImage(bombPhase2, j*64, i*64, null);
-                if (this.gamefield.getGameObject(i, j).getID() == 63 || this.gamefield.getGameObject(i, j).getID() == 73 || this.gamefield.getGameObject(i, j).getID() == 83 || this.gamefield.getGameObject(i, j).getID() == 93) // Bombenphase 3
-                    g.drawImage(bombPhase3, j*64, i*64, null);
+    	if (this.gamestate == GameState.RUNNING)
+    	{
+    		bs = display.getCanvas().getBufferStrategy();
+            if(bs == null){
+                display.getCanvas().createBufferStrategy(3);
+                return;
             }
-        }
-        
-        // Player 
-        if (this.gamefield.getPlayer(1).getAliveStatus() == true)
-        {
-            if (this.gamefield.getPlayer(1).getArmor() == false) // Spieler1 ohne Armor
-                g.drawImage(blueBomberman, this.gamefield.getPlayer(1).getColumn() * 64, this.gamefield.getPlayer(1).getRow() * 64, null);
-            if (this.gamefield.getPlayer(1).getArmor() == true) // Spieler1 mit Armor
-                g.drawImage(blueBombermanArmor, this.gamefield.getPlayer(1).getColumn() * 64, this.gamefield.getPlayer(1).getRow() * 64, null);
-        }
-            
-        if (this.gamefield.getPlayer(2).getAliveStatus() == true)
-        {
-            if (this.gamefield.getPlayer(2).getArmor() == false) // Spieler2 ohne Armor
-                g.drawImage(greenBomberman, this.gamefield.getPlayer(2).getColumn() * 64, this.gamefield.getPlayer(2).getRow() * 64, null);
-            if (this.gamefield.getPlayer(2).getArmor() == true) // Spieler2 mit Armor
-                g.drawImage(greenBombermanArmor, this.gamefield.getPlayer(2).getColumn() * 64, this.gamefield.getPlayer(2).getRow() * 64, null);
-        }   
-        if (this.gamefield.getPlayer(3).getAliveStatus() == true)
-        {
-            if (this.gamefield.getPlayer(3).getArmor() == false) // Spieler3 ohne Armor
-                g.drawImage(redBomberman, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
-            if (this.gamefield.getPlayer(3).getArmor() == true) // Spieler3 mit Armor
-                g.drawImage(redBombermanArmor, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
-        }           
-        if (this.gamefield.getPlayer(4).getAliveStatus() == true)
-        {
-            if (this.gamefield.getPlayer(4).getArmor() == false) // Spieler4 ohne Armor
-                g.drawImage(yellowBomberman, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
-            if (this.gamefield.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
-                g.drawImage(yellowBombermanArmor, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
-        }
-        
-        // End draw    
-        //}
-        /*
-        if (this.gameState == GameState.STATISTIC)
-        {
-        
-            // statistik
+            g = bs.getDrawGraphics();
+            // Clear Screen
+            g.clearRect(0, 0, width, height);
+            //if (this.gameState == GameState.RUNNING)
+            //{
             // Draw here
-            g.setColor(Color.white);
-            g.fillRect(0, 0, this.width, this.height);
-            g.setColor(Color.black);
-            Font f = new Font("Dialog", Font.ROMAN_BASELINE, 20);
-            g.setFont(f);
-            g.drawString("Statistik", 0, 50);
-            g.drawRect(0, 50, 60, 40);
-            g.drawString("Player", 10, 80);
-       // }
-        */
-        bs.show();
-        g.dispose();
-        
+            
+            // Objekte
+            for (int i=0; i < this.gamefield.getWidth(); i++)
+            {
+                for (int j=0; j < this.gamefield.getWidth(); j++)
+                {
+                    if (this.gamefield.getGameObject(i, j).getID() == 0) // Empty Field
+                    {
+                        g.drawImage(emptyField, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 1) // Solid Wall
+                    {
+                        g.drawImage(solidWall, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 2) // Destroyable Wall
+                    {
+                        g.drawImage(destroyableWall, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 3) // Flamme
+                    {
+                        g.drawImage(flame, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 21) // powerUp Bombenradius
+                    {
+                        g.drawImage(powerUpRadius, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 22) // powerUp Bombenanzahl
+                    {
+                        g.drawImage(powerUpNumber, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 23) // powerUp Armor
+                    {
+                        g.drawImage(powerUpArmor, j*64, i*64, null);
+                    }
+                    if (this.gamefield.getGameObject(i, j).getID() == 24) // powerUp schneller Laufen
+        			{
+        				g.drawImage(powerUpSpeed, j*64, i*64, null);
+        			}
+        			if (this.gamefield.getGameObject(i, j).getID() == 25) // powerUp Kick
+        			{
+        				g.drawImage(powerUpKick, j*64, i*64, null);
+        			}
+        			if (this.gamefield.getGameObject(i, j).getID() == 26) // powerUp SuperBombe
+        			{
+        				g.drawImage(powerUpSuperbomb, j*64, i*64, null);
+        			}
+        			if (this.gamefield.getGameObject(i, j).getID() == 27) // powerUp Max Bombenradius
+        			{
+        				g.drawImage(powerUpMaxRadius, j*64, i*64, null);
+        			}
+        			if (this.gamefield.getGameObject(i, j).getID() == 28) // powerUp BombenlÃ¤ufer
+        			{
+        				g.drawImage(powerUpBombwalker, j*64, i*64, null);
+        			}
+                    if (this.gamefield.getGameObject(i, j).getID() == 61 || this.gamefield.getGameObject(i, j).getID() == 71 || this.gamefield.getGameObject(i, j).getID() == 81 || this.gamefield.getGameObject(i, j).getID() == 91) // Bombenphase 1
+                        g.drawImage(bombPhase1, j*64, i*64, null);
+                    if (this.gamefield.getGameObject(i, j).getID() == 62 || this.gamefield.getGameObject(i, j).getID() == 72 || this.gamefield.getGameObject(i, j).getID() == 82 || this.gamefield.getGameObject(i, j).getID() == 92) // Bombenphase 2
+                        g.drawImage(bombPhase2, j*64, i*64, null);
+                    if (this.gamefield.getGameObject(i, j).getID() == 63 || this.gamefield.getGameObject(i, j).getID() == 73 || this.gamefield.getGameObject(i, j).getID() == 83 || this.gamefield.getGameObject(i, j).getID() == 93) // Bombenphase 3
+                        g.drawImage(bombPhase3, j*64, i*64, null);
+                }
+            }
+            
+            // Player 
+            if (this.gamefield.getPlayer(1).getAliveStatus() == true)
+            {
+                if (this.gamefield.getPlayer(1).getArmor() == false) // Spieler1 ohne Armor
+                    g.drawImage(blueBomberman, this.gamefield.getPlayer(1).getColumn() * 64, this.gamefield.getPlayer(1).getRow() * 64, null);
+                if (this.gamefield.getPlayer(1).getArmor() == true) // Spieler1 mit Armor
+                    g.drawImage(blueBombermanArmor, this.gamefield.getPlayer(1).getColumn() * 64, this.gamefield.getPlayer(1).getRow() * 64, null);
+            }
+                
+            if (this.gamefield.getPlayer(2).getAliveStatus() == true)
+            {
+                if (this.gamefield.getPlayer(2).getArmor() == false) // Spieler2 ohne Armor
+                    g.drawImage(greenBomberman, this.gamefield.getPlayer(2).getColumn() * 64, this.gamefield.getPlayer(2).getRow() * 64, null);
+                if (this.gamefield.getPlayer(2).getArmor() == true) // Spieler2 mit Armor
+                    g.drawImage(greenBombermanArmor, this.gamefield.getPlayer(2).getColumn() * 64, this.gamefield.getPlayer(2).getRow() * 64, null);
+            }   
+            if (this.gamefield.getPlayer(3).getAliveStatus() == true)
+            {
+                if (this.gamefield.getPlayer(3).getArmor() == false) // Spieler3 ohne Armor
+                    g.drawImage(redBomberman, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
+                if (this.gamefield.getPlayer(3).getArmor() == true) // Spieler3 mit Armor
+                    g.drawImage(redBombermanArmor, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
+            }           
+            if (this.gamefield.getPlayer(4).getAliveStatus() == true)
+            {
+                if (this.gamefield.getPlayer(4).getArmor() == false) // Spieler4 ohne Armor
+                    g.drawImage(yellowBomberman, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
+                if (this.gamefield.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
+                    g.drawImage(yellowBombermanArmor, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
+            }
+            
+            bs.show();
+            g.dispose();
+    	}  
     }
     
     public void run(){
@@ -380,6 +362,8 @@ public class Client implements Runnable {
             {
                 tick(); // update
                 render(); // zeichnen
+                if (this.gamestate == GameState.RANKING)
+                	break;
                 ticks++;
                 delta--;
             }
@@ -433,6 +417,25 @@ public class Client implements Runnable {
 			}
         }
         
+        // Ranking anzeigen
+        if (this.gamestate == GameState.RANKING)
+        {	
+        	String[] player1 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        	String[] player2 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        	String[] player3 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        	String[] player4 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        	String[][] ranking = {player1, player2, player3, player4};
+        	String[] head = {"name","walked steps", "planted bombs", "destroyed walls", "killed players", "collected powerups", "suicided", "last man", "score"};
+        	JFrame f = new JFrame();
+        	f.setSize(2000, 1000);
+        	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        	
+        	JTable table = new JTable(ranking, head);
+        	f.add(new JScrollPane(table));
+        	
+        	f.pack();
+        	f.setVisible(true);
+        }
         stop();
     }
     

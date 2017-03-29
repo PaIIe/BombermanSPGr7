@@ -36,6 +36,8 @@ public class Ranking {
 		this.killedPlayers = temp;
 		this.collectedPowerups = temp;
 		this.score = temp;
+		this.isSuicided = temp2;
+		this.isLastPlayer = temp2;
 		
 		// TODO Spielernamen
 	}

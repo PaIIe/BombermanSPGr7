@@ -10,8 +10,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -26,7 +29,21 @@ import javafx.scene.shape.*;
 public class Menu extends Application {
 
 	Stage window;
-	Scene sceneMenu, sceneServerlist, sceneHelp, sceneLogin, sceneLobby, sceneErrorServerfull, sceneErrorDisconnect, sceneRanking;
+	Scene sceneMenu, sceneServerlist, sceneHelp, sceneLogin, sceneLobby, sceneLobbyAdmin, sceneErrorServerfull, sceneErrorDisconnect, sceneRanking;
+	
+	//Variables sent from Server:
+	int serverCount = 10;
+	String playerRed = "Player1";
+	String playerBlue = "Player2";
+	String playerGreen = "Player3";
+	String playerYellow = "Player4";
+	
+	//Variables sent to Server:
+	TextField textFieldLogin = new TextField();
+	NumberTextField armorTime = new NumberTextField();
+	NumberTextField explosionTime = new NumberTextField();
+	NumberTextField maxBombRadius = new NumberTextField();
+	NumberTextField playTime = new NumberTextField();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -93,32 +110,35 @@ public class Menu extends Application {
 			Button buttonServerlistToMenu = new Button("Back");
 			buttonServerlistToMenu.setOnAction(e -> window.setScene(sceneMenu));
 			buttonServerlistToMenu.setMinWidth(200);
-		
-			//Server Buttons
-			Button buttonServer1 = new Button("Server 1");
-			buttonServer1.setOnAction(e -> window.setScene(sceneLogin));
-			Button buttonServer2 = new Button("Server 2");
-			buttonServer2.setOnAction(e -> window.setScene(sceneErrorDisconnect));
-			Button buttonServer3 = new Button("Server 3");
-			buttonServer3.setOnAction(e -> window.setScene(sceneErrorServerfull));
-		
-			//Button width
-			buttonServer1.setMinWidth(buttonBoxServerlist.getPrefWidth());
-			buttonServer2.setMinWidth(buttonBoxServerlist.getPrefWidth());
-			buttonServer3.setMinWidth(buttonBoxServerlist.getPrefWidth());
-			
-			//Button fontsize
-			buttonServer1.setStyle("-fx-font-size: 25");
-			buttonServer2.setStyle("-fx-font-size: 25");
-			buttonServer3.setStyle("-fx-font-size: 25");
 			buttonServerlistToMenu.setStyle("-fx-font-size: 25");
 		
 			//Layout
 			VBox layoutServerlist = new VBox(22);
 			layoutServerlist.setPadding(new Insets(90));
 			layoutServerlist.setAlignment(Pos.TOP_CENTER);
-			layoutServerlist.getChildren().addAll(labelBombermanServerlist, buttonServer1, buttonServer2, buttonServer3, buttonServerlistToMenu);
+			layoutServerlist.getChildren().add(labelBombermanServerlist);
 			sceneServerlist = new Scene(layoutServerlist, 1280, 720);
+			
+			//Server Buttons
+			VBox serverlistPane = new VBox(22);
+			serverlistPane.setPadding(new Insets(30));
+			serverlistPane.setAlignment(Pos.TOP_CENTER);
+			ScrollPane serverlistScrollPane = new ScrollPane(serverlistPane);
+			serverlistScrollPane.setId("scrollPane");
+			serverlistScrollPane.setMaxWidth(500);
+			serverlistScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+			serverlistScrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+			
+			for(int i = 1; i<=serverCount; i++)
+			{
+				Button buttonServer = new Button("Server " + i);
+				buttonServer.setMinWidth(buttonBoxServerlist.getPrefWidth());
+				buttonServer.setStyle("-fx-font-size: 25");
+				serverlistPane.getChildren().add(buttonServer);
+				buttonServer.setOnAction(e -> window.setScene(sceneLogin));
+			}
+			
+			layoutServerlist.getChildren().addAll(serverlistScrollPane, buttonServerlistToMenu);
 		
 		//End Serverlist Scene
 			
@@ -169,9 +189,9 @@ public class Menu extends Application {
 			labelBombermanLogin.setId("labelBomberman");
 			
 			//Textfield
-			TextField textFieldLogin = new TextField();
+			//TextField textFieldLogin = new TextField();
 			textFieldLogin.setPromptText("choose an username...");
-			textFieldLogin.setId("textFieldLogin");
+			textFieldLogin.setId("textField");
 			textFieldLogin.setMaxWidth(422);
 			
 			//Back Button
@@ -209,85 +229,73 @@ public class Menu extends Application {
 			labelBombermanLobby.setId("labelBomberman");
 			
 			//Playerlist Background
-			Rectangle playerlistBg = new Rectangle(100, 300, 600, 200);
-			playerlistBg.setArcWidth(20);
-			playerlistBg.setArcHeight(20);
-			playerlistBg.setId("rectangleBackground");
-			
-			//Playernames
-			String player1 = textFieldLogin.getText();
-			String player2 = "Player2";
-			String player3 = "Player3";
-			String player4 = "Player4";
+			Rectangle playerlistBg1 = new Rectangle(100, 300, 600, 200);
+			playerlistBg1.setArcWidth(20);
+			playerlistBg1.setArcHeight(20);
+			playerlistBg1.setId("rectangleBackground");
 			
 			//HBox Player Red
-			HBox playerRed = new HBox(22);
-			Label labelPlayer1 = new Label(player1);
-			labelPlayer1.setId("playerStroke");
-			Circle pointRed = new Circle(15);
-			pointRed.setFill(Color.RED);
-			pointRed.setId("point");
-			playerRed.setPadding(new Insets(10,0,0,0));
-			playerRed.setAlignment(Pos.TOP_CENTER);
-			playerRed.getChildren().addAll(pointRed, labelPlayer1);
+			HBox player11 = new HBox(22);
+			Label labelPlayer11 = new Label(playerRed);
+			labelPlayer11.setId("playerStroke");
+			Circle pointRed1 = new Circle(15);
+			pointRed1.setFill(Color.RED);
+			pointRed1.setId("point");
+			player11.setPadding(new Insets(10,0,0,0));
+			player11.setAlignment(Pos.TOP_CENTER);
+			player11.getChildren().addAll(pointRed1, labelPlayer11);
 			
 			//HBox Player Blue
-			HBox playerBlue = new HBox(22);
-			Label labelPlayer2 = new Label(player2);
-			labelPlayer2.setId("text");
-			Circle pointBlue = new Circle(15);
-			pointBlue.setFill(Color.BLUE);
-			pointBlue.setId("point");
+			HBox player21 = new HBox(22);
+			Label labelPlayer21 = new Label(playerBlue);
+			labelPlayer21.setId("text");
+			Circle pointBlue1 = new Circle(15);
+			pointBlue1.setFill(Color.BLUE);
+			pointBlue1.setId("point");
 			//playerBlue.setPadding(new Insets(22));
-			playerBlue.setAlignment(Pos.TOP_CENTER);
-			playerBlue.getChildren().addAll(pointBlue, labelPlayer2);
+			player21.setAlignment(Pos.TOP_CENTER);
+			player21.getChildren().addAll(pointBlue1, labelPlayer21);
 
 			//HBox Player Green
-			HBox playerGreen = new HBox(22);
-			Label labelPlayer3 = new Label(player3);
-			labelPlayer3.setId("text");
-			Circle pointGreen = new Circle(15);
-			pointGreen.setFill(Color.GREEN);
-			pointGreen.setId("point");
+			HBox player31 = new HBox(22);
+			Label labelPlayer31 = new Label(playerGreen);
+			labelPlayer31.setId("text");
+			Circle pointGreen1 = new Circle(15);
+			pointGreen1.setFill(Color.GREEN);
+			pointGreen1.setId("point");
 			//playerGreen.setPadding(new Insets(22));
-			playerGreen.setAlignment(Pos.TOP_CENTER);
-			playerGreen.getChildren().addAll(pointGreen, labelPlayer3);
+			player31.setAlignment(Pos.TOP_CENTER);
+			player31.getChildren().addAll(pointGreen1, labelPlayer31);
 			
 			//HBox Player Yellow
-			HBox playerYellow = new HBox(22);
-			Label labelPlayer4 = new Label(player4);
-			labelPlayer4.setId("text");
-			Circle pointYellow = new Circle(15);
-			pointYellow.setFill(Color.YELLOW);
-			pointYellow.setId("point");
+			HBox player41 = new HBox(22);
+			Label labelPlayer41 = new Label(playerYellow);
+			labelPlayer41.setId("text");
+			Circle pointYellow1 = new Circle(15);
+			pointYellow1.setFill(Color.YELLOW);
+			pointYellow1.setId("point");
 			//playerYellow.setPadding(new Insets(22));
-			playerYellow.setAlignment(Pos.TOP_CENTER);
-			playerYellow.getChildren().addAll(pointYellow, labelPlayer4);
+			player41.setAlignment(Pos.TOP_CENTER);
+			player41.getChildren().addAll(pointYellow1, labelPlayer41);
 			
 			//Stackpane
 			StackPane paneLobbyBg = new StackPane();
 			VBox playerNames = new VBox(16);
 			playerNames.setMinWidth(422);
-			playerNames.getChildren().addAll(playerRed, playerBlue, playerGreen, playerYellow);
-			paneLobbyBg.getChildren().addAll(playerlistBg, playerNames);
+			playerNames.getChildren().addAll(player11, player21, player31, player41);
+			paneLobbyBg.getChildren().addAll(playerlistBg1, playerNames);
 			
 			//Back Button
 			Button buttonLobbyToServerlist = new Button("Back");
 			buttonLobbyToServerlist.setOnAction(e -> window.setScene(sceneServerlist));
 			buttonLobbyToServerlist.setMinWidth(200);
 			
-			//Start Button (if Admin)
-			Button buttonLobbyStart = new Button("Start");
-			//buttonLobbyStart.setOnAction(e -> window.setScene(sceneLobby));
-			buttonLobbyStart.setMinWidth(200);
-			
 			//Button Fontsize
 			buttonLobbyToServerlist.setStyle("-fx-font-size: 25");
-			buttonLobbyStart.setStyle("-fx-font-size: 25");
 			
 			//HBox Buttons
 			HBox buttonBoxLobby = new HBox(22);
-			buttonBoxLobby.getChildren().addAll(buttonLobbyToServerlist, buttonLobbyStart);
+			buttonBoxLobby.getChildren().addAll(buttonLobbyToServerlist);
 			buttonBoxLobby.setAlignment(Pos.TOP_CENTER);
 			
 			//Layout
@@ -298,6 +306,146 @@ public class Menu extends Application {
 			layoutLobby.getChildren().addAll(labelBombermanLobby, paneLobbyBg, buttonBoxLobby);
 			
 		//End Lobby Scene
+			
+		//Begin LobbyAdmin Scene
+			
+			//Label Bomberman
+			Text labelBombermanLobbyAdmin = new Text ("Bomberman");
+			labelBombermanLobbyAdmin.setId("labelBomberman");
+			
+			//Playerlist Background
+			Rectangle playerlistBg2 = new Rectangle(100, 300, 400, 245);
+			playerlistBg2.setArcWidth(20);
+			playerlistBg2.setArcHeight(20);
+			playerlistBg2.setId("rectangleBackground");
+			
+			//HBox Player Red
+			HBox player12 = new HBox(22);
+			Label labelPlayer12 = new Label(playerRed);
+			labelPlayer12.setId("playerStroke");
+			Circle pointRed2 = new Circle(15);
+			pointRed2.setFill(Color.RED);
+			pointRed2.setId("point");
+			player12.setPadding(new Insets(10,0,0,0));
+			player12.setAlignment(Pos.TOP_CENTER);
+			player12.getChildren().addAll(pointRed2, labelPlayer12);
+			
+			//HBox Player Blue
+			HBox player22 = new HBox(22);
+			Label labelPlayer22 = new Label(playerBlue);
+			labelPlayer22.setId("text");
+			Circle pointBlue2 = new Circle(15);
+			pointBlue2.setFill(Color.BLUE);
+			pointBlue2.setId("point");
+			//playerBlue.setPadding(new Insets(22));
+			player22.setAlignment(Pos.TOP_CENTER);
+			player22.getChildren().addAll(pointBlue2, labelPlayer22);
+
+			//HBox Player Green
+			HBox player32 = new HBox(22);
+			Label labelPlayer32 = new Label(playerGreen);
+			labelPlayer32.setId("text");
+			Circle pointGreen2 = new Circle(15);
+			pointGreen2.setFill(Color.GREEN);
+			pointGreen2.setId("point");
+			//playerGreen.setPadding(new Insets(22));
+			player32.setAlignment(Pos.TOP_CENTER);
+			player32.getChildren().addAll(pointGreen2, labelPlayer32);
+			
+			//HBox Player Yellow
+			HBox player42 = new HBox(22);
+			Label labelPlayer42 = new Label(playerYellow);
+			labelPlayer42.setId("text");
+			Circle pointYellow2 = new Circle(15);
+			pointYellow2.setFill(Color.YELLOW);
+			pointYellow2.setId("point");
+			//playerYellow.setPadding(new Insets(22));
+			player42.setAlignment(Pos.TOP_CENTER);
+			player42.getChildren().addAll(pointYellow2, labelPlayer42);
+			
+			//Stackpane
+			StackPane paneLobbyBg2 = new StackPane();
+			VBox playerNames2 = new VBox(16);
+			playerNames2.setPadding(new Insets(20));
+			playerNames2.setMinWidth(422);
+			playerNames2.getChildren().addAll(player12, player22, player32, player42);
+			paneLobbyBg2.getChildren().addAll(playerlistBg2, playerNames2);
+		
+			/*
+			//Setting Buttons
+			ComboBox armorTime = new ComboBox();
+			ComboBox explosionTime = new ComboBox();
+			ComboBox maxBombRadius = new ComboBox();
+			ComboBox playTime = new ComboBox();
+			
+			armorTime.getItems().addAll("Low", "Medium", "High");
+			explosionTime.getItems().addAll("Low", "Medium", "High");
+			maxBombRadius.getItems().addAll("Low", "Medium", "High");
+			playTime.getItems().addAll("Low", "Medium", "High");
+			
+			VBox settingButtons = new VBox(22);
+			settingButtons.getChildren().addAll(armorTime, explosionTime, maxBombRadius, playTime);
+			
+			HBox settingAndPlayerList = new HBox(22);
+			settingAndPlayerList.getChildren().addAll(paneLobbyBg2, settingButtons);
+			settingAndPlayerList.setAlignment(Pos.TOP_CENTER);
+			*/
+			
+			//settings
+			//TextField armorTime = new TextField();
+			armorTime.setPromptText("Armor duration in seconds");
+			armorTime.setId("textField2");
+			//armorTime.setMaxWidth(422);
+			
+			//TextField explosionTime = new TextField();
+			explosionTime.setPromptText("Explosion time in seconds");
+			explosionTime.setId("textField2");
+			//explosionTime.setMaxWidth(422);
+			
+			//TextField maxBombRadius = new TextField();
+			maxBombRadius.setPromptText("Maximum explosion radius in fields");
+			maxBombRadius.setId("textField2");
+			//maxBombRadius.setMaxWidth(422);
+			
+			//TextField playTime = new TextField();
+			playTime.setPromptText("Overall playtime in minutes");
+			playTime.setId("textField2");
+			
+			VBox settings = new VBox(22);
+			settings.getChildren().addAll(armorTime, explosionTime, maxBombRadius, playTime);
+			settings.setMinWidth(440);
+			
+			HBox settingsAndPlayerList = new HBox();
+			settingsAndPlayerList.getChildren().addAll(paneLobbyBg2, settings);
+			settingsAndPlayerList.setAlignment(Pos.TOP_CENTER);
+			
+			//Back Button
+			Button buttonLobbyAdminToServerlist = new Button("Back");
+			buttonLobbyAdminToServerlist.setOnAction(e -> window.setScene(sceneServerlist));
+			buttonLobbyAdminToServerlist.setMinWidth(200);
+			
+			//Start Button
+			Button buttonLobbyStart = new Button("Start");
+			buttonLobbyStart.setMinWidth(200);
+			//Spielstart an Server senden ...
+
+			//Button Fontsize
+			buttonLobbyAdminToServerlist.setStyle("-fx-font-size: 25");
+			buttonLobbyStart.setStyle("-fx-font-size: 25");
+			
+			//HBox Buttons
+			HBox buttonBoxLobbyAdmin = new HBox(22);
+			buttonBoxLobbyAdmin.getChildren().addAll(buttonLobbyAdminToServerlist, buttonLobbyStart);
+			buttonBoxLobbyAdmin.setAlignment(Pos.TOP_CENTER);
+			
+			//Layout
+			VBox layoutLobbyAdmin = new VBox(22);
+			layoutLobbyAdmin.setPadding(new Insets(90));
+			layoutLobbyAdmin.setAlignment(Pos.TOP_CENTER);
+			sceneLobbyAdmin = new Scene(layoutLobbyAdmin, 1280,720);
+			layoutLobbyAdmin.getChildren().addAll(labelBombermanLobbyAdmin, settingsAndPlayerList, buttonBoxLobbyAdmin);
+			
+		//End LobbyAdmin Scene
 			
 		//Begin Ranking Scene
 			
@@ -450,11 +598,49 @@ public class Menu extends Application {
 		layoutErrorServerfull.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
 		layoutErrorDisconnect.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
 		layoutRanking.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
+		layoutLobbyAdmin.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
 		
 		//Draw Window
 		window.setScene(sceneMenu);
 		window.setTitle("Bomberman");
 		window.show();
-		
+
+	}
+	
+	public class NumberTextField extends TextField {
+	    
+	    @Override public void replaceText(int start, int end, String text) {
+	           if (text.matches("[0-9]") || text == "") {
+	               super.replaceText(start, end, text);
+	           }
+	       }
+	     
+	       @Override public void replaceSelection(String text) {
+	           if (text.matches("[0-9]") || text == "") {
+	               super.replaceSelection(text);
+	           }
+	       }
+	 
+	}
+	
+	public String getNickname() {
+		return textFieldLogin.getText();
+	}
+	
+	public int getArmorTime() {
+		return Integer.parseInt(armorTime.getText());
+	}
+	
+	public int getExplosionTime() {
+		return Integer.parseInt(explosionTime.getText());
+	}
+	
+	public int getMaxBombRadius() {
+		return Integer.parseInt(maxBombRadius.getText());
+	}
+	
+	public int getPlayTime() {
+		return Integer.parseInt(playTime.getText());
 	}
 }
+

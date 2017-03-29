@@ -56,11 +56,21 @@
     -fx-font-size: 25
 }
 
-#textFieldLogin {
+#textField {
 	-fx-text-fill: black;
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
     -fx-font-size: 25;
+    -fx-border-color: black;
+	-fx-border-width: 3;
+	
+}
+
+#textField2 {
+	-fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
     -fx-border-color: black;
 	-fx-border-width: 3;
 	
@@ -80,16 +90,41 @@
 	-fx-stroke-width: 3;
 }
 
+.scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
 
+#scrollPane {
+	-fx-background-color: transparent;
+}
 
+.scroll-bar {
+	-fx-background-color: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-background-radius: 10px;
+	-fx-border-color: black;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+	-fx-font-size: 20px;
 
+}
 
+.thumb {
+	-fx-background-color: black;
+	-fx-background-radius: 10px;
+}
 
+.increment-arrow, .decrement-arrow {
+	-fx-shape: " ";
+}
 
-
-
-
-
+.combo-box {
+	-fx-background-color: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-background-radius: 10px;
+	-fx-border-color: black;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+	-fx-font-size: 20px;
+}
 
 
 

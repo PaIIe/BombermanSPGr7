@@ -47,7 +47,7 @@ public class BombermanGameClientHandler implements Runnable {
         
       //Versuch über sleep eine Synchro hinzubekommen Fails sometimes TODO
       try {
-          Thread.sleep(200);
+          Thread.sleep(2000);
            
         }
         catch (InterruptedException e)

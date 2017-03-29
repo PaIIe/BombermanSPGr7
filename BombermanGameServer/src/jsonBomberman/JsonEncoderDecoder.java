@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameObject;
 import dev.code.bomberman.Bomberman;
-
+import dev.code.bomberman.Ranking;
 
 public class JsonEncoderDecoder {
 
@@ -201,6 +201,22 @@ public class JsonEncoderDecoder {
       //System.out.println(encodedMsg.toString());
 	  return encodedMsg;
 	  
+	}
+	
+	
+	public JSONObject EncodeHighscoreToJSON(int playerCount)
+	{
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  for(int i = 0; i <= playerCount; i++)
+	  {
+	    
+	    
+	    
+	  }
+	  
+	  
+	  return encodedMsg;
 	}
 
 	

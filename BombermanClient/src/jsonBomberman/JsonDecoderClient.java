@@ -122,6 +122,35 @@ public static String decodeJsonToString(JSONObject encodedMsg)
   return msg;
 }
 
+
+public static String[] decodeHighscore(JSONObject msg, int player)
+{
+  String[] highscore = new String[9];
+  
+  JSONArray jsonArray = new JSONArray();
+  jsonArray = msg.getJSONArray("players");
+ 
+  JSONObject jsonObject = null;
+  
+  jsonObject = new JSONObject();
+  jsonObject = jsonArray.getJSONObject(player);
+  
+  
+  
+    highscore[0] = jsonObject.getString("name");
+    highscore[1] = jsonObject.getString("walkedSteps");
+    highscore[2] = jsonObject.getString("plantedBombs");  
+    highscore[3] = jsonObject.getString("destroyedWalls");
+    highscore[4] = jsonObject.getString("killedPlayers");
+    highscore[5] = jsonObject.getString("collectedPowerups");
+    highscore[6] = jsonObject.getString("isSuicided");
+    highscore[7] = jsonObject.getString("isLastPlayer");
+    highscore[8] = jsonObject.getString("score"); 
+     
+  
+  return highscore;
+}
+
 public static String extractJsonString(String outputFromClient) {
   while(true){
       char c = outputFromClient.charAt(0);

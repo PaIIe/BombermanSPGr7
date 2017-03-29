@@ -40,6 +40,10 @@ public class Ranking {
 		this.isLastPlayer = temp2;
 		
 		// TODO Spielernamen
+		this.namePlayer1 = "Hans";
+		this.namePlayer2 = "Peter";
+		this.namePlayer3 = "Harald";
+		this.namePlayer4 = "Gunther";
 	}
 	
 	/**

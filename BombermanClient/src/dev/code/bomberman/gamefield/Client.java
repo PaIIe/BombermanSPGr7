@@ -425,24 +425,29 @@ public class Client implements Runnable {
         	String[] player2 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
         	String[] player3 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
         	String[] player4 = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
-        	try {
-				if(BombermanGameClient.getFromServer().ready())
-				{
-					String inputFromServer = BombermanGameClient.getFromServer().readLine();
-					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
-					JSONObject jsonObject = new JSONObject(inputFromServer);
-					if(jsonObject.get("command").equals("cRoundEndHighscore"))
-					{
-						player1 = JsonDecoderClient.decodeHighscore(jsonObject, 1);
-						player2 = JsonDecoderClient.decodeHighscore(jsonObject, 2);
-						player3 = JsonDecoderClient.decodeHighscore(jsonObject, 3);
-						player4 = JsonDecoderClient.decodeHighscore(jsonObject, 4);
-					}
-				}
-			} catch (JSONException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	while(true)
+        	{
+        		try {
+    				if(BombermanGameClient.getFromServer().ready())
+    				{
+    					String inputFromServer = BombermanGameClient.getFromServer().readLine();
+    					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
+    					JSONObject jsonObject = new JSONObject(inputFromServer);
+    					if(jsonObject.get("command").equals("cRoundEndHighscore"))
+    					{
+    						player1 = JsonDecoderClient.decodeHighscore(jsonObject, 1);
+    						player2 = JsonDecoderClient.decodeHighscore(jsonObject, 2);
+    						player3 = JsonDecoderClient.decodeHighscore(jsonObject, 3);
+    						player4 = JsonDecoderClient.decodeHighscore(jsonObject, 4);
+    					}
+    					break;
+    				}
+    			} catch (JSONException | IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	}
+        	
         	String[][] ranking = {player1, player2, player3, player4};
         	String[] head = {"name","walked steps", "planted bombs", "destroyed walls", "killed players", "collected powerups", "suicided", "last man", "score"};
         	JFrame f = new JFrame();

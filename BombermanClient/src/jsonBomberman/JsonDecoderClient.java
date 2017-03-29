@@ -138,14 +138,14 @@ public static String[] decodeHighscore(JSONObject msg, int player)
   
   
     highscore[0] = jsonObject.getString("name");
-    highscore[1] = jsonObject.getString("walkedSteps");
-    highscore[2] = jsonObject.getString("plantedBombs");  
-    highscore[3] = jsonObject.getString("destroyedWalls");
-    highscore[4] = jsonObject.getString("killedPlayers");
-    highscore[5] = jsonObject.getString("collectedPowerups");
-    highscore[6] = jsonObject.getString("isSuicided");
-    highscore[7] = jsonObject.getString("isLastPlayer");
-    highscore[8] = jsonObject.getString("score"); 
+    highscore[1] = String.valueOf(jsonObject.getInt("walkedSteps"));
+    highscore[2] = String.valueOf(jsonObject.getInt("plantedBombs"));
+    highscore[3] = String.valueOf(jsonObject.getInt("destroyedWalls"));
+    highscore[4] = String.valueOf(jsonObject.getInt("killedPlayers"));
+    highscore[5] = String.valueOf(jsonObject.getInt("collectedPowerups"));
+    highscore[6] = String.valueOf(jsonObject.getBoolean("isSuicided")); 
+    highscore[7] = String.valueOf(jsonObject.getBoolean("isLastPlayer"));
+    highscore[8] = String.valueOf(jsonObject.getInt("score"));
      
   
   return highscore;

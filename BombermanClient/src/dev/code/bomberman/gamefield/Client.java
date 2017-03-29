@@ -430,20 +430,16 @@ public class Client implements Runnable {
         		try {
     				if(BombermanGameClient.getFromServer().ready())
     				{
-    					System.out.println("nach if");
     					String inputFromServer = BombermanGameClient.getFromServer().readLine();
     					inputFromServer = JsonDecoderClient.extractJsonString(inputFromServer);
     					JSONObject jsonObject = new JSONObject(inputFromServer);
     					if(jsonObject.get("command").equals("cRoundEndHighscore"))
     					{
-    						System.out.println("1");
     						player1 = JsonDecoderClient.decodeHighscore(jsonObject, 1);
     						player2 = JsonDecoderClient.decodeHighscore(jsonObject, 2);
     						player3 = JsonDecoderClient.decodeHighscore(jsonObject, 3);
     						player4 = JsonDecoderClient.decodeHighscore(jsonObject, 4);
-    						System.out.println("2");
     					}
-    					System.out.println("3");
     					break;
     				}
     			} catch (JSONException | IOException e) {

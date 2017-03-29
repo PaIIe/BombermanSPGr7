@@ -2,6 +2,7 @@ package dev.code.bomberman;
 
 import dev.code.bomberman.GameField;
 import jsonBomberman.JsonEncoderDecoder;
+import networkBomberman.BombermanGameServer;
 
 public class Game implements Runnable {
 	
@@ -235,7 +236,7 @@ public class Game implements Runnable {
 		
 		if (this.gamestate == GameState.RANKING)
 		{
-			// Sende Ranking an Client
+			BombermanGameServer.sendToAllClients(JsonEncoderDecoder.EncodeHighscoreToJSON(Game.getPlayerNumber()));
 		}
 		stop();
 	}

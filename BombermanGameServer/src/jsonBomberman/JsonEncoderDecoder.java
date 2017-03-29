@@ -205,7 +205,7 @@ public class JsonEncoderDecoder {
 	}
 	
 	
-	public JSONObject EncodePlayerHighscoreToJSON(int player)
+	public static JSONObject EncodePlayerHighscoreToJSON(int player)
 	{
 	  JSONObject encodedMsg = new JSONObject();
 	  
@@ -223,7 +223,7 @@ public class JsonEncoderDecoder {
 	  return encodedMsg;
 	}
 	
-	public JSONObject EncodeHighscoreToJSON(int playerCount)
+	public static JSONObject EncodeHighscoreToJSON(int playerCount)
 	{
 	  JSONObject encodedMsg = new JSONObject();
 	  

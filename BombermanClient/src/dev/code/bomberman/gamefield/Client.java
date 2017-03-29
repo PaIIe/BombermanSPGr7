@@ -156,6 +156,7 @@ public class Client implements Runnable {
                 if (this.gamefield.getPlayer(i).getAliveStatus() == true)
                     playerAlive++;
             }
+            playerAlive = 1; // !!!!
             if (playerAlive <= 1) // oder Timer auf 0
             {
             	this.gamestate = GameState.RANKING;

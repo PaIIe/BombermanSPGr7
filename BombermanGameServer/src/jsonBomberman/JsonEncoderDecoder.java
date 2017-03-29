@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.json.*;
 import dev.code.bomberman.GameObject;
 import dev.code.bomberman.Bomberman;
+import dev.code.bomberman.Game;
 
 
 public class JsonEncoderDecoder {
@@ -204,21 +205,37 @@ public class JsonEncoderDecoder {
 	}
 	
 	
+	public JSONObject EncodePlayerHighscoreToJSON(int player)
+	{
+	  JSONObject encodedMsg = new JSONObject();
+	  
+	  
+	  encodedMsg.put("name", Game.getRanking().getName(player));
+	  encodedMsg.put("walkedSteps", Game.getRanking().getSteps(player));
+	  encodedMsg.put("plantedBombs", Game.getRanking().getPlacedBombs(player));
+	  encodedMsg.put("destroyedWalls", Game.getRanking().getDestroyedWalls(player));
+	  encodedMsg.put("killedPlayers", Game.getRanking().getKills(player));
+	  encodedMsg.put("collectedPowerups", Game.getRanking().getCollectedBoni(player));
+	  encodedMsg.put("isSuicided", Game.getRanking().getIsSuicided(player));
+	  encodedMsg.put("isLastPlayer", Game.getRanking().getLastMan(player));
+	  encodedMsg.put("score", Game.getRanking().getPoints(player));
+ 	   
+	  return encodedMsg;
+	}
+	
 	public JSONObject EncodeHighscoreToJSON(int playerCount)
 	{
 	  JSONObject encodedMsg = new JSONObject();
 	  
-	  for(int i = 1; i <= playerCount; i++)
+	  encodedMsg.put("command", "cRoundEndHighscore");
+	  encodedMsg.put("content", "players");
+	  for(int i = 0; i <= playerCount; i++)
 	  {
-	    encodedMsg.put("name", game.)
-	    
-	    
+	    encodedMsg.accumulate("players", EncodePlayerHighscoreToJSON(i));	    
 	  }
-	  
 	  
 	  return encodedMsg;
 	}
-
 	
 	
 	/**

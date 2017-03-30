@@ -41,7 +41,7 @@ public class Menu extends Application {
 	ModesTextField modes = new ModesTextField();
 	
 	public static void mainMenu(String[] args) {
-		launch(args);
+		launch();
 	}
 	
 	@Override

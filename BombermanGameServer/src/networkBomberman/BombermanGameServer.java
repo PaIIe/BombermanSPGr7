@@ -46,7 +46,7 @@ public class BombermanGameServer extends Thread {
         startBombermanGameServer();
         listenForClients();
         startTickTimer();
-        
+       
         Game game = new Game("Title!", 1000, 1000);
         game.start();
         while(gameOver == false){

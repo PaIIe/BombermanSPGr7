@@ -4,6 +4,7 @@ package Menu;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import jsonBomberman.JsonEncoderClient;
 import networkBomberman.BombermanGameClient;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -204,8 +205,9 @@ public class Menu extends Application {
 			
 			//OK Button
 			Button buttonLoginOk = new Button("OK");
-			buttonLoginOk.setOnAction(e -> window.setScene(sceneLobby));
+			buttonLoginOk.setOnAction(e -> this.sendNameToServer());
 			buttonLoginOk.setMinWidth(200);
+			
 			
 			//Button Fontsize
 			buttonLoginToServerlist.setStyle("-fx-font-size: 25");
@@ -626,12 +628,19 @@ public class Menu extends Application {
 	private Object startConnection() {
 		BombermanGameClient.startBombermanGameClient();
 		if (BombermanGameClient.getStarted())
-			window.setScene(sceneLobby);
+			window.setScene(sceneLogin);
 		else
 			window.setScene(sceneErrorDisconnect);
 		return null;
 	}
-
+	
+	private Object sendNameToServer()
+	{
+		BombermanGameClient.sendToServer(JsonEncoderClient.nameToServer(this.getNickname()));
+		window.setScene(sceneLobby);
+		return null;
+	}
+	
 	public class NumberTextField extends TextField {
 	    
 	    @Override public void replaceText(int start, int end, String text) {

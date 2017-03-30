@@ -37,8 +37,11 @@ public class Game implements Runnable {
 	private static String namePlayer4;
 	private static int playerNumber;
 	private int fieldWidth;
-	//private int armorTime;
-	//private int bombExplosionTime;
+	private int armorTime;
+	private int ExplosionTime;
+	private char mode;
+	private int maxRadius;
+	private int playTime;
 	
 	// Playermovement Timer
 	private static int counterTicks = 0; // Tickzähler

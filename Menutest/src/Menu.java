@@ -49,6 +49,7 @@ public class Menu extends Application {
 		
 		//Window
 		window = primaryStage;
+		window.setScene(sceneHelp);
 		
 		//Begin Menu Scene
 		

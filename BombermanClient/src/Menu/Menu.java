@@ -610,7 +610,7 @@ public class Menu extends Application {
 		layoutLobbyAdmin.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
 		
 		//Draw Window
-		window.setScene(sceneLobbyAdmin);
+		window.setScene(sceneMenu);
 		window.setTitle("Bomberman");
 		window.show();
 

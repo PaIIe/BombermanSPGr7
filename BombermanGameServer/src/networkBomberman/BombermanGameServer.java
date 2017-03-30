@@ -37,13 +37,9 @@ public class BombermanGameServer extends Thread {
     static int delay = 0;
     static int period = 50;
     static int tick = 0;
-    
-<<<<<<< HEAD
+
     static LinkedList<String> playerName = null;
-=======
-    static String[] playerName = {"default"};
->>>>>>> branch 'master' of https://github.com/PaIIe/BombermanSPGr7.git
- 
+
     public static void main(String[] args) {
     	
     		

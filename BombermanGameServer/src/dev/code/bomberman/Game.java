@@ -127,10 +127,16 @@ public class Game implements Runnable {
 					Game.ranking.updateLastMan(1);
 				if (GameField.getPlayer(2).getAliveStatus() == true)
 					Game.ranking.updateLastMan(2);
-				if (GameField.getPlayer(3).getAliveStatus() == true)
-					Game.ranking.updateLastMan(3);
-				if (GameField.getPlayer(4).getAliveStatus() == true)
-					Game.ranking.updateLastMan(4);
+				if (Game.playerNumber >= 3)
+				{
+					if (GameField.getPlayer(3).getAliveStatus() == true)
+						Game.ranking.updateLastMan(3);
+				}
+				if (Game.playerNumber == 4)
+				{
+					if (GameField.getPlayer(4).getAliveStatus() == true)
+						Game.ranking.updateLastMan(4);
+				}
 				this.gamestate = GameState.RANKING;
 				return;
 			}
@@ -140,12 +146,16 @@ public class Game implements Runnable {
 				GameField.getPlayer(1).counterArmor();
 			if (GameField.getPlayer(2).getID() == 56)
 				GameField.getPlayer(2).counterArmor();
-			if (GameField.getPlayer(3).getID() == 57)
+			if (Game.playerNumber >= 3)
+			{
+				if (GameField.getPlayer(3).getID() == 57)
 				GameField.getPlayer(3).counterArmor();
-			if (GameField.getPlayer(4).getID() == 58)
+			}
+			if (Game.playerNumber == 4)
+			{
+				if (GameField.getPlayer(4).getID() == 58)
 				GameField.getPlayer(4).counterArmor();
-			
-			
+			}
 				
 			for (int i = 0; i < GameField.getWidth(); i++)	// iterieren über GameField Matrix 
 			{

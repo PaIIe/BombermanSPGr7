@@ -358,16 +358,6 @@ public class AI {
 			if(prio>2)
 			{
 				BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","placeBomb"));	
-				if(direction=="t")
-					BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveUp"));
-				else if(direction=="b")
-					BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveDown")); 
-				else if(direction=="l")
-					BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveLeft"));
-				else if(direction=="r")
-					BombermanGameClient.sendToServer(JsonEncoderClient.commandToServer("action","moveRight"));
-				else 
-					BombermanGameClient.sendHeartbeatToServer();
 			}
 		}
 		

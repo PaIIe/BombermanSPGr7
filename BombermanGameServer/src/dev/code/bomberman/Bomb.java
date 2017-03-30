@@ -114,16 +114,22 @@ public class Bomb extends GameObject
 			 GameField.getPlayer(2).gotHit();
 			 Game.ranking.updateKill(this.getID(), 2);
 		 } 
-		 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn())
+		 if (Game.getPlayerNumber() >= 3)
 		 {
-			 GameField.getPlayer(3).gotHit();
-			 Game.ranking.updateKill(this.getID(), 3);
-		 }	 
-		 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn())
-		 {
-			 GameField.getPlayer(4).gotHit();
-			 Game.ranking.updateKill(this.getID(), 4);
+			 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn())
+			 {
+				 GameField.getPlayer(3).gotHit();
+				 Game.ranking.updateKill(this.getID(), 3);
+			 }	
 		 }
+		 if (Game.getPlayerNumber() == 4) 
+		 {
+			 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn())
+			 {
+				 GameField.getPlayer(4).gotHit();
+				 Game.ranking.updateKill(this.getID(), 4);
+			 }
+		 } 
 		for (int i = 1; i <= this.getexplosionRadius(); i++) // nach NORDEN
 		{
 			 if (this.getRow() - i >= 0) // Spielfeldgrenze beachten
@@ -177,15 +183,21 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(2).gotHit();
 					 Game.ranking.updateKill(this.getID(), 2);
 				 }
-				 if (GameField.getPlayer(3).getRow() == this.getRow() - i && GameField.getPlayer(3).getColumn() == this.getColumn())
+				 if (Game.getPlayerNumber() >= 3)
 				 {
-					 GameField.getPlayer(3).gotHit();
-					 Game.ranking.updateKill(this.getID(), 3);
+					 if (GameField.getPlayer(3).getRow() == this.getRow() - i && GameField.getPlayer(3).getColumn() == this.getColumn())
+					 {
+						 GameField.getPlayer(3).gotHit();
+						 Game.ranking.updateKill(this.getID(), 3);
+					 }
 				 }
-				 if (GameField.getPlayer(4).getRow() == this.getRow() - i && GameField.getPlayer(4).getColumn() == this.getColumn())
+				 if (Game.getPlayerNumber() == 4)
 				 {
-					 GameField.getPlayer(4).gotHit();
-					 Game.ranking.updateKill(this.getID(), 4);
+					 if (GameField.getPlayer(4).getRow() == this.getRow() - i && GameField.getPlayer(4).getColumn() == this.getColumn())
+					 {
+						 GameField.getPlayer(4).gotHit();
+						 Game.ranking.updateKill(this.getID(), 4);
+					 }
 				 }
 				 if (GameField.getObject(this.getRow()- i, this.getColumn()).getID() != 1)
 				 {
@@ -250,15 +262,21 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(2).gotHit();
 					 Game.ranking.updateKill(this.getID(), 2);
 				 }
-				 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() - i)
+				 if (Game.getPlayerNumber() >= 3)
 				 {
-					 GameField.getPlayer(3).gotHit();
-					 Game.ranking.updateKill(this.getID(), 3);
+					 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() - i)
+					 {
+						 GameField.getPlayer(3).gotHit();
+						 Game.ranking.updateKill(this.getID(), 3);
+					 }
 				 }
-				 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() - i)
+				 if (Game.getPlayerNumber() == 4)
 				 {
-					 GameField.getPlayer(4).gotHit();
-					 Game.ranking.updateKill(this.getID(), 4);
+					 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() - i)
+					 {
+						 GameField.getPlayer(4).gotHit();
+						 Game.ranking.updateKill(this.getID(), 4);
+					 }
 				 }
 				 if (GameField.getObject(this.getRow(), this.getColumn() - i).getID() != 1)
 				 {
@@ -321,16 +339,22 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(2).gotHit();
 					 Game.ranking.updateKill(this.getID(), 2);
 				 }
-				 if (GameField.getPlayer(3).getRow() == this.getRow() + i && GameField.getPlayer(3).getColumn() == this.getColumn())
+				 if (Game.getPlayerNumber() >= 3)
 				 {
-					 GameField.getPlayer(3).gotHit();
-					 Game.ranking.updateKill(this.getID(), 3);
+					 if (GameField.getPlayer(3).getRow() == this.getRow() + i && GameField.getPlayer(3).getColumn() == this.getColumn())
+					 {
+						 GameField.getPlayer(3).gotHit();
+						 Game.ranking.updateKill(this.getID(), 3);
+					 }
 				 }
-				 if (GameField.getPlayer(4).getRow() == this.getRow() + i && GameField.getPlayer(4).getColumn() == this.getColumn())
+				 if (Game.getPlayerNumber() == 4)
 				 {
-					 GameField.getPlayer(4).gotHit();
-					 Game.ranking.updateKill(this.getID(), 4);
-				 }
+					 if (GameField.getPlayer(4).getRow() == this.getRow() + i && GameField.getPlayer(4).getColumn() == this.getColumn())
+					 {
+						 GameField.getPlayer(4).gotHit();
+						 Game.ranking.updateKill(this.getID(), 4);
+					 }
+				 } 
 				 if (GameField.getObject(this.getRow() + i, this.getColumn()).getID() != 1)
 				 {
 					 // Flammen erzeugen
@@ -357,7 +381,7 @@ public class Bomb extends GameObject
 					 if (this.superbomb == false)
 						 break;
 				 }
-				 //
+				 // Bomben
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() >= 61 && GameField.getObject(this.getRow(), this.getColumn() + i).getID() <= 63) // Bomben von Player1
 				 {
 					 GameField.getPlayer(1).decreasePlacedBombs();
@@ -393,16 +417,22 @@ public class Bomb extends GameObject
 					 GameField.getPlayer(2).gotHit();
 					 Game.ranking.updateKill(this.getID(), 2);
 				 }
-				 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() + i)
+				 if (Game.getPlayerNumber() >= 3)
 				 {
-					 GameField.getPlayer(3).gotHit();
-					 Game.ranking.updateKill(this.getID(), 3);
+					 if (GameField.getPlayer(3).getRow() == this.getRow() && GameField.getPlayer(3).getColumn() == this.getColumn() + i)
+					 {
+						 GameField.getPlayer(3).gotHit();
+						 Game.ranking.updateKill(this.getID(), 3);
+					 }
 				 }
-				 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() + i)
+				 if (Game.getPlayerNumber() == 4)
 				 {
-					 GameField.getPlayer(4).gotHit();
-					 Game.ranking.updateKill(this.getID(), 4);
-				 }
+					 if (GameField.getPlayer(4).getRow() == this.getRow() && GameField.getPlayer(4).getColumn() == this.getColumn() + i)
+					 {
+						 GameField.getPlayer(4).gotHit();
+						 Game.ranking.updateKill(this.getID(), 4);
+					 }
+				 }	 
 				 if (GameField.getObject(this.getRow(), this.getColumn() + i).getID() != 1)
 				 {
 					 // Flamme

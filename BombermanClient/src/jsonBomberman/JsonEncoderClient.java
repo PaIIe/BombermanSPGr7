@@ -26,5 +26,13 @@ public class JsonEncoderClient {
       return encodedMsg;
   }
   
+  public static JSONObject nameToServer(String name) throws JSONException
+  {
+    JSONObject encodedMsg = new JSONObject();
+    
+    encodedMsg = commandToServer("gsRegisterPlayer", name);    
+    
+    return encodedMsg;
+  }
 
 }

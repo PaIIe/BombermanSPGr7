@@ -30,6 +30,9 @@ public class BombermanGameClient {
 	static Scanner inputFromClient = null;
 	
 	static boolean started = false;
+
+	static int clientID;
+
 	
 	static JSONObject gameObject;
 	static JSONObject player;
@@ -152,36 +155,53 @@ public class BombermanGameClient {
 	 sendToServer(JsonEncoderClient.commandToServer("xxheartbeat",""));	 
 	}
 
-	private static void receiveFromServer() {
-		String playerInput = null;
-		String gameObjectInput = null;
-		JSONObject jsonObjectPlayer = null;
-		JSONObject jsonObjectGame = null;
-			//try {
-				try {
-					playerInput = fromServer.readLine();
-					playerInput = jsonBomberman.JsonDecoderClient.extractJsonString(playerInput);
-					try{
-					  Thread.sleep(50);
-					}catch (InterruptedException e) {
-                      // TODO Auto-generated catch block
-                      e.printStackTrace();
-					  
-					}					
-					gameObjectInput = fromServer.readLine();
-					gameObjectInput = jsonBomberman.JsonDecoderClient.extractJsonString(gameObjectInput);
-					//System.out.println(gameObjectInput);
-					
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				jsonObjectPlayer = new JSONObject(playerInput);
-				jsonObjectGame = new JSONObject(gameObjectInput);
-				
-				player = jsonObjectPlayer;
-				gameObject = jsonObjectGame;
+private static void receiveFromServer() {
+	
+  String clientInput = null;
+  String playerInput = null;
+  String gameObjectInput = null;
+  
+  
+  JSONObject jsonObjectPlayer = null;
+  JSONObject jsonObjectGame = null;
+		
+	  
+	try {
+		/*    
+		clientInput = fromServer.readLine();
+        clientID = Integer.parseInt(clientInput);
+        try{
+          Thread.sleep(50);
+        }catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+          e.printStackTrace();         
+        }                   
+		*/
+			  
+		playerInput = fromServer.readLine();
+		playerInput = jsonBomberman.JsonDecoderClient.extractJsonString(playerInput);
+		
+		try{
+		  Thread.sleep(50);
+		}catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+		 
+		}					
+		gameObjectInput = fromServer.readLine();
+		gameObjectInput = jsonBomberman.JsonDecoderClient.extractJsonString(gameObjectInput);
+		//System.out.println(gameObjectInput);
+		
+			
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		  e.printStackTrace();
+		}
+		jsonObjectPlayer = new JSONObject(playerInput);
+		jsonObjectGame = new JSONObject(gameObjectInput);
+			
+		player = jsonObjectPlayer;
+		gameObject = jsonObjectGame;
 				
 			//} catch (JSONException e) {
 				// TODO Auto-generated catch block

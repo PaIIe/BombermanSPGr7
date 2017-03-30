@@ -624,10 +624,8 @@ public class Menu extends Application {
 	}
 	
 	private Object startConnection() {
-		if(BombermanGameClient.startBombermanGameClient());
-			window.setScene(sceneLogin);
-		if(!BombermanGameClient.startBombermanGameClient());
-			window.setScene(sceneMenu);
+		window.setScene(sceneLobby);
+		BombermanGameClient.startBombermanGameClient();
 		return null;
 	}
 

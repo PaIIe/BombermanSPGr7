@@ -13,9 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -44,6 +46,8 @@ public class Menu extends Application {
 	NumberTextField explosionTime = new NumberTextField();
 	NumberTextField maxBombRadius = new NumberTextField();
 	NumberTextField playTime = new NumberTextField();
+	//ToggleGroup modes = new ToggleGroup();
+	ModesTextField modes = new ModesTextField();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -314,7 +318,7 @@ public class Menu extends Application {
 			labelBombermanLobbyAdmin.setId("labelBomberman");
 			
 			//Playerlist Background
-			Rectangle playerlistBg2 = new Rectangle(100, 300, 400, 245);
+			Rectangle playerlistBg2 = new Rectangle(100, 300, 400, 272);
 			playerlistBg2.setArcWidth(20);
 			playerlistBg2.setArcHeight(20);
 			playerlistBg2.setId("rectangleBackground");
@@ -411,14 +415,27 @@ public class Menu extends Application {
 			playTime.setPromptText("Overall playtime in minutes");
 			playTime.setId("textField2");
 			
-			VBox settings = new VBox(22);
-			settings.getChildren().addAll(armorTime, explosionTime, maxBombRadius, playTime);
+			/*
+			//Radio Buttons Mode A/B
+			RadioButton modeA = new RadioButton("Mode A ");
+			RadioButton modeB = new RadioButton("Mode B ");
+			modeA.setToggleGroup(modes);
+			modeB.setToggleGroup(modes);
+			HBox buttonModes = new HBox(22);
+			buttonModes.getChildren().addAll(modeA, modeB);
+			*/
+			
+			modes.setPromptText("Mode A or B");
+			modes.setId("textField2");
+			
+			VBox settings = new VBox(12);
+			settings.getChildren().addAll(modes, armorTime, explosionTime, maxBombRadius, playTime);
 			settings.setMinWidth(440);
 			
 			HBox settingsAndPlayerList = new HBox();
 			settingsAndPlayerList.getChildren().addAll(paneLobbyBg2, settings);
 			settingsAndPlayerList.setAlignment(Pos.TOP_CENTER);
-			
+
 			//Back Button
 			Button buttonLobbyAdminToServerlist = new Button("Back");
 			buttonLobbyAdminToServerlist.setOnAction(e -> window.setScene(sceneServerlist));
@@ -601,7 +618,7 @@ public class Menu extends Application {
 		layoutLobbyAdmin.getStylesheets().add(Menu.class.getResource("style.css").toExternalForm());
 		
 		//Draw Window
-		window.setScene(sceneMenu);
+		window.setScene(sceneLobbyAdmin);
 		window.setTitle("Bomberman");
 		window.show();
 
@@ -617,6 +634,22 @@ public class Menu extends Application {
 	     
 	       @Override public void replaceSelection(String text) {
 	           if (text.matches("[0-9]") || text == "") {
+	               super.replaceSelection(text);
+	           }
+	       }
+	 
+	}
+	
+	public class ModesTextField extends TextField {
+	    
+	    @Override public void replaceText(int start, int end, String text) {
+	           if (text.matches("[A,B,a,b]") || text == "") {
+	               super.replaceText(start, end, text);
+	           }
+	       }
+	     
+	       @Override public void replaceSelection(String text) {
+	           if (text.matches("[A,B,a,b]") || text == "") {
 	               super.replaceSelection(text);
 	           }
 	       }
@@ -642,5 +675,10 @@ public class Menu extends Application {
 	public int getPlayTime() {
 		return Integer.parseInt(playTime.getText());
 	}
+	
+	/*
+	public boolean getModeA() {
+		if (RadioButton modes = (RadioButton) modes.getSelectedToggle()==modeA)
+	}*/
 }
 

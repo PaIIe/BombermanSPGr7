@@ -30,8 +30,7 @@ public class JsonEncoderClient {
   {
     JSONObject encodedMsg = new JSONObject();
     
-    encodedMsg = commandToServer("gsRegisterPlayer", name);
-    
+    encodedMsg = commandToServer("gsRegisterPlayer", name);    
     
     return encodedMsg;
   }

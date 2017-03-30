@@ -37,6 +37,8 @@ public class BombermanGameServer extends Thread {
     static int delay = 0;
     static int period = 50;
     static int tick = 0;
+    
+    static String[] playerName;
  
     public static void main(String[] args) {
         startBombermanGameServer();

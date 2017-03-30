@@ -191,7 +191,7 @@ public class BombermanGameClient {
 		//System.out.println(input);
 	}
 
-	private static void startBombermanGameClient() {
+	public static boolean startBombermanGameClient() {
 		try {
 			myClientSocket = new Socket(host, port);
 			input = new DataInputStream(myClientSocket.getInputStream());
@@ -199,12 +199,15 @@ public class BombermanGameClient {
 			fromServer = new BufferedReader(new InputStreamReader(input, "UTF-8"));
 			toServer = new OutputStreamWriter(output, "UTF-8");
 			inputFromClient = new Scanner(System.in);
+			return true;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		//encoderDecoder = new JsonEncoderDecoder();
 	}

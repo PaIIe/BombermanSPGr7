@@ -29,6 +29,8 @@ public class BombermanGameClient {
 	static OutputStreamWriter toServer = null;
 	static Scanner inputFromClient = null;
 	
+	static boolean started = false;
+	
 	static JSONObject gameObject;
 	static JSONObject player;
 	//static JsonEncoderDecoder encoderDecoder = null;
@@ -199,14 +201,22 @@ public class BombermanGameClient {
 			fromServer = new BufferedReader(new InputStreamReader(input, "UTF-8"));
 			toServer = new OutputStreamWriter(output, "UTF-8");
 			inputFromClient = new Scanner(System.in);
+			BombermanGameClient.started = true;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
+			BombermanGameClient.started = false;
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			BombermanGameClient.started = false;
 			e.printStackTrace();
 		}
 		//encoderDecoder = new JsonEncoderDecoder();
+	}
+	
+	public static boolean getStarted()
+	{
+		return BombermanGameClient.started;
 	}
 
 }

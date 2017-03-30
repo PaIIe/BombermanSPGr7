@@ -4,6 +4,7 @@ package Menu;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import networkBomberman.BombermanGameClient;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -71,7 +72,8 @@ public class Menu extends Application {
 		
 			//Exit Button
 			Button buttonExit = new Button("Exit");
-			buttonExit.setOnAction(e -> window.close());
+			//System.exit(0);
+			buttonExit.setOnAction(e -> System.exit(0));
 		
 			//Button width
 			buttonPlay.setMinWidth(buttonBoxMenu.getPrefWidth());
@@ -125,14 +127,19 @@ public class Menu extends Application {
 			serverlistScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 			serverlistScrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 			
-			for(int i = 1; i<=serverCount; i++)
+			/*for(int i = 1; i<=serverCount; i++)
 			{
 				Button buttonServer = new Button("Server " + i);
 				buttonServer.setMinWidth(buttonBoxServerlist.getPrefWidth());
 				buttonServer.setStyle("-fx-font-size: 25");
 				serverlistPane.getChildren().add(buttonServer);
 				buttonServer.setOnAction(e -> window.setScene(sceneLogin));
-			}
+			}*/
+			Button buttonServer = new Button("Server 1");
+			buttonServer.setMinWidth(buttonBoxServerlist.getPrefWidth());
+			buttonServer.setStyle("-fx-font-size: 25");
+			serverlistPane.getChildren().add(buttonServer);
+			buttonServer.setOnAction(e -> this.startConnection());
 			
 			layoutServerlist.getChildren().addAll(serverlistScrollPane, buttonServerlistToMenu);
 		
@@ -616,6 +623,14 @@ public class Menu extends Application {
 
 	}
 	
+	private Object startConnection() {
+		if(BombermanGameClient.startBombermanGameClient());
+			window.setScene(sceneLogin);
+		if(!BombermanGameClient.startBombermanGameClient());
+			window.setScene(sceneMenu);
+		return null;
+	}
+
 	public class NumberTextField extends TextField {
 	    
 	    @Override public void replaceText(int start, int end, String text) {
@@ -650,6 +665,12 @@ public class Menu extends Application {
 	
 	public String getNickname() {
 		return textFieldLogin.getText();
+	}
+	
+	public char getMode()
+	{
+		String mode = modes.getText();
+		return mode.charAt(0);
 	}
 	
 	public int getArmorTime() {

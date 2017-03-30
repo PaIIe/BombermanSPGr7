@@ -205,6 +205,15 @@ public class BombermanGameClientHandler implements Runnable {
                     //sendToClient("Echo from Server " + outputFromClient);
                      
                 } else
+                  
+                  if(this.fromClient.ready())
+                  {
+                    
+                  }
+                  
+                  
+                  
+                  
                     try {
                      
                         Thread.sleep(10);

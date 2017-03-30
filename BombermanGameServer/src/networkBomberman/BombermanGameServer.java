@@ -41,7 +41,6 @@ public class BombermanGameServer extends Thread {
     static LinkedList<String> playerName = null;
 
     public static void main(String[] args) {
-    	
     		
         startBombermanGameServer();
         listenForClients();

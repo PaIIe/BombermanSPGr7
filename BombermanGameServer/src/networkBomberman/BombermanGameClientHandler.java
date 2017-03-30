@@ -219,6 +219,7 @@ public class BombermanGameClientHandler implements Runnable {
                         //this.outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
                         
                         
+                        
                     } catch (JSONException e1) {
                         System.err.println("JSONException in Run: " + e1.getMessage());
                         e1.printStackTrace();

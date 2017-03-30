@@ -388,5 +388,23 @@ public class JsonEncoderDecoder {
       }
       return msg;
     }
+
+  public static String decodePlayerName(JSONObject outputFromClient) {
+    
+    String msg = null;
+    
+    try{
+      if(outputFromClient.getString("content").contains("name"))
+      {
+        msg = outputFromClient.getString("name");
+      }
+    }catch (JSONException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+  }
+    
+ 
+    return msg;
+  }
   	
 }

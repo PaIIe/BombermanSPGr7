@@ -208,6 +208,24 @@ public class BombermanGameClientHandler implements Runnable {
                   
                   if(this.fromClient.ready())
                   {
+
+                    this.outputFromClient = this.receiveFromClient();
+                    //int JSONlength = extractLenght(outputFromClient);
+                    this.outputFromClient = this.extractJsonString(this.outputFromClient);                 
+                    
+                    try {
+                        JSONObject jsonObject = new JSONObject(this.outputFromClient);
+                        BombermanGameServer.playerName.add(clientID - 1, JsonEncoderDecoder.decodePlayerName(jsonObject));
+                        //this.outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
+                        
+                        
+                    } catch (JSONException e1) {
+                        System.err.println("JSONException in Run: " + e1.getMessage());
+                        e1.printStackTrace();
+                    }
+                    
+                   
+                   
                     
                   }
                   

@@ -151,7 +151,7 @@ public class Client implements Runnable {
         if (this.gamestate == GameState.RUNNING)
         {
         	int playerAlive = 0;
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= this.playerCount; i++)
             {
                 if (this.gamefield.getPlayer(i).getAliveStatus() == true)
                     playerAlive++;
@@ -320,21 +320,26 @@ public class Client implements Runnable {
                 if (this.gamefield.getPlayer(2).getArmor() == true) // Spieler2 mit Armor
                     g.drawImage(greenBombermanArmor, this.gamefield.getPlayer(2).getColumn() * 64, this.gamefield.getPlayer(2).getRow() * 64, null);
             }   
-            if (this.gamefield.getPlayer(3).getAliveStatus() == true)
+            if (this.playerCount >= 3)
             {
-                if (this.gamefield.getPlayer(3).getArmor() == false) // Spieler3 ohne Armor
-                    g.drawImage(redBomberman, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
-                if (this.gamefield.getPlayer(3).getArmor() == true) // Spieler3 mit Armor
-                    g.drawImage(redBombermanArmor, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
-            }           
-            if (this.gamefield.getPlayer(4).getAliveStatus() == true)
-            {
-                if (this.gamefield.getPlayer(4).getArmor() == false) // Spieler4 ohne Armor
-                    g.drawImage(yellowBomberman, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
-                if (this.gamefield.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
-                    g.drawImage(yellowBombermanArmor, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
+            	if (this.gamefield.getPlayer(3).getAliveStatus() == true)
+                {
+                    if (this.gamefield.getPlayer(3).getArmor() == false) // Spieler3 ohne Armor
+                        g.drawImage(redBomberman, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
+                    if (this.gamefield.getPlayer(3).getArmor() == true) // Spieler3 mit Armor
+                        g.drawImage(redBombermanArmor, this.gamefield.getPlayer(3).getColumn() * 64, this.gamefield.getPlayer(3).getRow() * 64, null);
+                }  
             }
-            
+            if (this.playerCount == 4)  
+            {
+            	if (this.gamefield.getPlayer(4).getAliveStatus() == true)
+                {
+                    if (this.gamefield.getPlayer(4).getArmor() == false) // Spieler4 ohne Armor
+                        g.drawImage(yellowBomberman, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
+                    if (this.gamefield.getPlayer(4).getArmor() == true) // Spieler4 mit Armor
+                        g.drawImage(yellowBombermanArmor, this.gamefield.getPlayer(4).getColumn() * 64, this.gamefield.getPlayer(4).getRow() * 64, null);
+                }
+            } 
             bs.show();
             g.dispose();
     	}  
@@ -437,8 +442,14 @@ public class Client implements Runnable {
     					{
     						player1 = JsonDecoderClient.decodeHighscore(jsonObject, 1);
     						player2 = JsonDecoderClient.decodeHighscore(jsonObject, 2);
-    						player3 = JsonDecoderClient.decodeHighscore(jsonObject, 3);
-    						player4 = JsonDecoderClient.decodeHighscore(jsonObject, 4);
+    						if (this.playerCount >= 3)
+    						{
+    							player3 = JsonDecoderClient.decodeHighscore(jsonObject, 3);
+    						}
+    						if (this.playerCount == 4)
+    						{
+    							player4 = JsonDecoderClient.decodeHighscore(jsonObject, 4);
+    						}	
     					}
     					break;
     				}

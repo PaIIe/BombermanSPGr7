@@ -3,22 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/*
+package test;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import code.Bomberman;
-import code.Bomb;
-import code.GameObject;
-import code.Ranking
+import dev.code.bomberman.Bomberman;
+import dev.code.bomberman.Bomb;
+import dev.code.bomberman.GameObject;
+import dev.code.bomberman.Ranking;
 
 /**
  *
  * @author bestx
  */
+/*
     public class BombTest {
     private static Bomberman player;
     private static Ranking ranking;
@@ -83,3 +85,4 @@ import code.Ranking
          assertEquals(GameField.getObject(row,column), boni);
      }
      
+*/

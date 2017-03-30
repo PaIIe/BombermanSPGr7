@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/*
+package test;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import code.Bomberman;
-import code.Boni;
-import code.GameObject;
+import dev.code.bomberman.Bomberman;
+import dev.code.bomberman.Boni;
+import dev.code.bomberman.GameObject;
 
 /**
  *
  * @author bestx
  */
+/*
 public class BoniTest {
     private static Boni boni;
     private static Bomberman bomberman;
@@ -66,3 +68,4 @@ public class BoniTest {
     }
   
 }
+*/

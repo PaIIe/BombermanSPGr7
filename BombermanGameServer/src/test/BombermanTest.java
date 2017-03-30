@@ -1,23 +1,26 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+/ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/*
+package test;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import code.Bomberman;
-import code.Bomb;
-import code.GameObject;
+import dev.code.bomberman.Bomberman;
+import dev.code.bomberman.Direction;
+import dev.code.bomberman.Bomb;
+import dev.code.bomberman.GameObject;
 
 /**
  *
  * @author bestx
  */
+/*
 public class BombermanTest {
     
     public BombermanTest() {
@@ -104,3 +107,5 @@ public class BombermanTest {
      }
      
      }
+     
+*/

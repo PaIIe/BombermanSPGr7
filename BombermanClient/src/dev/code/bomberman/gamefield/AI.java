@@ -161,7 +161,7 @@ public class AI {
 		int priotop=0, priobot=0, prioright=0, prioleft=0;
 		if(this.CheckDanger(posr, posc)==true)
 		{
-			if(this.CheckTop(posr, posc)==true)//up
+			if(this.CheckTop(posr, posc)==false)//up
 			{
 				priotop++;
 				if(this.CheckTop(posr-1, posc)==true)
@@ -173,7 +173,7 @@ public class AI {
 				if(this.CheckRight(posr-1, posc)==true)
 					priotop++;				
 			}
-			if(this.CheckBot(posr, posc)==true)//down
+			if(this.CheckBot(posr, posc)==false)//down
 			{
 				priobot++;
 				if(this.CheckTop(posr+1, posc)==true)
@@ -185,7 +185,7 @@ public class AI {
 				if(this.CheckRight(posr+1, posc)==true)
 					priobot++;
 			}	
-			if(this.CheckLeft(posr, posc)==true)//left
+			if(this.CheckLeft(posr, posc)==false)//left
 			{
 				prioleft++;
 				if(this.CheckTop(posr, posc-1)==true)
@@ -198,7 +198,7 @@ public class AI {
 					prioleft++;
 				
 			}		
-			if(this.CheckRight(posr, posc)==true)//right
+			if(this.CheckRight(posr, posc)==false)//right
 			{
 				prioright++;
 				if(this.CheckTop(posr, posc+1)==true)

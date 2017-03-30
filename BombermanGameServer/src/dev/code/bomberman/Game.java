@@ -114,8 +114,6 @@ public class Game implements Runnable {
 	private void tick(){ // Update
 		if (this.gamestate == GameState.RUNNING)
 		{
-			System.out.println(Game.ranking.getSteps(2));
-			System.out.println(Game.ranking.getPlacedBombs(2));
 			Game.counterTicks++;
 			int playerAlive = 0;
 			for (int i = 1; i <= Game.getPlayerNumber(); i++)

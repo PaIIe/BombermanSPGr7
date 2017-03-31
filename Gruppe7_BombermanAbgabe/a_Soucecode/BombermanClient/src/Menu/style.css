@@ -1,0 +1,133 @@
+.root {
+     -fx-background-image: url("background.png") no-repeat left top;
+     -fx-background-size: 100%;
+}
+
+/* .label {
+    -fx-font-size: 160px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Verdana";
+	-fx-text-fill: #818181;	
+    -fx-effect: innershadow(gaussian , rgba(0,0,0,0.7) , 10, 0.0 , 0 , 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 30, 0, 0, 0);
+ 	-fx-stroke: red;
+	-fx-stroke-width: 20px; 
+} */
+
+.button {
+	/* -fx-font-size: 40; */
+    -fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+	-fx-background-color: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 30, 0, 10, -10);
+ 	-fx-background-radius: 10;
+	-fx-border-color: black;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+
+    
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(orange, brown);
+}
+
+#labelBomberman {
+    -fx-font: 150px Verdana;
+    -fx-font-weight: bold;
+    -fx-fill: linear-gradient(#FFCC00 0%, orange 40%, darkorange 75%, brown 100%);
+    -fx-stroke: black;
+    -fx-stroke-width: 3;
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.7) , 20, 0.0 , 10 , -10);
+}
+
+#rectangleBackground {
+	-fx-fill: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-stroke: black;
+	-fx-stroke-width: 3;
+	
+}
+
+#text {
+	-fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 25
+}
+
+#textField {
+	-fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+    -fx-border-color: black;
+	-fx-border-width: 3;
+	
+}
+
+#textField2 {
+	-fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-border-color: black;
+	-fx-border-width: 3;
+	
+}
+
+#point {
+	-fx-stroke: black;
+	-fx-stroke-width: 3;
+}
+
+#playerStroke {
+	-fx-text-fill: black;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+	-fx-stroke: red;
+	-fx-stroke-width: 3;
+}
+
+.scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+#scrollPane {
+	-fx-background-color: transparent;
+}
+
+.scroll-bar {
+	-fx-background-color: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-background-radius: 10px;
+	-fx-border-color: black;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+	-fx-font-size: 20px;
+
+}
+
+.thumb {
+	-fx-background-color: black;
+	-fx-background-radius: 10px;
+}
+
+.increment-arrow, .decrement-arrow {
+	-fx-shape: " ";
+}
+
+.combo-box {
+	-fx-background-color: linear-gradient(#FFCC00 0%, orange 25%, darkorange 75%, brown 100%);
+	-fx-background-radius: 10px;
+	-fx-border-color: black;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+	-fx-font-size: 20px;
+}
+
+
+
+
+
+

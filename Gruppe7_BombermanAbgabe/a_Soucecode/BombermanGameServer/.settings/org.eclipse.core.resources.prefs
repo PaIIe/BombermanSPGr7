@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/dev/code/bomberman/Bomberman.java=UTF-8
+encoding//src/networkBomberman/BombermanGameClientHandler.java=UTF-8
+encoding//src/networkBomberman/BombermanGameServer.java=UTF-8

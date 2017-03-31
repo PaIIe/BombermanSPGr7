@@ -217,7 +217,7 @@ public class BombermanGameClientHandler implements Runnable {
                         JSONObject jsonObject = new JSONObject(this.outputFromClient);
                         BombermanGameServer.playerName.add(clientID - 1, JsonEncoderDecoder.decodePlayerName(jsonObject));
                         //this.outputFromClient = JsonEncoderDecoder.decodeJsonToString(jsonObject);
-                        
+                       System.out.println("This is playerName" + playerName);
                         
                         
                     } catch (JSONException e1) {
@@ -225,8 +225,6 @@ public class BombermanGameClientHandler implements Runnable {
                         e1.printStackTrace();
                     }
                     
-                   
-                   
                     
                   }
                   

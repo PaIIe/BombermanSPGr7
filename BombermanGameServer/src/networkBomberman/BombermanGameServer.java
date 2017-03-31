@@ -82,7 +82,7 @@ public class BombermanGameServer extends Thread {
         timer.scheduleAtFixedRate(tickTimer, delay, period);
     }
     /**
-     * Thread liest die Beschriebene msgQueue aus und fСЊgt seine ID hinzu, die der ID des Clients entspricht.
+     * Thread liest die Beschriebene msgQueue aus und fÐ¡ÐŠgt seine ID hinzu, die der ID des Clients entspricht.
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
@@ -107,7 +107,7 @@ public class BombermanGameServer extends Thread {
    
    
     /**
-     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerРґnderungen im Spiel verwendet
+     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerÐ Ò‘nderungen im Spiel verwendet
      * @param Message
      */
     
@@ -158,7 +158,7 @@ public class BombermanGameServer extends Thread {
     /**
      * Verbindet die anfragenden Clients mti dem Server
      *
-     * Server verbindet sich СЊber Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe fСЊr den Spielstart
+     * Server verbindet sich Ð¡ÐŠber Sockets mit den Clients und wartet bis 4 Clients verbunden wurden, setzt dann die Freigabe fÐ¡ÐŠr den Spielstart
      */
     private static void listenForClients() {
         clientHandlerPool = Executors.newFixedThreadPool(player);

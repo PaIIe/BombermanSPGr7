@@ -203,19 +203,33 @@ public class BombermanGameServerNew implements Runnable {
         }
     }
     
+   private int findFreePosition(){
+    	for(int i=0; i<4; i++){
+    		if(this.activePlayer[i] == false){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
+    
     private void addNewClient(Socket socket){
     	DataOutputStream output;
-		try {
-			output = new DataOutputStream(socket.getOutputStream());
-			OutputStreamWriter serverWriter = new OutputStreamWriter(output, "UTF-8");
-			writer_list.add(serverWriter);
-			clientHandlerPool.execute(new BombermanGameClientHandler(socket, this.clientID));
-			activePlayer[this.clientID] = true;
-			this.clientID++;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	int tempClientID = findFreePosition();
+    	if( tempClientID >= 0 ){
+    		try {
+    			output = new DataOutputStream(socket.getOutputStream());
+    			OutputStreamWriter serverWriter = new OutputStreamWriter(output, "UTF-8");
+    			writer_list.add(serverWriter);
+    			clientHandlerPool.execute(new BombermanGameClientHandler(socket, tempClientID));
+    			activePlayer[tempClientID] = true;
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		if(this.clientID < tempClientID){
+    			this.clientID++;
+    		}
+    	}
         
     }
  

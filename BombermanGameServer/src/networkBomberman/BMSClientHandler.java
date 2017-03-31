@@ -35,9 +35,11 @@ public class BMSClientHandler implements Runnable {
 	}
 	
 	public void run() {
-		showBombermanGameServer();
+	showBombermanGameServer();
 		
-		int serverToConnect = receiveFromClient();
+	int serverToConnect = receiveFromClient();
+		
+	while(true){
 		if(serverToConnect == -1){
 			try {
 				Thread.sleep(500);
@@ -60,8 +62,10 @@ public class BMSClientHandler implements Runnable {
 					it.next().setSocket(this.mySocket);
 				}
 			}
+			break;
 		}
 	}
+}
 	
 	private String extractJsonString(String inputString){
     	while(true){

@@ -23,6 +23,7 @@ public class BombermanGameServerNew implements Runnable {
    
     private static ExecutorService clientHandlerPool = null;
     private static int player = 4;
+    private boolean activePlayer[] = {false, false, false, false};
     private int clientID = 0;	//Fuer jeden Client eine und gleichzeitig Anzahl der Clients
    
     static boolean gameOver = false;
@@ -59,38 +60,74 @@ public class BombermanGameServerNew implements Runnable {
     public int getClientID(){
     	return this.clientID;
     }
+    
+    public boolean[] getActivePlayer(){
+    	return this.activePlayer;
+    }
  
     public void run() {
         startBombermanGameServer();
         startTickTimer();
-        while(this.clientID < 2){	//Irgendeine Wartemethode
-        	try {
-				Thread.sleep(100);
+        while(true){
+        	
+	        while(this.clientID < 2){	//Irgendeine Wartemethode
+	        	try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+        
+	        Game game = new Game("Title!", 1000, 1000);
+	        game.start();
+	        BombermanManagementServer.getBombermanGameServerList().remove(this);
+	        gameStart = true;
+	        
+	        while(gameOver == false){
+	          if(!msgQueue.isEmpty()){
+	        	  readMsgQueue();
+	        	  }
+	          try {
+	        	  Thread.sleep(25);
+	        	  } catch (InterruptedException e) {
+	        		  // TODO Auto-generated catch block
+	        		  e.printStackTrace();
+	        		  }
+	          }
+	        JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("msgToClients", "If you want a new Game, wait a moment please");
+	        sendToAllClients(jsonObject);
+	        try {
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	        //Jetzt sollten die Clients sagen ob sie weiter spielen moechten
+	        //Jeder bombermanGameClientHandler sagt am Anfang dass er jetzt active ist, ist aber noch nicht implementiert
+	        if( (activePlayerCheck() > 1) && (activePlayerCheck() < 4) ){
+	        	BombermanManagementServer.getBombermanGameServerList().add(this);
+	        }
+	        else if( activePlayerCheck() == 0){
+	        	break;
+	        }
+	        //sonst gehts sofort mit einem neuen Spiel weiter
         }
-        Game game = new Game("Title!", 1000, 1000);
-        game.start();
-        BombermanManagementServer.getBombermanGameServerList().remove(this);
-        gameStart = true;
-        while(gameOver == false){
-          
-          if(!msgQueue.isEmpty()){
-            readMsgQueue();
-          }
-          
-          try {
-			Thread.sleep(25);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         
-        }
+        
+        
         closeBombermanGameServer();
     }
+    
+    private int activePlayerCheck() {
+    	int stillActivePlayer = 0;
+    	for(int i=0; i<4; i++){
+    		if(activePlayer[i] == true){
+    			stillActivePlayer++;
+    		}
+    	}
+		return stillActivePlayer;
+	}
  
     private static void startTickTimer() {
         timer = new Timer();
@@ -98,7 +135,7 @@ public class BombermanGameServerNew implements Runnable {
         timer.scheduleAtFixedRate(tickTimer, delay, period);
     }
     /**
-     * Thread liest die Beschriebene msgQueue aus und fСЊgt seine ID hinzu, die der ID des Clients entspricht.
+     * Thread liest die Beschriebene msgQueue aus und fРЎРЉgt seine ID hinzu, die der ID des Clients entspricht.
      * @param msgQueue
      * @return Oberster Eintrag der MsgQueue
      */
@@ -113,7 +150,7 @@ public class BombermanGameServerNew implements Runnable {
    
    
     /**
-     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerРґnderungen im Spiel verwendet
+     * Versenden ein JSONObject an alle Clients, funktion wird zum versenden der InitialMatrix und der VerР Т‘nderungen im Spiel verwendet
      * @param Message
      */
     
@@ -154,7 +191,11 @@ public class BombermanGameServerNew implements Runnable {
    
    
     private static void closeBombermanGameServer() {
+    	Iterator<OutputStreamWriter> it = writer_list.iterator();
         try {
+        	while(it.hasNext()){
+        		it.next().close();
+        	}
             socketBombermanGameServer.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -169,7 +210,8 @@ public class BombermanGameServerNew implements Runnable {
 			OutputStreamWriter serverWriter = new OutputStreamWriter(output, "UTF-8");
 			writer_list.add(serverWriter);
 			clientHandlerPool.execute(new BombermanGameClientHandler(socket, this.clientID));
-			clientID++;
+			activePlayer[this.clientID] = true;
+			this.clientID++;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

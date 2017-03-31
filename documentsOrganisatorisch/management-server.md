@@ -7,14 +7,6 @@
 <meta content="GitLab" property="og:site_name">
 <meta content="management-server.md · master · Group5Productions / bomberman-protocol" property="og:title">
 
-<div class="file-actions hidden-xs">
-<div class="btn-group" role="group"><a class="btn btn-sm" target="_blank" href="/group5productions/bomberman-protocol/raw/master/management-server.md">Raw</a><a class="btn btn-sm" href="/group5productions/bomberman-protocol/blame/master/management-server.md">Blame</a><a class="btn btn-sm" href="/group5productions/bomberman-protocol/commits/master/management-server.md">History</a><a class="btn btn-sm js-data-file-blob-permalink-url" href="/group5productions/bomberman-protocol/blob/a1b850c2012d37c447fb4635ec55bbe6a85c3308/management-server.md">Permalink</a></div>
-<script>
-  PathLocks.init(
-    '/group5productions/bomberman-protocol/path_locks/toggle',
-    'management-server.md'
-  );
-</script>
 
 </div>
 </div>
